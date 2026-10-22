@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 import pytest
-from check_materials import check_directory
+from check_materials import CONSTANT_SCHEMA, check_directory
 
 VALID_MATERIAL = {
     "schemaVersion": 1,
@@ -85,3 +85,39 @@ def test_id_mismatch_fails(tmp_path):
 def test_unreadable_file_fails(tmp_path, content):
     (tmp_path / "sample-board.json").write_bytes(content.encode("latin-1"))
     assert check_directory(tmp_path) != []
+
+
+# ---- 出典付き定数（shared/constants/）----
+
+VALID_CONSTANT = {
+    "schemaVersion": 1,
+    "id": "sample-constant",
+    "name": "検査用の定数",
+    "values": {"speed": copy.deepcopy(VALID_MATERIAL["properties"]["surfaceDensity"])},
+}
+
+
+def test_valid_constant_passes(tmp_path):
+    write_material(tmp_path, VALID_CONSTANT, name="sample-constant")
+    assert check_directory(tmp_path, CONSTANT_SCHEMA) == []
+
+
+def test_repository_constants_pass():
+    root = Path(__file__).resolve().parent.parent
+    assert check_directory(root / "shared" / "constants", CONSTANT_SCHEMA) == []
+
+
+CONSTANT_BROKEN_CASES = {
+    "出典なし": lambda d: d["values"]["speed"].pop("source"),
+    "信頼度なし": lambda d: d["values"]["speed"].pop("reliability"),
+    "値が空": lambda d: d.update(values={}),
+    "材料の形式で書いた": lambda d: d.update(properties=d.pop("values")),
+}
+
+
+@pytest.mark.parametrize("case", sorted(CONSTANT_BROKEN_CASES))
+def test_broken_constant_fails(tmp_path, case):
+    data = copy.deepcopy(VALID_CONSTANT)
+    CONSTANT_BROKEN_CASES[case](data)
+    write_material(tmp_path, data, name="sample-constant")
+    assert check_directory(tmp_path, CONSTANT_SCHEMA) != []

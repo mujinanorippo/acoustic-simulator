@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "air",
+  "name": "空気（20 °C、101.325 kPa、乾燥空気）",
+  "values": {
+    "temperature": {
+      "value": 293.15,
+      "unit": "K",
+      "source": {
+        "title": "pyfar.constants.speed_of_sound（ISO 9613-1:1993 式 A.5 の基準温度 20 °C）",
+        "url": "https://pyfar.readthedocs.io/en/stable/_modules/pyfar/constants/speed_of_sound.html",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "フェーズ1では温度を20 °Cに固定する。温度を変えられるようにするのは後のフェーズ"
+    },
+    "speedOfSound": {
+      "value": 343.2,
+      "unit": "m/s",
+      "source": {
+        "title": "pyfar.constants.speed_of_sound（ISO 9613-1:1993 式 A.5 の基準音速 c_ref）",
+        "url": "https://pyfar.readthedocs.io/en/stable/_modules/pyfar/constants/speed_of_sound.html",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "規格本文は有料のため、規格を引用しているオープンソースの実装資料で確認"
+    },
+    "density": {
+      "value": 1.2041,
+      "unit": "kg/m3",
+      "source": {
+        "title": "Density of air（Wikipedia）乾燥空気 20 °C・101.325 kPa",
+        "url": "https://en.wikipedia.org/wiki/Density_of_air",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "理想気体 ρ = p / (R_specific T)、R_specific = 287.058 J/(kg·K) と整合"
+    }
+  }
+}

@@ -1,7 +1,7 @@
-"""材料データの出典チェック（開発設計書「データ形式・材料データ」「禁則：数値・根拠」）。
+"""出典付きデータのチェック（開発設計書「データ形式・材料データ」「禁則：数値・根拠」）。
 
-shared/materials/ の JSON がすべて material.schema.json に合っているか確かめる。
-1件でも不合格なら終了コード 1 を返す。
+shared/materials/ の JSON が material.schema.json に、shared/constants/ の JSON が
+constant.schema.json に合っているかを確かめる。1件でも不合格なら終了コード 1 を返す。
 """
 
 from __future__ import annotations
@@ -11,16 +11,28 @@ import sys
 from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
+from referencing import Registry, Resource
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SCHEMA_PATH = REPO_ROOT / "shared" / "schema" / "material.schema.json"
+SCHEMA_DIR = REPO_ROOT / "shared" / "schema"
+MATERIAL_SCHEMA = "material.schema.json"
+CONSTANT_SCHEMA = "constant.schema.json"
 DEFAULT_MATERIALS_DIR = REPO_ROOT / "shared" / "materials"
+DEFAULT_CONSTANTS_DIR = REPO_ROOT / "shared" / "constants"
 
 
-def load_validator() -> Draft202012Validator:
-    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+def load_validator(schema_name: str = MATERIAL_SCHEMA) -> Draft202012Validator:
+    """schema_name の検査器を作る。他のスキーマへの参照（$ref）も解決できるようにする。"""
+    schemas = {
+        path.name: json.loads(path.read_text(encoding="utf-8"))
+        for path in SCHEMA_DIR.glob("*.schema.json")
+    }
+    registry = Registry().with_resources(
+        (name, Resource.from_contents(schema)) for name, schema in schemas.items()
+    )
+    schema = schemas[schema_name]
     Draft202012Validator.check_schema(schema)
-    return Draft202012Validator(schema, format_checker=FormatChecker())
+    return Draft202012Validator(schema, registry=registry, format_checker=FormatChecker())
 
 
 def check_file(path: Path, validator: Draft202012Validator) -> list[str]:
@@ -38,22 +50,29 @@ def check_file(path: Path, validator: Draft202012Validator) -> list[str]:
     return problems
 
 
-def check_directory(materials_dir: Path) -> list[str]:
-    validator = load_validator()
+def check_directory(directory: Path, schema_name: str = MATERIAL_SCHEMA) -> list[str]:
+    validator = load_validator(schema_name)
     problems: list[str] = []
-    for path in sorted(materials_dir.glob("*.json")):
+    for path in sorted(directory.glob("*.json")):
         problems.extend(check_file(path, validator))
     return problems
 
 
 def main(argv: list[str]) -> int:
     materials_dir = Path(argv[1]) if len(argv) > 1 else DEFAULT_MATERIALS_DIR
-    problems = check_directory(materials_dir)
-    for problem in problems:
-        print(problem)
-    count = len(list(materials_dir.glob("*.json")))
-    print(f"材料ファイル {count} 件、問題 {len(problems)} 件")
-    return 1 if problems else 0
+    constants_dir = Path(argv[2]) if len(argv) > 2 else DEFAULT_CONSTANTS_DIR  # noqa: PLR2004
+    total = 0
+    for label, directory, schema_name in (
+        ("材料", materials_dir, MATERIAL_SCHEMA),
+        ("定数", constants_dir, CONSTANT_SCHEMA),
+    ):
+        problems = check_directory(directory, schema_name)
+        for problem in problems:
+            print(problem)
+        count = len(list(directory.glob("*.json")))
+        print(f"{label}ファイル {count} 件、問題 {len(problems)} 件")
+        total += len(problems)
+    return 1 if total else 0
 
 
 if __name__ == "__main__":
