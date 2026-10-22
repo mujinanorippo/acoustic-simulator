@@ -24,7 +24,10 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
       - run: npm ci --no-audit --no-fund
-      - run: npm run check
+      - name: lint・整形・テスト（失敗したテスト名を注釈に出す）
+        run: |
+          set -o pipefail
+          npm run check 2>&1 | tee check.log || { grep -E "FAIL|✖|error" check.log | head -30 | sed 's/^/::error::/'; exit 1; }
 
   python:
     name: 計算側・チェックツール
@@ -37,7 +40,10 @@ jobs:
       - run: pip install --require-hashes -r compute/requirements.txt -r compute/requirements-dev.txt
       - run: ruff check .
       - run: ruff format --check .
-      - run: pytest
+      - name: pytest（失敗したテスト名を注釈に出す）
+        run: |
+          set -o pipefail
+          pytest -rf 2>&1 | tee pytest.log || { grep -E "^(FAILED|ERROR)" pytest.log | sed 's/^/::error::/'; exit 1; }
       - name: モジュール間の依存チェック
         run: python tools/check_module_deps.py
       - name: 材料データ・定数の出典チェック

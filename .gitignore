@@ -16,3 +16,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 *.log
+pytest.log
+web/check.log
