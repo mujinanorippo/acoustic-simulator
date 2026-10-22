@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>音響シミュレーター 計算確認</title>
+  </head>
+  <body>
+    <header class="titlebar">
+      <h1>音響シミュレーター</h1>
+      <span class="subtitle">フェーズ1：計算の確認画面（数値入力のみ）</span>
+    </header>
+    <p class="notice">
+      計算に使う定数（音速・空気の密度など）は二次情報の出典によるもので、結果は暫定値を含みます。初期値は入力例で、実在の材料の値ではありません。
+    </p>
+    <nav class="tabs" role="tablist">
+      <button type="button" role="tab" data-tab="wall" aria-selected="true">壁の遮音</button>
+      <button type="button" role="tab" data-tab="opening" aria-selected="false">開口部</button>
+      <button type="button" role="tab" data-tab="reverberation" aria-selected="false">
+        残響時間
+      </button>
+    </nav>
+
+    <main>
+      <section id="wall" class="panel">
+        <h2>壁の遮音（伝達マトリクス法）</h2>
+        <p class="hint">
+          音が入ってくる側（室内）から順に層を並べます。板のヤング率を 0
+          にすると、曲げ剛性を無視して質量だけで計算します。
+        </p>
+        <div id="layer-list" class="layer-list"></div>
+        <div class="actions">
+          <button type="button" id="add-layer">層を追加</button>
+          <button type="button" id="calculate-wall" class="primary">計算</button>
+          <span id="wall-status" class="status" aria-live="polite"></span>
+        </div>
+        <ul id="wall-notes" class="notes"></ul>
+        <div id="wall-chart" class="chart-box"></div>
+        <table class="results">
+          <thead>
+            <tr>
+              <th>周波数 [Hz]</th>
+              <th>透過損失 [dB]</th>
+              <th>剛壁に付けたときの吸音率</th>
+            </tr>
+          </thead>
+          <tbody id="wall-table"></tbody>
+        </table>
+        <p class="hint">
+          透過損失は 1/3 オクターブ帯域（全
+          <span id="band-count"></span>
+          帯域）ごとの拡散入射（0〜78°）の値です。吸音率は垂直入射・帯域の中心周波数の値です。灰色の行は多孔質材のモデルの適用範囲外を含む参考値です。
+        </p>
+      </section>
+
+      <section id="opening" class="panel" hidden>
+        <h2>開口部による遮音低下</h2>
+        <div class="form-grid">
+          <label class="field"
+            ><span>壁の透過損失 [dB]</span
+            ><input id="opening-wall-tl" type="text" inputmode="decimal" value="45"
+          /></label>
+          <label class="field"
+            ><span>開口率 [%]</span
+            ><input id="opening-ratio" type="text" inputmode="decimal" value="1"
+          /></label>
+        </div>
+        <div class="actions">
+          <button type="button" id="calculate-opening" class="primary">計算</button>
+          <button type="button" id="use-wall-result" disabled>
+            壁の遮音の結果に開口率を当てはめる
+          </button>
+        </div>
+        <ul id="opening-result" class="notes"></ul>
+        <div id="opening-chart" class="chart-box"></div>
+        <p class="hint">
+          開口部（穴・すきま）は音をそのまま通すとみなしています。すきまの奥行きによる補正はまだ入っていません。
+        </p>
+      </section>
+
+      <section id="reverberation" class="panel" hidden>
+        <h2>残響時間（直方体の部屋）</h2>
+        <div class="form-grid">
+          <label class="field"
+            ><span>部屋の奥行（X）[mm]</span
+            ><input id="room-x" type="text" inputmode="decimal" value="3640"
+          /></label>
+          <label class="field"
+            ><span>部屋の幅（Y）[mm]</span
+            ><input id="room-y" type="text" inputmode="decimal" value="2730"
+          /></label>
+          <label class="field"
+            ><span>天井高（Z）[mm]</span
+            ><input id="room-z" type="text" inputmode="decimal" value="2400"
+          /></label>
+        </div>
+        <div id="face-absorption" class="form-grid"></div>
+        <div class="actions">
+          <button type="button" id="calculate-reverberation" class="primary">計算</button>
+        </div>
+        <ul id="reverberation-result" class="notes"></ul>
+        <p class="hint">
+          空気による吸収は含めていません。吸音率は計算したい周波数での値を入れてください。
+        </p>
+      </section>
+    </main>
+
+    <dialog id="error-dialog">
+      <h2></h2>
+      <ul></ul>
+      <div class="dialog-buttons"><button type="button" class="primary">OK</button></div>
+    </dialog>
+    <script type="module" src="./src/ui/main.js"></script>
+  </body>
+</html>

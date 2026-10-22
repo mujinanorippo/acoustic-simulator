@@ -356,27 +356,27 @@
       "points": [
         {
           "frequencyHz": 63.0957,
-          "absorptionNormal": 0.019956749505672833
+          "absorptionNormal": 0.019956749505672715
         },
         {
           "frequencyHz": 125.893,
-          "absorptionNormal": 0.0649598916706493
+          "absorptionNormal": 0.06495989167064935
         },
         {
           "frequencyHz": 251.189,
-          "absorptionNormal": 0.19129317126453282
+          "absorptionNormal": 0.19129317126453263
         },
         {
           "frequencyHz": 501.187,
-          "absorptionNormal": 0.4848112720453702
+          "absorptionNormal": 0.48481127204537017
         },
         {
           "frequencyHz": 1000.0,
-          "absorptionNormal": 0.8823953415241921
+          "absorptionNormal": 0.8823953415241919
         },
         {
           "frequencyHz": 1995.26,
-          "absorptionNormal": 0.9818339727648658
+          "absorptionNormal": 0.9818339727648655
         },
         {
           "frequencyHz": 2511.89,
@@ -384,15 +384,15 @@
         },
         {
           "frequencyHz": 3162.28,
-          "absorptionNormal": 0.9243117353903828
+          "absorptionNormal": 0.9243117353903829
         },
         {
           "frequencyHz": 3981.07,
-          "absorptionNormal": 0.9696519614314977
+          "absorptionNormal": 0.9696519614314979
         },
         {
           "frequencyHz": 5011.87,
-          "absorptionNormal": 0.9985001039200972
+          "absorptionNormal": 0.9985001039200975
         }
       ]
     },
@@ -401,27 +401,27 @@
       "points": [
         {
           "frequencyHz": 63.0957,
-          "absorptionNormal": 0.051776289630093175
+          "absorptionNormal": 0.0517762896300935
         },
         {
           "frequencyHz": 125.893,
-          "absorptionNormal": 0.17536408870500342
+          "absorptionNormal": 0.17536408870500364
         },
         {
           "frequencyHz": 251.189,
-          "absorptionNormal": 0.49283071504834763
+          "absorptionNormal": 0.49283071504834775
         },
         {
           "frequencyHz": 501.187,
-          "absorptionNormal": 0.9002651933019559
+          "absorptionNormal": 0.9002651933019562
         },
         {
           "frequencyHz": 1000.0,
-          "absorptionNormal": 0.9605544762775288
+          "absorptionNormal": 0.9605544762775285
         },
         {
           "frequencyHz": 1995.26,
-          "absorptionNormal": 0.6044552508373248
+          "absorptionNormal": 0.604455250837325
         },
         {
           "frequencyHz": 2511.89,
@@ -429,11 +429,11 @@
         },
         {
           "frequencyHz": 3162.28,
-          "absorptionNormal": 0.8732182224637886
+          "absorptionNormal": 0.8732182224637883
         },
         {
           "frequencyHz": 3981.07,
-          "absorptionNormal": 0.9381498445756684
+          "absorptionNormal": 0.9381498445756685
         },
         {
           "frequencyHz": 5011.87,
@@ -446,7 +446,7 @@
       "points": [
         {
           "frequencyHz": 63.0957,
-          "absorptionNormal": 0.0021754020846935784
+          "absorptionNormal": 0.002175402084693648
         },
         {
           "frequencyHz": 125.893,
@@ -454,35 +454,35 @@
         },
         {
           "frequencyHz": 251.189,
-          "absorptionNormal": 0.03509784950027384
+          "absorptionNormal": 0.03509784950027363
         },
         {
           "frequencyHz": 501.187,
-          "absorptionNormal": 0.14422633386766004
+          "absorptionNormal": 0.14422633386766
         },
         {
           "frequencyHz": 1000.0,
-          "absorptionNormal": 0.5651855717529197
+          "absorptionNormal": 0.5651855717529201
         },
         {
           "frequencyHz": 1995.26,
-          "absorptionNormal": 0.7988079912312007
+          "absorptionNormal": 0.7988079912312008
         },
         {
           "frequencyHz": 2511.89,
-          "absorptionNormal": 0.5981137094179079
+          "absorptionNormal": 0.5981137094179075
         },
         {
           "frequencyHz": 3162.28,
-          "absorptionNormal": 0.4033283068987863
+          "absorptionNormal": 0.4033283068987864
         },
         {
           "frequencyHz": 3981.07,
-          "absorptionNormal": 0.2456761786277719
+          "absorptionNormal": 0.2456761786277718
         },
         {
           "frequencyHz": 5011.87,
-          "absorptionNormal": 0.09828269718409655
+          "absorptionNormal": 0.09828269718409662
         }
       ]
     },
@@ -494,28 +494,28 @@
           "tauNormal": 0.4879801037036959,
           "tauOblique": 0.5859305749154728,
           "diffuseTlDb": 2.2124382129923457,
-          "absorptionNormal": 0.012683817494934746
+          "absorptionNormal": 0.012683817494935011
         },
         {
           "frequencyHz": 125.893,
           "tauNormal": 0.4940305999274895,
           "tauOblique": 0.5900942380390183,
           "diffuseTlDb": 2.2008427365837475,
-          "absorptionNormal": 0.04778814912332818
+          "absorptionNormal": 0.047788149123327954
         },
         {
           "frequencyHz": 251.189,
           "tauNormal": 0.47920406935713195,
           "tauOblique": 0.5727861967812449,
           "diffuseTlDb": 2.3727655618626287,
-          "absorptionNormal": 0.18814224540211555
+          "absorptionNormal": 0.18814224540211552
         },
         {
           "frequencyHz": 501.187,
           "tauNormal": 0.4326951552511901,
           "tauOblique": 0.5174126818909287,
           "diffuseTlDb": 2.9058568229911748,
-          "absorptionNormal": 0.7474213225670157
+          "absorptionNormal": 0.7474213225670155
         },
         {
           "frequencyHz": 1000.0,
@@ -529,35 +529,35 @@
           "tauNormal": 0.1475656694510022,
           "tauOblique": 0.1502767076693114,
           "diffuseTlDb": 8.273018874051001,
-          "absorptionNormal": 0.26368954351587404
+          "absorptionNormal": 0.263689543515874
         },
         {
           "frequencyHz": 2511.89,
           "tauNormal": 0.0887936806398128,
           "tauOblique": 0.09224035099213483,
           "diffuseTlDb": 10.36687351803999,
-          "absorptionNormal": 0.2620114491809151
+          "absorptionNormal": 0.26201144918091507
         },
         {
           "frequencyHz": 3162.28,
           "tauNormal": 0.048397663293233875,
           "tauOblique": 0.05335484155440059,
           "diffuseTlDb": 12.741141789740817,
-          "absorptionNormal": 0.26670987154308423
+          "absorptionNormal": 0.2667098715430838
         },
         {
           "frequencyHz": 3981.07,
           "tauNormal": 0.02544729194323256,
           "tauOblique": 0.02988315930049083,
           "diffuseTlDb": 15.259656328558979,
-          "absorptionNormal": 0.08106837512904796
+          "absorptionNormal": 0.0810683751290483
         },
         {
           "frequencyHz": 5011.87,
           "tauNormal": 0.013762730223185377,
           "tauOblique": 0.016488820792767884,
           "diffuseTlDb": 17.821832753673363,
-          "absorptionNormal": 0.040808476445975406
+          "absorptionNormal": 0.040808476445975725
         }
       ],
       "bandTlDb": [
@@ -571,43 +571,43 @@
       "points": [
         {
           "frequencyHz": 63.0957,
-          "absorptionNormal": 5.183111230477877e-05
+          "absorptionNormal": 5.183111230463145e-05
         },
         {
           "frequencyHz": 125.893,
-          "absorptionNormal": 0.0002898766176880896
+          "absorptionNormal": 0.0002898766176879975
         },
         {
           "frequencyHz": 251.189,
-          "absorptionNormal": 0.0017268877980222141
+          "absorptionNormal": 0.0017268877980218076
         },
         {
           "frequencyHz": 501.187,
-          "absorptionNormal": 0.012694489088831085
+          "absorptionNormal": 0.012694489088831062
         },
         {
           "frequencyHz": 1000.0,
-          "absorptionNormal": 0.06670334380636123
+          "absorptionNormal": 0.0667033438063611
         },
         {
           "frequencyHz": 1995.26,
-          "absorptionNormal": 0.01614606007858843
+          "absorptionNormal": 0.016146060078588372
         },
         {
           "frequencyHz": 2511.89,
-          "absorptionNormal": 0.009352151165393119
+          "absorptionNormal": 0.009352151165393261
         },
         {
           "frequencyHz": 3162.28,
-          "absorptionNormal": 0.004542708475256951
+          "absorptionNormal": 0.004542708475256865
         },
         {
           "frequencyHz": 3981.07,
-          "absorptionNormal": 0.01554037569569866
+          "absorptionNormal": 0.01554037569569855
         },
         {
           "frequencyHz": 5011.87,
-          "absorptionNormal": 0.006447421092726335
+          "absorptionNormal": 0.006447421092726545
         }
       ]
     }

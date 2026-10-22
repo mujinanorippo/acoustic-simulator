@@ -21,8 +21,10 @@ sys.path.insert(0, str(REPO_ROOT))
 from tests.reference_py import frequency_bands, openings, reverberation, tmm  # noqa: E402
 
 CROSSCHECK_DIR = REPO_ROOT / "tests" / "data" / "crosscheck"
-# 照合用 Python 自身の再計算との一致の許容差（同じ実装なので丸め誤差のみ）
-SELF_RELATIVE_TOLERANCE = 1e-12
+# 照合用 Python 自身の再計算との一致の許容差。同じ実装でも CPU や数学ライブラリの違いで
+# 最後の桁が変わり、桁落ちのある計算では相対 1e-12 程度まで広がりうるため、ブラウザ側との
+# 照合と同じ 1e-9 にする
+SELF_RELATIVE_TOLERANCE = 1e-9
 
 
 def reverberation_expected(case: dict) -> dict:

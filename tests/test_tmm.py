@@ -94,12 +94,12 @@ def test_point_values_match_expected_file():
         for frequency, point in zip(case["frequenciesHz"], result["points"], strict=True):
             if case["transmission"]:
                 tau = tmm.transmission_coefficient(layers, frequency)
-                assert tau == pytest.approx(point["tauNormal"], rel=1e-12)
+                assert tau == pytest.approx(point["tauNormal"], rel=1e-9)
                 tau = tmm.transmission_coefficient(layers, frequency, oblique)
-                assert tau == pytest.approx(point["tauOblique"], rel=1e-12)
+                assert tau == pytest.approx(point["tauOblique"], rel=1e-9)
             if case["absorption"]:
                 alpha = tmm.normal_absorption_rigid_backed(layers, frequency)
-                assert alpha == pytest.approx(point["absorptionNormal"], rel=1e-12)
+                assert alpha == pytest.approx(point["absorptionNormal"], rel=1e-9)
 
 
 layer_strategy = st.one_of(

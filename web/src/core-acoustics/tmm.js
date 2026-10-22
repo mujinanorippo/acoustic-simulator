@@ -12,7 +12,7 @@
 import * as cx from "./complex.js";
 import { AIR, CALCULATION } from "./constants.js";
 import { AcousticsInputError, ERROR_CODES, requirePositiveFinite, requireRatio } from "./errors.js";
-import { bandEdgesHz } from "./frequency-bands.js";
+import { allBands, bandEdgesHz } from "./frequency-bands.js";
 import { integrateWithResonances } from "./diffuse-integration.js";
 import {
   isMikiInValidRange,
@@ -318,4 +318,54 @@ export function porousLayersOutOfRange(layers, frequencyHz) {
         layer.kind === "porous" && !isMikiInValidRange(frequencyHz, layer.flowResistivityPasm2),
     )
     .map(({ index }) => index);
+}
+
+/**
+ * 1/3オクターブ帯域ごとの結果：拡散入射の透過損失、剛壁裏打ちの垂直入射吸音率（中心周波数）、
+ * Miki モデルの適用範囲外になる層の番号
+ */
+export function bandResults(layers) {
+  checkLayers(layers);
+  return allBands().map((band) => ({
+    ...band,
+    transmissionLossDb: bandTransmissionLossDb(layers, band.bandIndex),
+    absorptionRatio: normalIncidenceAbsorptionRigidBacked(layers, band.centerHz),
+    porousOutOfRange: porousLayersOutOfRange(layers, band.centerHz),
+  }));
+}
+
+/**
+ * 板が2枚で、その間が空気層・多孔質材だけのとき、二重壁の共鳴周波数の目安 [Hz]（垂直入射の式）。
+ * 当てはまらない積層では null。間が多孔質材の場合も空気層とみなした目安。
+ */
+export function doubleWallResonanceHz(layers) {
+  const plateIndices = layers.flatMap((layer, index) => (layer.kind === "plate" ? [index] : []));
+  if (plateIndices.length !== 2 || layers.some((layer) => layer.kind === "perforated")) {
+    return null;
+  }
+  const [first, second] = plateIndices;
+  const between = layers.slice(first + 1, second);
+  if (between.length === 0) {
+    return null;
+  }
+  const gapM = between.reduce((sum, layer) => sum + layer.thicknessM, 0);
+  return massAirMassResonanceHz(
+    layers[first].surfaceDensityKgm2,
+    layers[second].surfaceDensityKgm2,
+    gapM,
+  );
+}
+
+/** 曲げ剛性のある板ごとのコインシデンス限界周波数 [Hz]（{ index, criticalHz } の並び） */
+export function plateCriticalFrequencies(layers) {
+  return layers.flatMap((layer, index) =>
+    layer.kind === "plate" && layer.bendingStiffnessNm > 0
+      ? [
+          {
+            index,
+            criticalHz: criticalFrequencyHz(layer.surfaceDensityKgm2, layer.bendingStiffnessNm),
+          },
+        ]
+      : [],
+  );
 }

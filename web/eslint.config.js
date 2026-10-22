@@ -39,7 +39,7 @@ export default [
       "no-var": "error",
       "prefer-const": "error",
       eqeqeq: ["error", "always"],
-      "id-length": ["error", { min: 2, exceptions: ["i", "j", "k", "_"] }],
+      "id-length": ["error", { min: 2, exceptions: ["i", "j", "k", "_"], properties: "never" }],
       "max-lines-per-function": ["warn", { max: 60, skipBlankLines: true, skipComments: true }],
       "no-empty": ["error", { allowEmptyCatch: false }],
     },

@@ -45,8 +45,14 @@ jobs:
           set -o pipefail
           pytest -rf 2>&1 | tee pytest.log || { grep -E "^(FAILED|ERROR)" pytest.log | sed 's/^/::error::/'; exit 1; }
       - name: モジュール間の依存チェック
-        run: python tools/check_module_deps.py
+        run: |
+          out=$(python tools/check_module_deps.py) || { echo "$out" | sed 's/^/::error::/'; exit 1; }
+          echo "$out"
       - name: 材料データ・定数の出典チェック
-        run: python tools/check_materials.py
+        run: |
+          out=$(python tools/check_materials.py) || { echo "$out" | sed 's/^/::error::/'; exit 1; }
+          echo "$out"
       - name: 二重実装照合の期待値が最新か
-        run: python tools/generate_crosscheck.py --check
+        run: |
+          out=$(python tools/generate_crosscheck.py --check) || { echo "$out" | sed 's/^/::error::/'; exit 1; }
+          echo "$out"
