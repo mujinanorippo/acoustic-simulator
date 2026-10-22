@@ -1,0 +1,2 @@
+# 計算側の実行時依存（版は requirements.txt で完全固定）
+numpy==2.5.4
