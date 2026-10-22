@@ -1,0 +1,446 @@
+{
+  "generatedBy": "tools/generate_crosscheck.py（照合用 Python）",
+  "results": [
+    {
+      "id": "壁0dB・開口率0",
+      "compositeTlDb": -0.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁0dB・開口率0.0001",
+      "compositeTlDb": -0.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁0dB・開口率0.001",
+      "compositeTlDb": -0.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁0dB・開口率0.005",
+      "compositeTlDb": -0.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁0dB・開口率0.01",
+      "compositeTlDb": -0.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁0dB・開口率0.05",
+      "compositeTlDb": -0.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁0dB・開口率0.1",
+      "compositeTlDb": -0.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁0dB・開口率0.5",
+      "compositeTlDb": -0.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁0dB・開口率1",
+      "compositeTlDb": -0.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁10dB・開口率0",
+      "compositeTlDb": 10.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁10dB・開口率0.0001",
+      "compositeTlDb": 9.996093107500899,
+      "reductionDb": 0.003906892499101033,
+      "reductionPercent": 0.039068924991010334,
+      "transmittedEnergyFactor": 1.0009
+    },
+    {
+      "id": "壁10dB・開口率0.001",
+      "compositeTlDb": 9.961088337630894,
+      "reductionDb": 0.038911662369105926,
+      "reductionPercent": 0.38911662369105926,
+      "transmittedEnergyFactor": 1.0090000000000001
+    },
+    {
+      "id": "壁10dB・開口率0.005",
+      "compositeTlDb": 9.808837095529272,
+      "reductionDb": 0.19116290447072792,
+      "reductionPercent": 1.9116290447072792,
+      "transmittedEnergyFactor": 1.045
+    },
+    {
+      "id": "壁10dB・開口率0.01",
+      "compositeTlDb": 9.625735020593764,
+      "reductionDb": 0.37426497940623626,
+      "reductionPercent": 3.7426497940623626,
+      "transmittedEnergyFactor": 1.09
+    },
+    {
+      "id": "壁10dB・開口率0.05",
+      "compositeTlDb": 8.38631997765025,
+      "reductionDb": 1.6136800223497492,
+      "reductionPercent": 16.13680022349749,
+      "transmittedEnergyFactor": 1.45
+    },
+    {
+      "id": "壁10dB・開口率0.1",
+      "compositeTlDb": 7.2124639904717105,
+      "reductionDb": 2.7875360095282895,
+      "reductionPercent": 27.875360095282893,
+      "transmittedEnergyFactor": 1.9000000000000001
+    },
+    {
+      "id": "壁10dB・開口率0.5",
+      "compositeTlDb": 2.596373105057561,
+      "reductionDb": 7.403626894942439,
+      "reductionPercent": 74.0362689494244,
+      "transmittedEnergyFactor": 5.500000000000001
+    },
+    {
+      "id": "壁10dB・開口率1",
+      "compositeTlDb": -0.0,
+      "reductionDb": 10.0,
+      "reductionPercent": 100.0,
+      "transmittedEnergyFactor": 10.0
+    },
+    {
+      "id": "壁25dB・開口率0",
+      "compositeTlDb": 25.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁25dB・開口率0.0001",
+      "compositeTlDb": 24.865211781191192,
+      "reductionDb": 0.13478821880880787,
+      "reductionPercent": 0.5391528752352315,
+      "transmittedEnergyFactor": 1.031522776601684
+    },
+    {
+      "id": "壁25dB・開口率0.001",
+      "compositeTlDb": 23.809990312360426,
+      "reductionDb": 1.1900096876395736,
+      "reductionPercent": 4.760038750558294,
+      "transmittedEnergyFactor": 1.3152277660168377
+    },
+    {
+      "id": "壁25dB・開口率0.005",
+      "compositeTlDb": 20.890307362210628,
+      "reductionDb": 4.109692637789372,
+      "reductionPercent": 16.43877055115749,
+      "transmittedEnergyFactor": 2.57613883008419
+    },
+    {
+      "id": "壁25dB・開口率0.01",
+      "compositeTlDb": 18.817136131925665,
+      "reductionDb": 6.182863868074335,
+      "reductionPercent": 24.731455472297338,
+      "transmittedEnergyFactor": 4.152277660168378
+    },
+    {
+      "id": "壁25dB・開口率0.05",
+      "compositeTlDb": 12.756900127687151,
+      "reductionDb": 12.243099872312849,
+      "reductionPercent": 48.972399489251394,
+      "transmittedEnergyFactor": 16.7613883008419
+    },
+    {
+      "id": "壁25dB・開口率0.1",
+      "compositeTlDb": 9.878123840092872,
+      "reductionDb": 15.121876159907128,
+      "reductionPercent": 60.48750463962851,
+      "transmittedEnergyFactor": 32.5227766016838
+    },
+    {
+      "id": "壁25dB・開口率0.5",
+      "compositeTlDb": 2.9965880283129787,
+      "reductionDb": 22.003411971687022,
+      "reductionPercent": 88.01364788674809,
+      "transmittedEnergyFactor": 158.61388300841895
+    },
+    {
+      "id": "壁25dB・開口率1",
+      "compositeTlDb": -0.0,
+      "reductionDb": 25.0,
+      "reductionPercent": 100.0,
+      "transmittedEnergyFactor": 316.22776601683796
+    },
+    {
+      "id": "壁35dB・開口率0",
+      "compositeTlDb": 35.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁35dB・開口率0.0001",
+      "compositeTlDb": 33.80701948577165,
+      "reductionDb": 1.1929805142283527,
+      "reductionPercent": 3.4085157549381506,
+      "transmittedEnergyFactor": 1.3161277660168382
+    },
+    {
+      "id": "壁35dB・開口率0.001",
+      "compositeTlDb": 28.807733050540033,
+      "reductionDb": 6.192266949459967,
+      "reductionPercent": 17.692191284171333,
+      "transmittedEnergyFactor": 4.1612776601683805
+    },
+    {
+      "id": "壁35dB・開口率0.005",
+      "compositeTlDb": 22.745256065809105,
+      "reductionDb": 12.254743934190895,
+      "reductionPercent": 35.01355409768827,
+      "transmittedEnergyFactor": 16.8063883008419
+    },
+    {
+      "id": "壁35dB・開口率0.01",
+      "compositeTlDb": 19.866122244551406,
+      "reductionDb": 15.133877755448594,
+      "reductionPercent": 43.239650729853125,
+      "transmittedEnergyFactor": 32.612776601683805
+    },
+    {
+      "id": "壁35dB・開口率0.05",
+      "compositeTlDb": 12.984284199183072,
+      "reductionDb": 22.015715800816928,
+      "reductionPercent": 62.902045145191224,
+      "transmittedEnergyFactor": 159.06388300841897
+    },
+    {
+      "id": "壁35dB・開口率0.1",
+      "compositeTlDb": 9.987657317982436,
+      "reductionDb": 25.012342682017564,
+      "reductionPercent": 71.4638362343359,
+      "transmittedEnergyFactor": 317.127766016838
+    },
+    {
+      "id": "壁35dB・開口率0.5",
+      "compositeTlDb": 3.0089268140032277,
+      "reductionDb": 31.991073185996772,
+      "reductionPercent": 91.40306624570506,
+      "transmittedEnergyFactor": 1581.638830084189
+    },
+    {
+      "id": "壁35dB・開口率1",
+      "compositeTlDb": -0.0,
+      "reductionDb": 35.0,
+      "reductionPercent": 100.0,
+      "transmittedEnergyFactor": 3162.2776601683795
+    },
+    {
+      "id": "壁45dB・開口率0",
+      "compositeTlDb": 45.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁45dB・開口率0.0001",
+      "compositeTlDb": 38.806793861176494,
+      "reductionDb": 6.193206138823506,
+      "reductionPercent": 13.76268030849668,
+      "transmittedEnergyFactor": 4.162177660168384
+    },
+    {
+      "id": "壁45dB・開口率0.001",
+      "compositeTlDb": 29.864923907115188,
+      "reductionDb": 15.135076092884812,
+      "reductionPercent": 33.633502428632916,
+      "transmittedEnergyFactor": 32.62177660168379
+    },
+    {
+      "id": "壁45dB・開口率0.005",
+      "compositeTlDb": 22.983055731262287,
+      "reductionDb": 22.016944268737713,
+      "reductionPercent": 48.926542819417136,
+      "transmittedEnergyFactor": 159.10888300841893
+    },
+    {
+      "id": "壁45dB・開口率0.01",
+      "compositeTlDb": 19.98642497687937,
+      "reductionDb": 25.01357502312063,
+      "reductionPercent": 55.5857222736014,
+      "transmittedEnergyFactor": 317.21776601683797
+    },
+    {
+      "id": "壁45dB・開口率0.05",
+      "compositeTlDb": 13.00769135672519,
+      "reductionDb": 31.99230864327481,
+      "reductionPercent": 71.09401920727736,
+      "transmittedEnergyFactor": 1582.0888300841898
+    },
+    {
+      "id": "壁45dB・開口率0.1",
+      "compositeTlDb": 9.998764152091649,
+      "reductionDb": 35.00123584790835,
+      "reductionPercent": 77.78052410646299,
+      "transmittedEnergyFactor": 3163.1776601683764
+    },
+    {
+      "id": "壁45dB・開口率0.5",
+      "compositeTlDb": 3.010162622837433,
+      "reductionDb": 41.989837377162566,
+      "reductionPercent": 93.31074972702793,
+      "transmittedEnergyFactor": 15811.888300841878
+    },
+    {
+      "id": "壁45dB・開口率1",
+      "compositeTlDb": -0.0,
+      "reductionDb": 45.0,
+      "reductionPercent": 100.0,
+      "transmittedEnergyFactor": 31622.776601683792
+    },
+    {
+      "id": "壁55dB・開口率0",
+      "compositeTlDb": 55.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁55dB・開口率0.0001",
+      "compositeTlDb": 39.864804091555534,
+      "reductionDb": 15.135195908444466,
+      "reductionPercent": 27.518538015353574,
+      "transmittedEnergyFactor": 32.62267660168381
+    },
+    {
+      "id": "壁55dB・開口率0.001",
+      "compositeTlDb": 29.98630176199958,
+      "reductionDb": 25.01369823800042,
+      "reductionPercent": 45.479451341818944,
+      "transmittedEnergyFactor": 317.22676601683787
+    },
+    {
+      "id": "壁55dB・開口率0.005",
+      "compositeTlDb": 23.007567830325275,
+      "reductionDb": 31.992432169674725,
+      "reductionPercent": 58.168058490317684,
+      "transmittedEnergyFactor": 1582.1338300841894
+    },
+    {
+      "id": "壁55dB・開口率0.01",
+      "compositeTlDb": 19.998640586640924,
+      "reductionDb": 35.001359413359076,
+      "reductionPercent": 63.638835297016506,
+      "transmittedEnergyFactor": 3163.267660168381
+    },
+    {
+      "id": "壁55dB・開口率0.05",
+      "compositeTlDb": 13.010039026128283,
+      "reductionDb": 41.98996097387172,
+      "reductionPercent": 76.34538358885767,
+      "transmittedEnergyFactor": 15812.338300841884
+    },
+    {
+      "id": "壁55dB・開口率0.1",
+      "compositeTlDb": 9.999876399382435,
+      "reductionDb": 45.00012360061756,
+      "reductionPercent": 81.81840654657739,
+      "transmittedEnergyFactor": 31623.676601683772
+    },
+    {
+      "id": "壁55dB・開口率0.5",
+      "compositeTlDb": 3.0102862230641456,
+      "reductionDb": 51.98971377693586,
+      "reductionPercent": 94.52675232170157,
+      "transmittedEnergyFactor": 158114.3830084192
+    },
+    {
+      "id": "壁55dB・開口率1",
+      "compositeTlDb": -0.0,
+      "reductionDb": 55.0,
+      "reductionPercent": 100.0,
+      "transmittedEnergyFactor": 316227.7660168379
+    },
+    {
+      "id": "壁65dB・開口率0",
+      "compositeTlDb": 65.0,
+      "reductionDb": 0.0,
+      "reductionPercent": 0.0,
+      "transmittedEnergyFactor": 1.0
+    },
+    {
+      "id": "壁65dB・開口率0.0001",
+      "compositeTlDb": 39.986289440703864,
+      "reductionDb": 25.013710559296136,
+      "reductionPercent": 38.48263162968637,
+      "transmittedEnergyFactor": 317.22766601683804
+    },
+    {
+      "id": "壁65dB・開口率0.001",
+      "compositeTlDb": 29.998628230289214,
+      "reductionDb": 35.00137176971079,
+      "reductionPercent": 53.84826426109352,
+      "transmittedEnergyFactor": 3163.27666016838
+    },
+    {
+      "id": "壁65dB・開口率0.005",
+      "compositeTlDb": 23.010026666650827,
+      "reductionDb": 41.98997333334917,
+      "reductionPercent": 64.59995897438334,
+      "transmittedEnergyFactor": 15812.383300841893
+    },
+    {
+      "id": "壁65dB・開口率0.01",
+      "compositeTlDb": 19.999864039514147,
+      "reductionDb": 45.00013596048585,
+      "reductionPercent": 69.23097840074746,
+      "transmittedEnergyFactor": 31623.76660168376
+    },
+    {
+      "id": "壁65dB・開口率0.05",
+      "compositeTlDb": 13.010273862883178,
+      "reductionDb": 51.98972613711682,
+      "reductionPercent": 79.9841940571028,
+      "transmittedEnergyFactor": 158114.83300841885
+    },
+    {
+      "id": "壁65dB・開口率0.1",
+      "compositeTlDb": 9.999987639779945,
+      "reductionDb": 55.000012360220055,
+      "reductionPercent": 84.61540363110777,
+      "transmittedEnergyFactor": 316228.6660168381
+    },
+    {
+      "id": "壁65dB・開口率0.5",
+      "compositeTlDb": 3.0102985832802913,
+      "reductionDb": 61.98970141671971,
+      "reductionPercent": 95.36877141033801,
+      "transmittedEnergyFactor": 1581139.3300841905
+    },
+    {
+      "id": "壁65dB・開口率1",
+      "compositeTlDb": -0.0,
+      "reductionDb": 65.0,
+      "reductionPercent": 100.0,
+      "transmittedEnergyFactor": 3162277.6601683795
+    }
+  ]
+}

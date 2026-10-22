@@ -35,6 +35,19 @@ const MIKI_WAVENUMBER_REAL = 7.81;
 const MIKI_WAVENUMBER_IMAG = 11.41;
 const MIKI_WAVENUMBER_EXPONENT = -0.618;
 
+// Delany-Bazley の測定データの範囲 0.01 < f/σ < 1（Matelys APMR に記載）。Miki の式も同じ
+// データの回帰なので、この範囲外は参考値として扱う。Kirby（Applied Acoustics 86, 2014）は
+// Miki 型の低周波補正には物理的根拠がないと指摘しており、照合テストでも f/σ ≪ 0.01 で
+// 剛壁裏打ちの吸音率がごくわずかに負（最大 −1.2×10⁻⁴）になる例を確認した。
+//   https://opus.lib.uts.edu.au/handle/10453/114497
+export const MIKI_VALID_RANGE = Object.freeze({ min: 0.01, max: 1 });
+
+/** f/σ が Delany-Bazley・Miki の元データの範囲内か */
+export function isMikiInValidRange(frequencyHz, flowResistivityPasm2) {
+  const ratio = frequencyHz / flowResistivityPasm2;
+  return ratio >= MIKI_VALID_RANGE.min && ratio <= MIKI_VALID_RANGE.max;
+}
+
 /** 多孔質材（Miki）の特性インピーダンス [Pa·s/m] と複素波数 [1/m] */
 export function mikiEquivalentFluid(frequencyHz, flowResistivityPasm2) {
   requirePositiveFinite(frequencyHz, ERROR_CODES.NOT_POSITIVE_FREQUENCY, "周波数");

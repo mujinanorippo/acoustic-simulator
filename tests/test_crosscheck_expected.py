@@ -8,6 +8,6 @@ import generate_crosscheck
 import pytest
 
 
-@pytest.mark.parametrize("name", ["reverberation", "frequency-bands"])
+@pytest.mark.parametrize("name", ["reverberation", "frequency-bands", "openings"])
 def test_expected_files_are_up_to_date(name):
     assert generate_crosscheck.check(name) == []

@@ -45,6 +45,9 @@ BESSEL_NODES_MARGIN = 64  # 台形則の点数 = 2|z| + 余裕
 ANGLE_INTERVALS = 2**20
 BAND_SAMPLES = 16  # 帯域内の周波数点数（ブラウザ側と同じ定義で比べるため同数）
 
+# Delany-Bazley の元データの範囲 0.01 < f/σ < 1（Matelys APMR）。範囲外は参考値
+MIKI_VALID_RANGE = (0.01, 1.0)
+
 # Miki（X = 10³·f/σ）
 MIKI_SCALE = 1e3
 MIKI_Z = (5.5, 8.43, -0.632)
@@ -114,6 +117,11 @@ def bessel_j(order: int, argument: complex) -> complex:
     nodes = 2 * math.ceil(abs(argument)) + 2 * order + BESSEL_NODES_MARGIN
     angles = np.arange(nodes) * (2 * math.pi / nodes)
     return complex(np.mean(np.cos(order * angles - argument * np.sin(angles))))
+
+
+def is_miki_in_valid_range(frequency_hz: float, flow_resistivity: float) -> bool:
+    low, high = MIKI_VALID_RANGE
+    return low <= frequency_hz / flow_resistivity <= high
 
 
 def miki(frequency_hz: float, flow_resistivity: float) -> tuple[complex, complex]:
@@ -252,6 +260,6 @@ def normal_absorption_rigid_backed(layers: Sequence[Layer], frequency_hz: float)
     for layer in layers:
         matrix = _layer(layer, frequency_hz, kt)
         total = matrix if total is None else np.einsum("ij...,jk...->ik...", total, matrix)
-    loaded = Z_AIR * total[1, 0, 0]
-    reflection = (total[0, 0, 0] - loaded) / (total[0, 0, 0] + loaded)
-    return float(1 - abs(reflection) ** 2)
+    front, loaded = total[0, 0, 0], Z_AIR * total[1, 0, 0]
+    # 1 − |R|² = 4·Re(A·conj(B))/|A + B|²（桁落ちを避ける形）
+    return float(4 * (front * loaded.conjugate()).real / abs(front + loaded) ** 2)

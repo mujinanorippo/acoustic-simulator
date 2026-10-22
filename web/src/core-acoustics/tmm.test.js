@@ -15,6 +15,7 @@ import {
   diffuseTransmissionCoefficient,
   massAirMassResonanceHz,
   normalIncidenceAbsorptionRigidBacked,
+  porousLayersOutOfRange,
   transmissionCoefficient,
   transmissionLossDb,
 } from "./tmm.js";
@@ -148,6 +149,27 @@ describe("物理検証", () => {
   });
 });
 
+describe("Miki モデルの適用範囲", () => {
+  it("f/σ が 0.01 未満の層を範囲外として知らせる", () => {
+    const layers = [
+      { kind: "porous", thicknessM: 0.005, flowResistivityPasm2: 100000 },
+      air(0.05),
+      { kind: "porous", thicknessM: 0.05, flowResistivityPasm2: 10000 },
+    ];
+    expect(porousLayersOutOfRange(layers, 50)).toEqual([0, 2]);
+    expect(porousLayersOutOfRange(layers, 1000)).toEqual([]);
+  });
+
+  it("範囲外ではごくわずかに物理的でない値が出る（Kirby 2014 の指摘と一致）", () => {
+    const alpha = normalIncidenceAbsorptionRigidBacked(
+      [{ kind: "porous", thicknessM: 0.005, flowResistivityPasm2: 100000 }],
+      50,
+    );
+    expect(alpha).toBeLessThan(0);
+    expect(alpha).toBeGreaterThan(-1e-3);
+  });
+});
+
 describe("ベッセル関数の比 J1/J0", () => {
   const SQRT_MINUS_J = cx.complex(Math.SQRT1_2, -Math.SQRT1_2);
 
@@ -190,6 +212,8 @@ describe("ランダム入力（性質のテスト）", () => {
         fc.double({ min: 50, max: 5000, noNaN: true }),
         fc.double({ min: 0, max: 1.5, noNaN: true }),
         (layers, frequency, angle) => {
+          // Miki モデルの適用範囲外（f/σ < 0.01）では受動性が保証されないので除く
+          fc.pre(porousLayersOutOfRange(layers, frequency).length === 0);
           const tau = transmissionCoefficient(layers, frequency, angle);
           expect(tau).toBeGreaterThanOrEqual(0);
           expect(tau).toBeLessThanOrEqual(1 + 1e-9);

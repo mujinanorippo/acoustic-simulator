@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from hypothesis import given, settings
+from hypothesis import assume, given, settings
 from hypothesis import strategies as st
 
 from tests.reference_py import tmm
@@ -114,13 +114,32 @@ layer_strategy = st.one_of(
 )
 
 
+def _in_range(layers, frequency):
+    return all(
+        tmm.is_miki_in_valid_range(frequency, layer.flow_resistivity_pasm2)
+        for layer in layers
+        if isinstance(layer, tmm.Porous)
+    )
+
+
 @settings(max_examples=200)
 @given(st.lists(layer_strategy, min_size=1, max_size=4), st.floats(50, 5000), st.floats(0, 1.5))
 def test_passivity(layers, frequency, angle):
+    # Miki モデルの適用範囲（0.01 ≤ f/σ ≤ 1）の外では受動性が保証されない（下のテスト）
+    assume(_in_range(layers, frequency))
     tau = tmm.transmission_coefficient(layers, frequency, angle)
     assert 0 <= tau <= 1 + 1e-9
     alpha = tmm.normal_absorption_rigid_backed(layers, frequency)
     assert -1e-9 <= alpha <= 1 + 1e-9
+
+
+def test_miki_out_of_range_is_slightly_non_passive():
+    # Kirby (2014) の指摘どおり、f/σ ≪ 0.01 では Miki モデルが物理的でない値を出す。
+    # 吸音率がわずかに負になる例。値は小さい（−1e-3 より大きい）ことも確かめる
+    layers = [tmm.Porous(0.005, 100000)]
+    assert not tmm.is_miki_in_valid_range(50, 100000)
+    alpha = tmm.normal_absorption_rigid_backed(layers, 50)
+    assert -1e-3 < alpha < 0
 
 
 def _code(action):

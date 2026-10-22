@@ -14,7 +14,11 @@ import { AIR, CALCULATION } from "./constants.js";
 import { AcousticsInputError, ERROR_CODES, requirePositiveFinite, requireRatio } from "./errors.js";
 import { bandEdgesHz } from "./frequency-bands.js";
 import { integrateWithResonances } from "./diffuse-integration.js";
-import { mikiEquivalentFluid, perforatedPlateImpedance } from "./layer-models.js";
+import {
+  isMikiInValidRange,
+  mikiEquivalentFluid,
+  perforatedPlateImpedance,
+} from "./layer-models.js";
 
 const TWO_PI = 2 * Math.PI;
 // 度 → ラジアン（180° = π）
@@ -291,14 +295,27 @@ export function bandTransmissionLossDb(
 }
 
 /**
- * 剛壁で裏打ちした積層の垂直入射吸音率。表面インピーダンス Zs = T11/T21、
- * R = (Zs − Z0)/(Zs + Z0) = (T11 − Z0·T21)/(T11 + Z0·T21)（T21 = 0 でも割り算にならない形）
+ * 剛壁で裏打ちした積層の垂直入射吸音率。表面インピーダンス Zs = T11/T21、R = (Zs − Z0)/(Zs + Z0)。
+ * A = T11、B = Z0·T21 とすると α = 1 − |R|² = 4·Re(A·B̄)/|A + B|²（1 − |R|² の引き算で
+ * 桁落ちしないよう、式変形した形で計算する。T21 = 0 でも割り算にならない）
  */
 export function normalIncidenceAbsorptionRigidBacked(layers, frequencyHz) {
   checkLayers(layers);
   requirePositiveFinite(frequencyHz, ERROR_CODES.NOT_POSITIVE_FREQUENCY, "周波数");
   const matrix = systemMatrix(layers, frequencyHz, cx.ZERO);
+  const front = matrix[0][0];
   const loaded = cx.scale(matrix[1][0], airImpedance());
-  const reflection = cx.div(cx.sub(matrix[0][0], loaded), cx.add(matrix[0][0], loaded));
-  return 1 - cx.abs2(reflection);
+  const crossReal = front.re * loaded.re + front.im * loaded.im;
+  return (TRANSMISSION_NUMERATOR * crossReal) / cx.abs2(cx.add(front, loaded));
+}
+
+/** 多孔質材の層のうち、周波数 frequencyHz で Miki モデルの適用範囲外になるものの番号（0 始まり） */
+export function porousLayersOutOfRange(layers, frequencyHz) {
+  return layers
+    .map((layer, index) => ({ layer, index }))
+    .filter(
+      ({ layer }) =>
+        layer.kind === "porous" && !isMikiInValidRange(frequencyHz, layer.flowResistivityPasm2),
+    )
+    .map(({ index }) => index);
 }

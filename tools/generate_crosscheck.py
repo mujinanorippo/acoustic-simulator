@@ -18,7 +18,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from tests.reference_py import frequency_bands, reverberation, tmm  # noqa: E402
+from tests.reference_py import frequency_bands, openings, reverberation, tmm  # noqa: E402
 
 CROSSCHECK_DIR = REPO_ROOT / "tests" / "data" / "crosscheck"
 # 照合用 Python 自身の再計算との一致の許容差（同じ実装なので丸め誤差のみ）
@@ -92,7 +92,12 @@ def tmm_expected(case: dict, oblique_deg: float) -> dict:
     return result
 
 
+def openings_expected(case: dict) -> dict:
+    return {"id": case["id"]} | openings.opening_reduction(case["wallTlDb"], case["openingRatio"])
+
+
 GENERATORS: dict[str, Callable[[dict], dict]] = {
+    "openings": openings_expected,
     "reverberation": reverberation_expected,
     "frequency-bands": frequency_bands_expected,
     "tmm": tmm_expected,
