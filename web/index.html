@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>音響シミュレーター 計算確認</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
   </head>
   <body>
     <header class="titlebar">
@@ -36,16 +37,18 @@
         </div>
         <ul id="wall-notes" class="notes"></ul>
         <div id="wall-chart" class="chart-box"></div>
-        <table class="results">
-          <thead>
-            <tr>
-              <th>周波数 [Hz]</th>
-              <th>透過損失 [dB]</th>
-              <th>剛壁に付けたときの吸音率</th>
-            </tr>
-          </thead>
-          <tbody id="wall-table"></tbody>
-        </table>
+        <div class="table-scroll">
+          <table class="results">
+            <thead>
+              <tr>
+                <th>周波数 [Hz]</th>
+                <th>透過損失 [dB]</th>
+                <th>剛壁に付けたときの吸音率</th>
+              </tr>
+            </thead>
+            <tbody id="wall-table"></tbody>
+          </table>
+        </div>
         <p class="hint">
           透過損失は 1/3 オクターブ帯域（全
           <span id="band-count"></span>

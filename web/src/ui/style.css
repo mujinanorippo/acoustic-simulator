@@ -1,30 +1,100 @@
-/* CAD の画面に近い、隙間の少ない落ち着いた見た目（仕様書「画面構成」：同系色・暗い線・角はほぼ丸めない） */
+/* CAD の画面に近い、隙間の少ない落ち着いた見た目（仕様書「画面構成」：同系色・暗い線・角はほぼ丸めない）
+   配色はすべて色の変数で決め、明るい画面と暗い画面の両方を用意する */
 :root {
-  --bg: #e9ebee;
-  --panel: #f6f7f8;
+  --bg: #e8eaed;
+  --panel: #f5f6f7;
+  --field: #ffffff;
+  --button: #eceef1;
+  --button-hover: #dde2e7;
   --line: #4a5058;
   --line-light: #b8bec6;
+  --grid: #e1e4e8;
+  --header: #e0e4e8;
   --text: #1d2126;
   --muted: #5b626b;
+  --faint: #8c949c;
   --accent: #1f5f9e;
+  --accent-hover: #18507f;
+  --accent-border: #123f6b;
   --accent-text: #ffffff;
-  --warning: #8a5a00;
+  --titlebar: #2e3338;
+  --titlebar-text: #eef0f2;
+  --titlebar-muted: #b9c0c7;
+  --notice: #fff6e0;
+  --warning: #7a4f00;
   font-family: "Yu Gothic UI", "Meiryo UI", "Hiragino Sans", system-ui, sans-serif;
   font-size: 14px;
-  color: var(--text);
-  background: var(--bg);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1f23;
+    --panel: #24282d;
+    --field: #1a1d21;
+    --button: #30353b;
+    --button-hover: #3a4047;
+    --line: #8a929b;
+    --line-light: #3f454c;
+    --grid: #33383e;
+    --header: #2c3136;
+    --text: #e3e6e9;
+    --muted: #a2a9b1;
+    --faint: #7b838b;
+    --accent: #4f8fd0;
+    --accent-hover: #6aa2da;
+    --accent-border: #2c5f93;
+    --accent-text: #0e1418;
+    --titlebar: #121417;
+    --titlebar-text: #e3e6e9;
+    --titlebar-muted: #8f979f;
+    --notice: #33290f;
+    --warning: #e6c27a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1c1f23;
+  --panel: #24282d;
+  --field: #1a1d21;
+  --button: #30353b;
+  --button-hover: #3a4047;
+  --line: #8a929b;
+  --line-light: #3f454c;
+  --grid: #33383e;
+  --header: #2c3136;
+  --text: #e3e6e9;
+  --muted: #a2a9b1;
+  --faint: #7b838b;
+  --accent: #4f8fd0;
+  --accent-hover: #6aa2da;
+  --accent-border: #2c5f93;
+  --accent-text: #0e1418;
+  --titlebar: #121417;
+  --titlebar-text: #e3e6e9;
+  --titlebar-muted: #8f979f;
+  --notice: #33290f;
+  --warning: #e6c27a;
+  color-scheme: dark;
 }
 body {
   margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+.titlebar,
+.notice,
+.tabs,
+main {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 .titlebar {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 12px;
-  padding: 6px 12px;
-  background: #2e3338;
-  color: #eef0f2;
-  border-bottom: 1px solid #15181b;
+  column-gap: 12px;
+  padding-block: 6px;
+  background: var(--titlebar);
+  color: var(--titlebar-text);
 }
 .titlebar h1 {
   font-size: 15px;
@@ -33,43 +103,42 @@ body {
 }
 .subtitle {
   font-size: 12px;
-  color: #b9c0c7;
+  color: var(--titlebar-muted);
 }
 .notice {
   margin: 0;
-  padding: 6px 12px;
-  background: #fff6e0;
+  padding-block: 6px;
+  background: var(--notice);
   color: var(--warning);
   border-bottom: 1px solid var(--line-light);
   font-size: 12px;
 }
 .tabs {
   display: flex;
+  flex-wrap: wrap;
   border-bottom: 1px solid var(--line);
-  background: #d9dde2;
+  background: var(--header);
 }
 .tabs button {
   border: 0;
   border-right: 1px solid var(--line-light);
   background: transparent;
   padding: 6px 16px;
-  font: inherit;
   color: var(--text);
-  cursor: pointer;
-  border-radius: 0;
 }
 .tabs button[aria-selected="true"] {
   background: var(--panel);
   box-shadow: inset 0 -2px 0 var(--accent);
 }
 main {
-  padding: 12px;
+  padding-block: 12px;
   max-width: 1100px;
 }
 .panel {
   background: var(--panel);
   border: 1px solid var(--line);
   padding: 12px;
+  min-width: 0;
 }
 .panel h2 {
   font-size: 14px;
@@ -116,31 +185,37 @@ button {
   font: inherit;
   border: 1px solid var(--line);
   border-radius: 1px;
-  background: #fff;
+  background: var(--field);
   color: var(--text);
   padding: 3px 6px;
 }
 select {
-  min-width: 220px;
+  max-width: 100%;
+  min-width: 0;
+  width: 240px;
 }
 button {
-  background: #eceff2;
+  background: var(--button);
   cursor: pointer;
 }
 button:hover:not(:disabled) {
-  background: #dfe4e9;
+  background: var(--button-hover);
 }
 button:disabled {
-  color: #9aa1a8;
+  color: var(--faint);
   cursor: default;
 }
 button.primary {
   background: var(--accent);
-  border-color: #123f6b;
+  border-color: var(--accent-border);
   color: var(--accent-text);
 }
 button.primary:hover:not(:disabled) {
-  background: #18507f;
+  background: var(--accent-hover);
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
 }
 .row-buttons {
   display: flex;
@@ -149,6 +224,7 @@ button.primary:hover:not(:disabled) {
 }
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   align-items: center;
   margin: 8px 0;
@@ -169,7 +245,7 @@ button.primary:hover:not(:disabled) {
 .chart-box {
   max-width: 760px;
   border: 1px solid var(--line-light);
-  background: #fff;
+  background: var(--field);
   margin: 8px 0;
 }
 .chart {
@@ -178,7 +254,7 @@ button.primary:hover:not(:disabled) {
   display: block;
 }
 .chart .grid {
-  stroke: #e1e4e8;
+  stroke: var(--grid);
   stroke-width: 1;
 }
 .chart .tick {
@@ -197,8 +273,11 @@ button.primary:hover:not(:disabled) {
   stroke: var(--accent);
 }
 .chart .series.secondary {
-  stroke: #8c949c;
+  stroke: var(--faint);
   stroke-dasharray: 4 3;
+}
+.table-scroll {
+  overflow-x: auto;
 }
 .results {
   border-collapse: collapse;
@@ -211,17 +290,19 @@ button.primary:hover:not(:disabled) {
   text-align: right;
 }
 .results th {
-  background: #e3e7eb;
+  background: var(--header);
   font-weight: 600;
 }
 .results tr.reference td {
-  color: #8c949c;
+  color: var(--faint);
 }
 dialog {
   border: 1px solid var(--line);
   border-radius: 0;
   padding: 12px 16px;
-  min-width: 320px;
+  min-width: min(320px, 90vw);
+  background: var(--panel);
+  color: var(--text);
 }
 dialog h2 {
   font-size: 14px;
