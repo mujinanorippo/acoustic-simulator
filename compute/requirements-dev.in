@@ -1,0 +1,6 @@
+# 開発・テスト用の依存（版は requirements-dev.txt で完全固定）
+-c requirements.txt
+pytest==9.1.1
+hypothesis==6.170.5
+jsonschema==4.26.0
+ruff==0.17.1

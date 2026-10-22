@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "material.schema.json",
+  "title": "材料データ（開発設計書「データ形式・材料データ」）",
+  "type": "object",
+  "required": ["schemaVersion", "id", "name", "properties"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "properties": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/sourcedValue" }
+    }
+  },
+  "$defs": {
+    "sourcedValue": {
+      "type": "object",
+      "required": ["value", "unit", "source", "reliability"],
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "oneOf": [
+            { "type": "number" },
+            { "type": "array", "items": { "type": "number" }, "minItems": 1 }
+          ]
+        },
+        "unit": { "type": "string", "minLength": 1 },
+        "source": {
+          "type": "object",
+          "required": ["title", "url", "accessed"],
+          "additionalProperties": false,
+          "properties": {
+            "title": { "type": "string", "minLength": 1 },
+            "url": { "type": "string", "pattern": "^https://" },
+            "accessed": { "type": "string", "format": "date" }
+          }
+        },
+        "reliability": {
+          "enum": ["メーカー公表", "規格", "査読論文", "二次情報", "暫定"]
+        },
+        "note": { "type": "string" }
+      }
+    }
+  }
+}

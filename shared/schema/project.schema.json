@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project.schema.json",
+  "title": "プロジェクトファイル（フェーズ0の骨組み。中身はフェーズ2以降で定義）",
+  "type": "object",
+  "required": ["schemaVersion", "lengthUnit"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "lengthUnit": { "const": "m" }
+  }
+}

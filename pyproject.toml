@@ -1,0 +1,23 @@
+[project]
+name = "acoustic-simulator-compute"
+version = "0.0.0"
+requires-python = "==3.12.*"
+license = "AGPL-3.0-only"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["web/node_modules"]
+
+[tool.ruff.lint]
+# E/F: 基本, I: import 順, N: 命名, B: バグになりやすい書き方, T20: print 禁止,
+# PLR2004: マジックナンバー禁止, BLE/S110: 例外の握りつぶし禁止
+select = ["E", "F", "I", "N", "B", "T20", "PLR2004", "BLE", "S110", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["PLR2004"]
+"tools/**" = ["T20"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
