@@ -9,6 +9,9 @@ export const ERROR_CODES = Object.freeze({
   NOT_POSITIVE_FREQUENCY: "E-CALC-005",
   MISSING_AXIS: "E-CALC-006",
   BAND_OUT_OF_RANGE: "E-CALC-007",
+  UNKNOWN_LAYER: "E-CALC-008",
+  OUT_OF_NUMERIC_RANGE: "E-CALC-009",
+  INVALID_ANGLE: "E-CALC-010",
 });
 
 export class AcousticsInputError extends Error {

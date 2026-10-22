@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "calculation",
+  "name": "計算条件（文献で根拠のある設定値）",
+  "values": {
+    "fieldIncidenceLimitAngle": {
+      "value": 78,
+      "unit": "deg",
+      "source": {
+        "title": "University of Kentucky VAC Web Meeting 28『Design of Enclosures』: 拡散入射の積分を 0〜78° で打ち切る field incidence は測定とよく合う",
+        "url": "https://vac.engr.uky.edu/sites/vac/files/Webinars/28_VAC_Web_Meeting_Design_of_Enclosures.pdf",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "有限寸法補正（FTMM）を入れるまでの暫定的な扱い。Tageman（Chalmers 2013）も約80°に下げると測定に近づくと記載"
+    }
+  }
+}

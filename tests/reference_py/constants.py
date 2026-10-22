@@ -17,6 +17,11 @@ _AIR = _values("air")
 AIR_TEMPERATURE_K: float = _AIR["temperature"]
 AIR_SPEED_OF_SOUND_MPS: float = _AIR["speedOfSound"]
 AIR_DENSITY_KGM3: float = _AIR["density"]
+SUTHERLAND_REFERENCE_VISCOSITY_PAS: float = _AIR["sutherlandReferenceViscosity"]
+SUTHERLAND_REFERENCE_TEMPERATURE_K: float = _AIR["sutherlandReferenceTemperature"]
+SUTHERLAND_CONSTANT_K: float = _AIR["sutherlandConstant"]
+
+FIELD_INCIDENCE_LIMIT_DEG: float = _values("calculation")["fieldIncidenceLimitAngle"]
 
 _BANDS = _values("frequency-bands")
 REFERENCE_FREQUENCY_HZ: float = _BANDS["referenceFrequency"]

@@ -18,7 +18,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
-from tests.reference_py import frequency_bands, reverberation  # noqa: E402
+from tests.reference_py import frequency_bands, reverberation, tmm  # noqa: E402
 
 CROSSCHECK_DIR = REPO_ROOT / "tests" / "data" / "crosscheck"
 # 照合用 Python 自身の再計算との一致の許容差（同じ実装なので丸め誤差のみ）
@@ -52,18 +52,61 @@ def frequency_bands_expected(case: dict) -> dict:
     }
 
 
+def _layer(data: dict) -> tmm.Layer:
+    kind = data["kind"]
+    if kind == "air":
+        return tmm.Air(data["thicknessM"])
+    if kind == "porous":
+        return tmm.Porous(data["thicknessM"], data["flowResistivityPasm2"])
+    if kind == "plate":
+        return tmm.Plate(
+            data["surfaceDensityKgm2"], data["bendingStiffnessNm"], data["lossFactorRatio"]
+        )
+    return tmm.Perforated(data["thicknessM"], data["holeDiameterM"], data["perforationRatio"])
+
+
+# 帯域透過損失を照合する帯域（100 Hz、1000 Hz、3150 Hz）
+TMM_BAND_INDICES = (-10, 0, 5)
+
+
+def tmm_expected(case: dict, oblique_deg: float) -> dict:
+    layers = [_layer(item) for item in case["layers"]]
+    oblique = math.radians(oblique_deg)
+    points = []
+    for frequency in case["frequenciesHz"]:
+        point: dict = {"frequencyHz": frequency}
+        if case["transmission"]:
+            point["tauNormal"] = tmm.transmission_coefficient(layers, frequency)
+            point["tauOblique"] = tmm.transmission_coefficient(layers, frequency, oblique)
+            diffuse = tmm.diffuse_transmission_coefficient(layers, frequency)
+            point["diffuseTlDb"] = tmm.transmission_loss_db(diffuse)
+        if case["absorption"]:
+            point["absorptionNormal"] = tmm.normal_absorption_rigid_backed(layers, frequency)
+        points.append(point)
+    result: dict = {"id": case["id"], "points": points}
+    if case["transmission"]:
+        result["bandTlDb"] = [
+            tmm.band_transmission_loss_db(layers, *frequency_bands.band_edges_hz(index))
+            for index in TMM_BAND_INDICES
+        ]
+    return result
+
+
 GENERATORS: dict[str, Callable[[dict], dict]] = {
     "reverberation": reverberation_expected,
     "frequency-bands": frequency_bands_expected,
+    "tmm": tmm_expected,
 }
 
 
 def compute(name: str) -> dict:
     cases = json.loads((CROSSCHECK_DIR / f"{name}.cases.json").read_text(encoding="utf-8"))
-    return {
-        "generatedBy": "tools/generate_crosscheck.py（照合用 Python）",
-        "results": [GENERATORS[name](case) for case in cases["cases"]],
-    }
+    generator = GENERATORS[name]
+    if name == "tmm":
+        results = [generator(case, cases["obliqueAngleDeg"]) for case in cases["cases"]]
+    else:
+        results = [generator(case) for case in cases["cases"]]
+    return {"generatedBy": "tools/generate_crosscheck.py（照合用 Python）", "results": results}
 
 
 def _same(left: object, right: object) -> bool:
