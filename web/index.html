@@ -24,90 +24,108 @@
     </nav>
 
     <main>
-      <section id="wall" class="panel">
-        <h2>壁の遮音（伝達マトリクス法）</h2>
-        <p class="hint">
-          音が入ってくる側（室内）から順に層を並べます。板のヤング率を 0
-          にすると、曲げ剛性を無視して質量だけで計算します。
-        </p>
-        <div id="layer-list" class="layer-list"></div>
-        <div class="actions">
-          <button type="button" id="add-layer">層を追加</button>
-          <button type="button" id="calculate-wall" class="primary">計算</button>
-          <button type="button" id="cancel-wall" hidden>中止</button>
-          <span id="wall-status" class="status" aria-live="polite"></span>
-        </div>
-        <ul id="wall-notes" class="notes"></ul>
-        <div id="wall-chart" class="chart-box"></div>
-        <div class="table-scroll">
-          <table class="results">
-            <thead>
-              <tr>
-                <th>周波数 [Hz]</th>
-                <th>透過損失 [dB]</th>
-                <th>剛壁に付けたときの吸音率</th>
-              </tr>
-            </thead>
-            <tbody id="wall-table"></tbody>
-          </table>
-        </div>
-        <p class="hint">
-          透過損失は 1/3 オクターブ帯域（全
-          <span id="band-count"></span>
-          帯域）ごとの拡散入射（0〜78°）の値です。吸音率は垂直入射・帯域の中心周波数の値です。灰色の行は多孔質材のモデルの適用範囲外を含む参考値です。
-        </p>
-      </section>
+      <div id="wall" class="tab-page">
+        <section class="panel">
+          <h2>壁の遮音（伝達マトリクス法）</h2>
+          <p class="hint">
+            音が入ってくる側（室内）から順に層を並べます。材料を選ぶと、出典のある値が「（参考値）」として入ります。自分で分かる値があれば書き換えてください（書き換えた欄は参考値の印が消えます）。印にマウスを乗せると出典が出ます。
+          </p>
+          <div id="layer-list" class="layer-list"></div>
+          <div class="actions">
+            <button type="button" id="add-layer">層を追加</button>
+            <button type="button" id="calculate-wall" class="primary">計算</button>
+            <button type="button" id="cancel-wall" hidden>中止</button>
+            <span id="wall-status" class="status" aria-live="polite"></span>
+          </div>
+          <ul id="wall-notes" class="notes"></ul>
+          <div id="wall-chart" class="chart-box"></div>
+          <div class="table-scroll">
+            <table class="results">
+              <thead>
+                <tr>
+                  <th>周波数 [Hz]</th>
+                  <th>透過損失 [dB]</th>
+                  <th>剛壁に付けたときの吸音率</th>
+                </tr>
+              </thead>
+              <tbody id="wall-table"></tbody>
+            </table>
+          </div>
+          <p class="hint">
+            透過損失は 1/3 オクターブ帯域（全
+            <span id="band-count"></span>
+            帯域）ごとの拡散入射（0〜78°）の値で、無限に広い壁として計算しています（壁の大きさによる補正はまだ入っていません）。吸音率は垂直入射・帯域の中心周波数の値です。灰色の行は多孔質材のモデルの適用範囲外を含む参考値です。
+          </p>
+        </section>
+        <section class="reference-box" aria-labelledby="plate-reference-title">
+          <h2 id="plate-reference-title">主な遮音材の面密度（参考表）</h2>
+          <p class="hint">
+            遮音は重い（面密度が大きい）ほど有利です。コインシデンス限界周波数の目安は「臨界周波数×板厚」の表の値を板厚で割ったものです。
+          </p>
+          <div id="plate-reference"></div>
+          <h2>多孔質材の流れ抵抗（参考表）</h2>
+          <p class="hint">
+            北米の住宅用断熱材の測定例です。日本の「16K」などの製品と同じとは限りません。
+          </p>
+          <div id="porous-reference"></div>
+        </section>
+      </div>
 
-      <section id="opening" class="panel" hidden>
-        <h2>開口部による遮音低下</h2>
-        <div class="form-grid">
-          <label class="field"
-            ><span>壁の透過損失 [dB]</span
-            ><input id="opening-wall-tl" type="text" inputmode="decimal" value="45"
-          /></label>
-          <label class="field"
-            ><span>開口率 [%]</span
-            ><input id="opening-ratio" type="text" inputmode="decimal" value="1"
-          /></label>
-        </div>
-        <div class="actions">
-          <button type="button" id="calculate-opening" class="primary">計算</button>
-          <button type="button" id="use-wall-result" disabled>
-            壁の遮音の結果に開口率を当てはめる
-          </button>
-        </div>
-        <ul id="opening-result" class="notes"></ul>
-        <div id="opening-chart" class="chart-box"></div>
-        <p class="hint">
-          開口部（穴・すきま）は音をそのまま通すとみなしています。すきまの奥行きによる補正はまだ入っていません。
-        </p>
-      </section>
+      <div id="opening" class="tab-page" hidden>
+        <section class="panel">
+          <h2>開口部による遮音低下</h2>
+          <p class="hint">
+            入力するとその場で計算します。開口部（穴・すきま）は音をそのまま通すとみなしています。すきまの奥行きによる補正はまだ入っていません。
+          </p>
+          <div class="form-grid">
+            <label class="field"
+              ><span>壁の透過損失 [dB]</span
+              ><input id="opening-wall-tl" type="text" inputmode="decimal" value="45"
+            /></label>
+            <label class="field"
+              ><span>壁の面積 [m²]</span
+              ><input id="opening-wall-area" type="text" inputmode="decimal" value="9.9"
+            /></label>
+            <label class="field"
+              ><span>開口部の面積 [cm²]</span
+              ><input id="opening-area" type="text" inputmode="decimal" value="990"
+            /></label>
+          </div>
+          <ul id="opening-result" class="notes" aria-live="polite"></ul>
+          <div id="opening-chart" class="chart-box"></div>
+        </section>
+      </div>
 
-      <section id="reverberation" class="panel" hidden>
-        <h2>残響時間（直方体の部屋）</h2>
-        <div class="form-grid">
-          <label class="field"
-            ><span>部屋の奥行（X）[mm]</span
-            ><input id="room-x" type="text" inputmode="decimal" value="3640"
-          /></label>
-          <label class="field"
-            ><span>部屋の幅（Y）[mm]</span
-            ><input id="room-y" type="text" inputmode="decimal" value="2730"
-          /></label>
-          <label class="field"
-            ><span>天井高（Z）[mm]</span
-            ><input id="room-z" type="text" inputmode="decimal" value="2400"
-          /></label>
-        </div>
-        <div id="face-absorption" class="form-grid"></div>
-        <div class="actions">
-          <button type="button" id="calculate-reverberation" class="primary">計算</button>
-        </div>
-        <ul id="reverberation-result" class="notes"></ul>
-        <p class="hint">
-          空気による吸収は含めていません。吸音率は計算したい周波数での値を入れてください。
-        </p>
-      </section>
+      <div id="reverberation" class="tab-page" hidden>
+        <section class="panel">
+          <h2>残響時間（直方体の部屋）</h2>
+          <div class="form-grid">
+            <label class="field"
+              ><span>部屋の奥行（X）[mm]</span
+              ><input id="room-x" type="text" inputmode="decimal" value="3640"
+            /></label>
+            <label class="field"
+              ><span>部屋の幅（Y）[mm]</span
+              ><input id="room-y" type="text" inputmode="decimal" value="2730"
+            /></label>
+            <label class="field"
+              ><span>天井高（Z）[mm]</span
+              ><input id="room-z" type="text" inputmode="decimal" value="2400"
+            /></label>
+          </div>
+          <div id="face-absorption" class="face-list"></div>
+          <div class="actions">
+            <button type="button" id="calculate-reverberation" class="primary">計算</button>
+          </div>
+          <div id="reverberation-result"></div>
+          <h2>吸音率の基準と参考表</h2>
+          <p class="hint">
+            ここで使う吸音率は「残響室法吸音率」です。吸音率には測り方で「垂直入射吸音率」と「残響室法吸音率」の2種類があり、建築音響では残響室法吸音率を使います（日本建設業連合会
+            音環境専門部会の用語解説）。同じ材料でも周波数や背後の空気層の厚さで値が変わるので、周波数ごとに計算します。空気による吸収は含めていません。
+          </p>
+          <div id="absorption-reference"></div>
+        </section>
+      </div>
     </main>
 
     <dialog id="error-dialog">

@@ -61,3 +61,23 @@ export function openingReduction(wallTlDb, openingRatio) {
     transmittedEnergyFactor: DB_PER_DECADE ** (reductionDb / DB_PER_DECADE),
   };
 }
+
+/**
+ * 壁の面積と開口部の面積 [m²] から開口率（0〜1）。開口部が壁より大きいときは計算しない。
+ */
+export function openingRatioFromAreas(wallAreaM2, openingAreaM2) {
+  requirePositiveFinite(wallAreaM2, ERROR_CODES.NOT_POSITIVE_LENGTH, "壁の面積");
+  if (typeof openingAreaM2 !== "number" || !Number.isFinite(openingAreaM2) || openingAreaM2 < 0) {
+    throw new AcousticsInputError(
+      ERROR_CODES.NOT_POSITIVE_LENGTH,
+      "開口部の面積は 0 以上の数で入力してください",
+    );
+  }
+  if (openingAreaM2 > wallAreaM2) {
+    throw new AcousticsInputError(
+      ERROR_CODES.OPENING_LARGER_THAN_WALL,
+      "開口部の面積が壁の面積より大きくなっています",
+    );
+  }
+  return openingAreaM2 / wallAreaM2;
+}

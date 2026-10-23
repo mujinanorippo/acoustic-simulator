@@ -31,6 +31,7 @@ const TRANSMISSION_NUMERATOR = 4;
 // 曲げ剛性 B = E·h³ / (12·(1 − ν²)) の 12（薄板理論。Crispin & Mertens ICA 2019 式(2)(3)と整合）
 const BENDING_STIFFNESS_DIVISOR = 12;
 const CUBE = 3;
+const FOURTH_POWER = 4;
 
 // 数値計算の設定（物理量ではない）
 // 1/3オクターブ帯域の値：帯域内を対数等間隔に BAND_SAMPLES 点とって透過率を平均する
@@ -48,6 +49,28 @@ export function bendingStiffnessNm({ youngsModulusPa, poissonRatio, thicknessM }
   return (
     (youngsModulusPa * thicknessM ** CUBE) / (BENDING_STIFFNESS_DIVISOR * (1 - poissonRatio ** 2))
   );
+}
+
+/**
+ * 「臨界周波数×板厚」fc·h [m/s] から曲げ剛性 B [N·m] を求める。fc = fc·h / h、
+ * B = c⁴·m / (4π²·fc²)（Crispin & Mertens ICA 2019 式(3)：B = c0⁴ρh/(4π²fc²)、ρh = m）。
+ * fc·h = 0 は「曲げ剛性を無視して質量だけで計算する」指定として 0 を返す。
+ */
+export function bendingStiffnessFromCoincidenceNm(
+  surfaceDensityKgm2,
+  coincidenceProductMps,
+  thicknessM,
+) {
+  requirePositiveFinite(surfaceDensityKgm2, ERROR_CODES.NOT_POSITIVE_PROPERTY, "面密度");
+  requirePositiveFinite(thicknessM, ERROR_CODES.NOT_POSITIVE_LENGTH, "板厚");
+  if (coincidenceProductMps === 0) return 0;
+  requirePositiveFinite(
+    coincidenceProductMps,
+    ERROR_CODES.NOT_POSITIVE_PROPERTY,
+    "臨界周波数×板厚",
+  );
+  const criticalHz = coincidenceProductMps / thicknessM;
+  return (AIR.speedOfSoundMps ** FOURTH_POWER * surfaceDensityKgm2) / (TWO_PI * criticalHz) ** 2;
 }
 
 /** コインシデンス限界周波数 fc = c²/(2π)·√(m/B)（Crispin & Mertens ICA 2019 式(3)） */

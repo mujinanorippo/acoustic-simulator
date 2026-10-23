@@ -75,6 +75,10 @@
   --warning: #e6c27a;
   color-scheme: dark;
 }
+/* display を指定した要素にも hidden 属性を確実に効かせる */
+[hidden] {
+  display: none !important;
+}
 body {
   margin: 0;
   background: var(--bg);
@@ -311,4 +315,106 @@ dialog h2 {
 .dialog-buttons {
   display: flex;
   justify-content: flex-end;
+}
+.tab-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.reference-box {
+  border: 1px solid var(--line-light);
+  background: var(--panel);
+  padding: 12px;
+  min-width: 0;
+}
+.reference-box h2 {
+  font-size: 14px;
+  margin: 12px 0 4px;
+}
+.reference-box h2:first-child {
+  margin-top: 0;
+}
+.row-selects,
+.row-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 6px;
+  min-width: 0;
+}
+.row-fields .field {
+  max-width: 220px;
+}
+.input-line {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.reference-tag {
+  color: var(--warning);
+  font-size: 11px;
+  cursor: help;
+  white-space: nowrap;
+}
+.field-help {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.material-select {
+  width: 300px;
+}
+.face-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.face-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.face-label {
+  width: 120px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.inline-field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.inline-field input {
+  width: 70px;
+}
+.input-error {
+  color: var(--warning);
+}
+.results a,
+.reference-box a {
+  color: var(--accent);
+}
+.results td:first-child {
+  text-align: left;
+}
+.results td.text,
+.results th {
+  text-align: left;
+}
+.results td.number {
+  text-align: right;
+}
+input:disabled {
+  color: var(--faint);
+  background: var(--bg);
+}
+.kind-select {
+  width: 110px;
+}
+.face-row select {
+  width: 320px;
 }

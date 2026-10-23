@@ -13,6 +13,7 @@ from collections.abc import Sequence
 from .errors import (
     NOT_POSITIVE_LENGTH,
     NOT_POSITIVE_PROPERTY,
+    OPENING_LARGER_THAN_WALL,
     AcousticsInputError,
     require_positive_finite,
     require_ratio,
@@ -48,3 +49,13 @@ def opening_reduction(wall_tl_db: float, opening_ratio: float) -> dict[str, floa
         "reductionPercent": 0.0 if wall == 0 else 100 * reduction / wall,
         "transmittedEnergyFactor": 10 ** (reduction / 10),
     }
+
+
+def opening_ratio_from_areas(wall_area_m2: float, opening_area_m2: float) -> float:
+    wall = require_positive_finite(wall_area_m2, NOT_POSITIVE_LENGTH, "壁の面積")
+    opening = _finite(opening_area_m2, "開口部の面積")
+    if opening < 0:
+        raise AcousticsInputError(NOT_POSITIVE_LENGTH, "開口部の面積は 0 以上")
+    if opening > wall:
+        raise AcousticsInputError(OPENING_LARGER_THAN_WALL, "開口部の面積が壁の面積より大きい")
+    return opening / wall

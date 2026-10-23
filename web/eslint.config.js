@@ -26,7 +26,7 @@ const PURE_CORE_RESTRICTED_SYNTAX = [
 ];
 
 export default [
-  { ignores: ["node_modules/", "dist/", "coverage/"] },
+  { ignores: ["node_modules/", "dist/", "coverage/", "test-results/", "playwright-report/"] },
   js.configs.recommended,
   {
     languageOptions: {

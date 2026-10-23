@@ -55,3 +55,12 @@ def test_bad_inputs():
     with pytest.raises(AcousticsInputError) as error:
         openings.composite_transmission_loss_db([(0, 30)])
     assert error.value.code == NOT_POSITIVE_LENGTH
+
+
+def test_opening_ratio_from_areas():
+    assert openings.opening_ratio_from_areas(9.9, 0.099) == pytest.approx(0.01)
+    with pytest.raises(AcousticsInputError) as error:
+        openings.opening_ratio_from_areas(1, 2)
+    assert error.value.code == "E-CALC-011"
+    with pytest.raises(AcousticsInputError):
+        openings.opening_ratio_from_areas(1, -1)

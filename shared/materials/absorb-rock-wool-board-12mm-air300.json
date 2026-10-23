@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "absorb-rock-wool-board-12mm-air300",
+  "name": "ロックウール吸音板 12mm＋空気層300mm",
+  "properties": {
+    "absorptionOctave": {
+      "value": [
+        0.2,
+        0.2,
+        0.4,
+        0.6,
+        0.7,
+        0.75
+      ],
+      "unit": "1",
+      "source": {
+        "title": "日本建設業連合会 音環境専門部会 用語「吸音率」表1（出典：前川・森本・阪上『建築・環境音響学 第3版』共立出版 2011）",
+        "url": "https://www.nikkenren.com/kenchiku/sound/pdf/glossary/ka-0210.pdf",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "二次情報",
+      "note": "残響室法吸音率。125・250・500・1000・2000・4000 Hz の順。天井の吸音板など。背後の空気層 300 mm"
+    }
+  }
+}

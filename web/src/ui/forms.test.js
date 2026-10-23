@@ -42,12 +42,11 @@ describe("parseNumberField", () => {
 });
 
 describe("toCoreLayer", () => {
-  it("板：ヤング率 0 は質量だけ、値があれば曲げ剛性を計算", () => {
+  it("板：臨界周波数×板厚 0 は重さだけ、値があれば曲げ剛性を計算", () => {
     const texts = {
-      surfaceDensity: "10",
-      youngsModulus: "0",
       thickness: "12.5",
-      poissonRatio: "0.3",
+      surfaceDensity: "10",
+      coincidenceProduct: "0",
       lossFactor: "0.01",
     };
     expect(toCoreLayer({ kind: "plate", texts }, 0)).toEqual({
@@ -59,9 +58,10 @@ describe("toCoreLayer", () => {
         lossFactorRatio: 0.01,
       },
     });
-    const stiff = toCoreLayer({ kind: "plate", texts: { ...texts, youngsModulus: "2.5" } }, 0);
+    const stiff = toCoreLayer({ kind: "plate", texts: { ...texts, coincidenceProduct: "38" } }, 0);
+    // fc = 38 / 0.0125 = 3040 Hz、B = c⁴·m / (2π·fc)²
     expect(stiff.layer.bendingStiffnessNm).toBeCloseTo(
-      (2.5e9 * 0.0125 ** 3) / (12 * (1 - 0.09)),
+      (343.2 ** 4 * 10) / (2 * Math.PI * 3040) ** 2,
       6,
     );
   });

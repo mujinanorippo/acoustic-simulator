@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "sound-insulation-sheet-2-8mm",
+  "name": "遮音シート 2.8mm（市販品の例）",
+  "properties": {
+    "thickness": {
+      "value": 0.0028,
+      "unit": "m",
+      "source": {
+        "title": "モノタロウ 遮音シート一覧（DAIKEN 製品の面密度の記載）",
+        "url": "https://www.monotaro.com/s/c-86210/?si=1",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "二次情報",
+      "note": "DAIKEN 遮音シート 455H の表記"
+    },
+    "surfaceDensity": {
+      "value": 4.2,
+      "unit": "kg/m2",
+      "source": {
+        "title": "モノタロウ 遮音シート一覧（DAIKEN 製品の面密度の記載）",
+        "url": "https://www.monotaro.com/s/c-86210/?si=1",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "二次情報",
+      "note": "DAIKEN 遮音シート 455H の表記（販売サイトの転記）"
+    },
+    "coincidenceProduct": {
+      "value": 0,
+      "unit": "m/s",
+      "source": {
+        "title": "計算上の扱い：柔らかいシートは曲げ剛性を無視して質量だけで計算する",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "暫定",
+      "note": "0 は「質量だけで計算」の意味"
+    },
+    "lossFactor": {
+      "value": 0.01,
+      "unit": "1",
+      "source": {
+        "title": "出典未確認の仮の値（損失係数の公表値を確認できていない）",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "暫定",
+      "note": "板の損失係数。わかる場合は自分で入力する"
+    }
+  }
+}

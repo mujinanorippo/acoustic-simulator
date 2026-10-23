@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "float-glass-8mm",
+  "name": "板ガラス（フロート）8mm",
+  "properties": {
+    "thickness": {
+      "value": 0.008,
+      "unit": "m",
+      "source": {
+        "title": "AGC Glass Europe「Thin and ultra-thin glass」ファクトシート（ソーダ石灰ガラスの密度）",
+        "url": "https://www.agc-yourglass.com/sites/default/files/agc_docs/Factsheet_ThinGlass_1219_EN.pdf",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "メーカー公表",
+      "note": "呼び厚さ"
+    },
+    "density": {
+      "value": 2450,
+      "unit": "kg/m3",
+      "source": {
+        "title": "AGC Glass Europe「Thin and ultra-thin glass」ファクトシート（ソーダ石灰ガラスの密度）",
+        "url": "https://www.agc-yourglass.com/sites/default/files/agc_docs/Factsheet_ThinGlass_1219_EN.pdf",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "メーカー公表",
+      "note": "約 2.45 g/cm³。面密度は密度×厚さで計算"
+    },
+    "coincidenceProduct": {
+      "value": 12.7,
+      "unit": "m/s",
+      "source": {
+        "title": "Architectural Acoustics（Long）第9章 表9.1 臨界周波数×板厚 fc·h（講義資料に収録された抜粋）",
+        "url": "https://ocw.upj.ac.id/files/Textbook-ARS-405-TEXTBOOK-09-FISIKA-BANGUNAN.pdf",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "二次情報",
+      "note": "Glass or Sand"
+    },
+    "lossFactor": {
+      "value": 0.01,
+      "unit": "1",
+      "source": {
+        "title": "出典未確認の仮の値（損失係数の公表値を確認できていない）",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "暫定",
+      "note": "板の損失係数。わかる場合は自分で入力する"
+    }
+  }
+}

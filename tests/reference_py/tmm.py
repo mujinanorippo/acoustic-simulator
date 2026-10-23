@@ -104,6 +104,16 @@ def bending_stiffness_nm(
     return youngs_modulus_pa * thickness_m**3 / (BENDING_DIVISOR * (1 - poisson_ratio**2))
 
 
+def bending_stiffness_from_coincidence_nm(
+    surface_density_kgm2: float, coincidence_product_mps: float, thickness_m: float
+) -> float:
+    """fc·h から曲げ剛性：B = c⁴·m / (4π²·fc²)、fc = fc·h / h（Crispin & Mertens 式(3)）"""
+    if coincidence_product_mps == 0:
+        return 0.0
+    critical = coincidence_product_mps / thickness_m
+    return C0**4 * surface_density_kgm2 / (2 * math.pi * critical) ** 2
+
+
 def critical_frequency_hz(surface_density_kgm2: float, bending_stiffness: float) -> float:
     return C0**2 / (2 * math.pi) * math.sqrt(surface_density_kgm2 / bending_stiffness)
 

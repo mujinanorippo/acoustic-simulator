@@ -12,6 +12,7 @@ export const ERROR_CODES = Object.freeze({
   UNKNOWN_LAYER: "E-CALC-008",
   OUT_OF_NUMERIC_RANGE: "E-CALC-009",
   INVALID_ANGLE: "E-CALC-010",
+  OPENING_LARGER_THAN_WALL: "E-CALC-011",
 });
 
 export class AcousticsInputError extends Error {

@@ -37,11 +37,28 @@ async function expectDialog(page, text) {
   return dialog;
 }
 
-test("1. 起動：入力例の4層・3つのタブが出る", async ({ page }) => {
+test("1. 起動：入力例の4層・材料の参考値・参考表・3つのタブが出る", async ({ page }) => {
   await expect(page).toHaveTitle("音響シミュレーター 計算確認");
   await expect(page.locator(".layer-row")).toHaveCount(4);
   await expect(page.locator("[data-tab]")).toHaveCount(3);
-  await expect(page.locator("#use-wall-result")).toBeDisabled();
+  await expect(page.locator(".layer-row").first().locator(".reference-tag")).toHaveCount(4);
+  await expect(page.locator("#plate-reference tbody tr")).toHaveCount(9);
+  await expect(page.locator("#porous-reference tbody tr")).toHaveCount(5);
+  await expect(page.locator("#plate-reference a").first()).toHaveAttribute("href", /^https:/);
+});
+
+test("1b. 材料の参考値：書き換えた欄だけ印が消え、自分で入力に戻すと全部消える", async ({
+  page,
+}) => {
+  const row = page.locator(".layer-row").first();
+  await row.locator('input[data-key="lossFactor"]').fill("0.03");
+  await expect(row.locator(".reference-tag")).toHaveCount(3);
+  await row.locator(".material-select").selectOption("float-glass-5mm");
+  await expect(row.locator('input[data-key="surfaceDensity"]')).toHaveValue("12.25");
+  await expect(row.locator(".reference-tag")).toHaveCount(4);
+  await row.locator(".material-select").selectOption("");
+  await expect(row.locator(".reference-tag")).toHaveCount(0);
+  await expect(row.locator('input[data-key="surfaceDensity"]')).toHaveValue("12.25");
 });
 
 test("2. 壁の遮音：計算すると全帯域の表とグラフが出て、数値がすべて有限", async ({ page }) => {
@@ -51,6 +68,8 @@ test("2. 壁の遮音：計算すると全帯域の表とグラフが出て、�
   test.info().annotations.push({ type: "計算時間", description: `${seconds.toFixed(1)} 秒` });
   await expect(page.locator("#wall-chart path.series")).toHaveCount(1);
   await expect(page.locator("#wall-notes")).toContainText("二重壁の共鳴周波数");
+  await expect(page.locator("#wall-notes")).toContainText("コインシデンス限界周波数：3040 Hz");
+  await expect(page.locator("#wall-notes")).toContainText("暫定値を含みます");
   const values = await page.locator("#wall-table td:nth-child(2)").allTextContents();
   expect(values.map(Number).every(Number.isFinite)).toBe(true);
 });
@@ -111,7 +130,9 @@ test("6. ダイアログは Esc でも閉じられる（キャンセル）", asy
 
 test("7. 層の並べ替えは行って戻すと元どおり、全部消すと止まり、足し直せる", async ({ page }) => {
   const kinds = () =>
-    page.locator(".layer-row select").evaluateAll((items) => items.map((item) => item.value));
+    page
+      .locator('.layer-row select[aria-label$="の種類"]')
+      .evaluateAll((items) => items.map((item) => item.value));
   const original = await kinds();
   await page.locator(".layer-row").nth(1).getByTitle("下へ").click();
   expect(await kinds()).not.toEqual(original);
@@ -130,35 +151,44 @@ test("8. タブを行き来しても入力と結果が残る", async ({ page }) 
   await page.click("[data-tab=reverberation]");
   await page.fill("#room-z", "2500");
   await page.click("#calculate-reverberation");
-  await expect(page.locator("#reverberation-result li")).toHaveCount(5);
+  await expect(page.locator("#reverberation-result tbody tr")).toHaveCount(6);
   await page.click("[data-tab=wall]");
+  await expect(page.locator("#plate-reference")).toBeVisible();
   await page.click("[data-tab=reverberation]");
+  await expect(page.locator("#plate-reference")).toBeHidden();
   await expect(page.locator("#room-z")).toHaveValue("2500");
-  await expect(page.locator("#reverberation-result li")).toHaveCount(5);
+  await expect(page.locator("#reverberation-result tbody tr")).toHaveCount(6);
 });
 
-test("9. 開口部：1% で約 20 dB、壁の結果への当てはめ、範囲外の開口率は止まる", async ({ page }) => {
+test("9. 開口部：面積を入れるとその場で計算、壁より大きい開口部や文字は理由を出す", async ({
+  page,
+}) => {
   await page.click("[data-tab=opening]");
-  await page.click("#calculate-opening");
-  await expect(page.locator("#opening-result")).toContainText("20.0 dB");
-  await page.fill("#opening-ratio", "120");
-  await page.click("#calculate-opening");
-  await expectDialog(page, "100 以下");
-  await page.click("#error-dialog button");
-  await page.fill("#opening-ratio", "1");
+  const result = page.locator("#opening-result");
+  await expect(result).toContainText("開口率：1.00 %");
+  await expect(result).toContainText("20.0 dB");
+  await page.fill("#opening-area", "200000");
+  await expect(result).toContainText("E-CALC-011");
+  await page.fill("#opening-area", "abc");
+  await expect(result).toContainText("数字以外");
+  await page.fill("#opening-area", "0");
+  await expect(result).toContainText("45.0 dB");
+  await page.fill("#opening-area", "990");
+  await expect(page.locator("#opening-chart")).toContainText("壁の遮音");
   await page.click("[data-tab=wall]");
   await calculateWall(page);
   await page.click("[data-tab=opening]");
-  await page.click("#use-wall-result");
   await expect(page.locator("#opening-chart path.series")).toHaveCount(2);
 });
 
-test("10. 残響時間：4つの式が出て、吸音ゼロは止まる", async ({ page }) => {
+test("10. 残響時間：材料ごとの吸音率で6帯域の表が出て、吸音ゼロは止まる", async ({ page }) => {
   await page.click("[data-tab=reverberation]");
+  await expect(page.locator("#absorption-reference tbody tr")).toHaveCount(6);
   await page.click("#calculate-reverberation");
-  await expect(page.locator("#reverberation-result")).toContainText("Sabine");
+  await expect(page.locator("#reverberation-result tbody tr")).toHaveCount(6);
   for (const face of ["xMin", "xMax", "yMin", "yMax", "zMin", "zMax"]) {
-    await page.fill(`#face-${face}`, "0");
+    await page.selectOption(`#face-${face}`, "");
+    await page.fill(`#face-${face}-custom`, "0");
   }
   await page.click("#calculate-reverberation");
   await expectDialog(page, "E-CALC-003");

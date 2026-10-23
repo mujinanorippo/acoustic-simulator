@@ -183,3 +183,9 @@ def test_band_transmission_loss_lies_between_edge_values():
     low = tmm.transmission_loss_db(tmm.diffuse_transmission_coefficient(layers, lower))
     high = tmm.transmission_loss_db(tmm.diffuse_transmission_coefficient(layers, upper))
     assert low < band < high
+
+
+def test_bending_stiffness_from_coincidence_round_trip():
+    stiffness = tmm.bending_stiffness_from_coincidence_nm(9.9, 38, 0.0125)
+    assert tmm.critical_frequency_hz(9.9, stiffness) == pytest.approx(38 / 0.0125, rel=1e-12)
+    assert tmm.bending_stiffness_from_coincidence_nm(10, 0, 0.01) == 0
