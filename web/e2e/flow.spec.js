@@ -186,9 +186,13 @@ test("10. 残響時間：材料ごとの吸音率で6帯域の表が出て、吸
   await expect(page.locator("#absorption-reference tbody tr")).toHaveCount(6);
   await page.click("#calculate-reverberation");
   await expect(page.locator("#reverberation-result tbody tr")).toHaveCount(6);
+  // 1つの帯域だけ書き換えると、その欄だけ参考値の印が消える
+  await page.fill("#face-zMin-0", "0.5");
+  await expect(page.locator("#face-zMin-0")).not.toHaveClass(/is-reference/);
+  await expect(page.locator("#face-zMin-1")).toHaveClass(/is-reference/);
   for (const face of ["xMin", "xMax", "yMin", "yMax", "zMin", "zMax"]) {
     await page.selectOption(`#face-${face}`, "");
-    await page.fill(`#face-${face}-custom`, "0");
+    for (let band = 0; band < 6; band += 1) await page.fill(`#face-${face}-${band}`, "0");
   }
   await page.click("#calculate-reverberation");
   await expectDialog(page, "E-CALC-003");

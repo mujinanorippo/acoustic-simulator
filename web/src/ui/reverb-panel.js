@@ -16,35 +16,71 @@ const FACES = [
   ["zMax", "天井", "absorb-gypsum-board-air45"],
 ];
 
-function faceControl([key, label, defaultId]) {
-  const custom = create("input", {
-    type: "text",
-    inputmode: "decimal",
-    id: `face-${key}-custom`,
-    value: "0.1",
-    "aria-label": `${label}の吸音率（自分で入力・全帯域同じ値）`,
-    disabled: true,
+function bandInputs(key) {
+  return OCTAVE_BANDS_HZ.map((_, band) => document.getElementById(`face-${key}-${band}`));
+}
+
+/** 材料の6帯域の値を入れ、全部に「参考値」の印を付ける。「自分で入力」なら値はそのまま印だけ外す */
+function fillFromMaterial(key, materialId) {
+  const material = findMaterial(materialId);
+  bandInputs(key).forEach((input, band) => {
+    if (material) input.value = String(material.values.absorptionOctave[band]);
+    input.classList.toggle("is-reference", Boolean(material));
+    input.title = material
+      ? `参考値：${material.name}（${material.sources.absorptionOctave.source.title}）`
+      : "";
   });
+}
+
+function faceControl([key, label]) {
   const select = create(
     "select",
     {
       id: `face-${key}`,
       "aria-label": `${label}の材料`,
-      onchange: (event) => {
-        custom.disabled = event.target.value !== "";
-      },
+      onchange: (event) => fillFromMaterial(key, event.target.value),
     },
-    [create("option", { value: "", text: "自分で入力（全帯域同じ値）" })].concat(
+    [create("option", { value: "", text: "自分で入力" })].concat(
       materialsOf("absorption").map((material) =>
         create("option", { value: material.id, text: material.name }),
       ),
     ),
   );
-  select.value = defaultId;
-  return create("div", { class: "face-row" }, [
-    create("span", { class: "face-label", text: label }),
-    select,
-    create("label", { class: "inline-field" }, [create("span", { text: "吸音率" }), custom]),
+  const inputs = OCTAVE_BANDS_HZ.map((hz, band) =>
+    create("input", {
+      type: "text",
+      inputmode: "decimal",
+      id: `face-${key}-${band}`,
+      class: "band-input",
+      "aria-label": `${label}の ${hz} Hz の吸音率`,
+      // 書き換えた欄は参考値の印を外す
+      oninput: (event) => {
+        event.target.classList.remove("is-reference");
+        event.target.title = "";
+      },
+    }),
+  );
+  return create("tr", {}, [
+    create("th", { class: "face-label", scope: "row", text: label }),
+    create("td", {}, [select]),
+    ...inputs.map((input) => create("td", {}, [input])),
+  ]);
+}
+
+function faceTable() {
+  return create("div", { class: "table-scroll" }, [
+    create("table", { class: "face-table" }, [
+      create("thead", {}, [
+        create(
+          "tr",
+          {},
+          ["面", "材料"]
+            .concat(OCTAVE_BANDS_HZ.map((hz) => `${hz} Hz`))
+            .map((text) => create("th", { text })),
+        ),
+      ]),
+      create("tbody", {}, FACES.map(faceControl)),
+    ]),
   ]);
 }
 
@@ -58,26 +94,19 @@ function readDimensions() {
   );
 }
 
-/** 面ごとの帯域別吸音率 { key: [6帯域] } と入力の誤り */
+/** 面ごとの帯域別吸音率 { key: [6帯域] } と入力の誤り（画面の欄の値を使う。材料を選んでいても書き換えた値が優先） */
 function readFaces() {
   const errors = [];
   const absorption = {};
   for (const [key, label] of FACES) {
-    const material = findMaterial(document.getElementById(`face-${key}`).value);
-    if (material) {
-      absorption[key] = material.values.absorptionOctave;
-      continue;
-    }
-    const value = parseNumberField(
-      document.getElementById(`face-${key}-custom`).value,
-      `${label}の吸音率`,
-      {
+    const values = bandInputs(key).map((input, band) =>
+      parseNumberField(input.value, `${label}の ${OCTAVE_BANDS_HZ[band]} Hz の吸音率`, {
         max: 1,
         allowZero: true,
-      },
+      }),
     );
-    if (value.ok) absorption[key] = OCTAVE_BANDS_HZ.map(() => value.value);
-    else errors.push(value.message);
+    errors.push(...values.filter((item) => !item.ok).map((item) => item.message));
+    absorption[key] = values.map((item) => item.value);
   }
   return { absorption, errors };
 }
@@ -135,7 +164,9 @@ function referenceTable() {
 }
 
 export function setupReverbPanel() {
-  document.getElementById("face-absorption").replaceChildren(...FACES.map(faceControl));
+  document.getElementById("face-absorption").replaceChildren(faceTable());
+  for (const [key, , defaultId] of FACES) fillFromMaterial(key, defaultId);
+  for (const [key, , defaultId] of FACES) document.getElementById(`face-${key}`).value = defaultId;
   document.getElementById("calculate-reverberation").addEventListener("click", calculate);
   document.getElementById("absorption-reference").replaceChildren(referenceTable());
 }

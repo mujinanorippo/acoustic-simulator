@@ -418,3 +418,24 @@ input:disabled {
 .face-row select {
   width: 320px;
 }
+.face-table {
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.face-table th,
+.face-table td {
+  padding: 2px 4px;
+  text-align: left;
+  color: var(--muted);
+  font-weight: normal;
+}
+.face-table select {
+  width: 260px;
+}
+.band-input {
+  width: 52px;
+}
+.band-input.is-reference {
+  color: var(--warning);
+  border-style: dashed;
+}
