@@ -141,3 +141,9 @@ def test_bad_speed_of_sound_is_rejected(bad):
     with pytest.raises(AcousticsInputError) as error:
         rev.sabine_s(six_tatami(uniform(0.2)), bad)
     assert error.value.code == NOT_POSITIVE_PROPERTY
+
+
+def test_room_without_surfaces_is_rejected():
+    with pytest.raises(AcousticsInputError) as error:
+        rev.sabine_s(rev.Room(10.0, ()))
+    assert error.value.code == NOT_POSITIVE_LENGTH

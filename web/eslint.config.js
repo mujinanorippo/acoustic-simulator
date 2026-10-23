@@ -53,7 +53,7 @@ export default [
     },
   },
   {
-    files: ["**/*.test.js", "*.config.js"],
+    files: ["**/*.test.js", "*.config.js", "e2e/**/*.js"],
     languageOptions: { globals: { ...globals.node } },
     rules: { "no-magic-numbers": "off", "max-lines-per-function": "off" },
   },

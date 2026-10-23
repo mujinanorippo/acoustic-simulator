@@ -18,3 +18,8 @@ Thumbs.db
 *.log
 pytest.log
 web/check.log
+web/coverage/
+web/test-results/
+web/playwright-report/
+.coverage
+web/e2e.log

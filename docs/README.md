@@ -4,6 +4,7 @@
 | --- | --- |
 | 音響シミュレーター 仕様書 | 何を作るか（機能・操作・計算手法と根拠・決定事項） https://claude.ai/artifact/1e9iFHrwPpn85GYpBCUYrQ |
 | エラー番号一覧 | 計算コアのエラー番号と意味（`error-codes.md`） |
+| フェーズ1 テスト結果 | 実行順の確認・カバー率・画面操作テストの結果（`test-report-phase-1.md`） |
 | フェーズ1 手動確認 | のりちゃんが触って確かめる項目（`manual-check-phase-1.md`） |
 | 音響シミュレーター 開発設計書 | どう作るか（構成・版の固定・規約・テスト計画・フェーズ・禁則） https://claude.ai/artifact/MAgwct6KTVpBUog3TToeUH |
 

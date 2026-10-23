@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>音響シミュレーター 計算確認</title>
     <meta name="claude:viewport-fit-sides" content="cover" />
+    <link rel="icon" href="data:," />
   </head>
   <body>
     <header class="titlebar">
@@ -33,6 +34,7 @@
         <div class="actions">
           <button type="button" id="add-layer">層を追加</button>
           <button type="button" id="calculate-wall" class="primary">計算</button>
+          <button type="button" id="cancel-wall" hidden>中止</button>
           <span id="wall-status" class="status" aria-live="polite"></span>
         </div>
         <ul id="wall-notes" class="notes"></ul>

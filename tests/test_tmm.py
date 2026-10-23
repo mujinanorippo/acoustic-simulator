@@ -173,3 +173,13 @@ def test_errors():
     assert _code(lambda: tmm.transmission_coefficient([tmm.Porous(1000, 100000)], 5000)) == (
         OUT_OF_NUMERIC_RANGE
     )
+
+
+def test_band_transmission_loss_lies_between_edge_values():
+    # 質量則の板では透過損失は周波数とともに単調に増えるので、帯域の値は両端の値の間に入る
+    layers = [tmm.Plate(10, 0, 0)]
+    lower, upper = 891.0, 1122.0
+    band = tmm.band_transmission_loss_db(layers, lower, upper)
+    low = tmm.transmission_loss_db(tmm.diffuse_transmission_coefficient(layers, lower))
+    high = tmm.transmission_loss_db(tmm.diffuse_transmission_coefficient(layers, upper))
+    assert low < band < high

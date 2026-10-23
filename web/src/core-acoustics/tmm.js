@@ -322,16 +322,22 @@ export function porousLayersOutOfRange(layers, frequencyHz) {
 
 /**
  * 1/3オクターブ帯域ごとの結果：拡散入射の透過損失、剛壁裏打ちの垂直入射吸音率（中心周波数）、
- * Miki モデルの適用範囲外になる層の番号
+ * Miki モデルの適用範囲外になる層の番号。onProgress(終わった帯域数, 全帯域数) は帯域ごとに呼ぶ
  */
-export function bandResults(layers) {
+export function bandResults(layers, onProgress = () => {}) {
   checkLayers(layers);
-  return allBands().map((band) => ({
-    ...band,
-    transmissionLossDb: bandTransmissionLossDb(layers, band.bandIndex),
-    absorptionRatio: normalIncidenceAbsorptionRigidBacked(layers, band.centerHz),
-    porousOutOfRange: porousLayersOutOfRange(layers, band.centerHz),
-  }));
+  const bands = allBands();
+  return bands.map((band, index) => {
+    const result = {
+      ...band,
+      transmissionLossDb: bandTransmissionLossDb(layers, band.bandIndex),
+      absorptionRatio: normalIncidenceAbsorptionRigidBacked(layers, band.centerHz),
+      porousOutOfRange: porousLayersOutOfRange(layers, band.centerHz),
+    };
+    // 進み具合の通知（計算を別スレッドで動かす画面が、何帯域目まで終わったかを表示するため）
+    onProgress(index + 1, bands.length);
+    return result;
+  });
 }
 
 /**

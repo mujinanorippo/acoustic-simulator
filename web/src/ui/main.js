@@ -6,13 +6,9 @@ import { LAYER_KINDS, toCoreLayer } from "./layer-form.js";
 import { openingReduction } from "../core-acoustics/openings.js";
 import { rectangularRoom, reverberationTimes } from "../core-acoustics/reverberation.js";
 import { allBands } from "../core-acoustics/frequency-bands.js";
-import {
-  bandResults,
-  doubleWallResonanceHz,
-  plateCriticalFrequencies,
-} from "../core-acoustics/tmm.js";
+import { doubleWallResonanceHz, plateCriticalFrequencies } from "../core-acoustics/tmm.js";
 
-const state = { wallResults: null };
+const state = { wallResults: null, wallWorker: null };
 
 function create(tag, attributes = {}, children = []) {
   const node = document.createElement(tag);
@@ -138,6 +134,7 @@ function setupWall() {
     redraw();
   });
   document.getElementById("calculate-wall").addEventListener("click", () => calculateWall(rows));
+  document.getElementById("cancel-wall").addEventListener("click", cancelWallCalculation);
 }
 
 function calculateWall(rows) {
@@ -153,18 +150,57 @@ function calculateWall(rows) {
     showError("入力を確認してください", errors);
     return;
   }
-  const layers = converted.map((result) => result.layer);
-  const status = document.getElementById("wall-status");
-  status.textContent = "計算中…";
-  // 画面に「計算中」を出してから計算する
-  setTimeout(() => {
-    runSafely("計算できませんでした", () => showWallResults(layers));
-    status.textContent = "";
-  }, 0);
+  startWallCalculation(converted.map((result) => result.layer));
 }
 
-function showWallResults(layers) {
-  const results = bandResults(layers);
+// ---- 壁の計算の実行・中止（計算は別スレッド。中止したら途中の結果は使わない） ----
+
+function setWallRunning(isRunning, message) {
+  document.getElementById("calculate-wall").disabled = isRunning;
+  document.getElementById("add-layer").disabled = isRunning;
+  document.getElementById("cancel-wall").hidden = !isRunning;
+  document.getElementById("wall-status").textContent = message;
+}
+
+function stopWallWorker() {
+  state.wallWorker?.terminate();
+  state.wallWorker = null;
+}
+
+function startWallCalculation(layers) {
+  stopWallWorker();
+  const worker = new Worker(new URL("./wall-worker.js", import.meta.url), { type: "module" });
+  state.wallWorker = worker;
+  setWallRunning(true, "計算中…");
+  worker.addEventListener("message", (event) => {
+    const message = event.data;
+    if (message.type === "progress") {
+      setWallRunning(true, `計算中… ${message.done} / ${message.total} 帯域`);
+      return;
+    }
+    stopWallWorker();
+    setWallRunning(false, "");
+    if (message.type === "done") {
+      runSafely("結果を表示できませんでした", () => showWallResults(layers, message.results));
+    } else {
+      showError("計算できませんでした", [message.message]);
+    }
+  });
+  worker.addEventListener("error", (event) => {
+    stopWallWorker();
+    setWallRunning(false, "");
+    showError("計算できませんでした", [event.message || "計算用のスレッドを起動できませんでした"]);
+  });
+  worker.postMessage({ layers });
+}
+
+function cancelWallCalculation() {
+  if (!state.wallWorker) return;
+  stopWallWorker();
+  setWallRunning(false, "計算を中止しました（前の結果はそのままです）");
+}
+
+function showWallResults(layers, results) {
   state.wallResults = results;
   const notes = [];
   const resonance = doubleWallResonanceHz(layers);

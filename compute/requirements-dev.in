@@ -4,3 +4,6 @@ pytest==9.1.1
 hypothesis==6.170.5
 jsonschema==4.26.0
 ruff==0.17.1
+pytest-cov==7.1.0
+# coverage は 2026-10-22 公開の 7.17.0 を避け、2週間以上前に出た 7.16.2 に固定
+coverage==7.16.2
