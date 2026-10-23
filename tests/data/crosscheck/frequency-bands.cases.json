@@ -1,0 +1,89 @@
+{
+  "description": "帯域表の二重実装照合用の入力（全帯域）",
+  "cases": [
+    {
+      "id": "x=-13",
+      "bandIndex": -13
+    },
+    {
+      "id": "x=-12",
+      "bandIndex": -12
+    },
+    {
+      "id": "x=-11",
+      "bandIndex": -11
+    },
+    {
+      "id": "x=-10",
+      "bandIndex": -10
+    },
+    {
+      "id": "x=-9",
+      "bandIndex": -9
+    },
+    {
+      "id": "x=-8",
+      "bandIndex": -8
+    },
+    {
+      "id": "x=-7",
+      "bandIndex": -7
+    },
+    {
+      "id": "x=-6",
+      "bandIndex": -6
+    },
+    {
+      "id": "x=-5",
+      "bandIndex": -5
+    },
+    {
+      "id": "x=-4",
+      "bandIndex": -4
+    },
+    {
+      "id": "x=-3",
+      "bandIndex": -3
+    },
+    {
+      "id": "x=-2",
+      "bandIndex": -2
+    },
+    {
+      "id": "x=-1",
+      "bandIndex": -1
+    },
+    {
+      "id": "x=0",
+      "bandIndex": 0
+    },
+    {
+      "id": "x=1",
+      "bandIndex": 1
+    },
+    {
+      "id": "x=2",
+      "bandIndex": 2
+    },
+    {
+      "id": "x=3",
+      "bandIndex": 3
+    },
+    {
+      "id": "x=4",
+      "bandIndex": 4
+    },
+    {
+      "id": "x=5",
+      "bandIndex": 5
+    },
+    {
+      "id": "x=6",
+      "bandIndex": 6
+    },
+    {
+      "id": "x=7",
+      "bandIndex": 7
+    }
+  ]
+}

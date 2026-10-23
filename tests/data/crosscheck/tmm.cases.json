@@ -1,0 +1,310 @@
+{
+  "description": "伝達マトリクス法の二重実装照合用の入力。層の値は計算確認用で、実在の材料データではない",
+  "obliqueAngleDeg": 45,
+  "cases": [
+    {
+      "id": "質量だけの板 10 kg/m²",
+      "layers": [
+        {
+          "kind": "plate",
+          "surfaceDensityKgm2": 10,
+          "bendingStiffnessNm": 0,
+          "lossFactorRatio": 0
+        }
+      ],
+      "transmission": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ],
+      "absorption": false
+    },
+    {
+      "id": "曲げ剛性のある板（試験用）",
+      "layers": [
+        {
+          "kind": "plate",
+          "surfaceDensityKgm2": 10,
+          "bendingStiffnessNm": 447.1440018315019,
+          "lossFactorRatio": 0.01
+        }
+      ],
+      "transmission": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ],
+      "absorption": false
+    },
+    {
+      "id": "板－空気層100mm－板",
+      "layers": [
+        {
+          "kind": "plate",
+          "surfaceDensityKgm2": 10,
+          "bendingStiffnessNm": 447.1440018315019,
+          "lossFactorRatio": 0.01
+        },
+        {
+          "kind": "air",
+          "thicknessM": 0.1
+        },
+        {
+          "kind": "plate",
+          "surfaceDensityKgm2": 10,
+          "bendingStiffnessNm": 447.1440018315019,
+          "lossFactorRatio": 0.01
+        }
+      ],
+      "transmission": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ],
+      "absorption": false
+    },
+    {
+      "id": "板－多孔質50mm－空気層50mm－板",
+      "layers": [
+        {
+          "kind": "plate",
+          "surfaceDensityKgm2": 10,
+          "bendingStiffnessNm": 447.1440018315019,
+          "lossFactorRatio": 0.01
+        },
+        {
+          "kind": "porous",
+          "thicknessM": 0.05,
+          "flowResistivityPasm2": 10000
+        },
+        {
+          "kind": "air",
+          "thicknessM": 0.05
+        },
+        {
+          "kind": "plate",
+          "surfaceDensityKgm2": 10,
+          "bendingStiffnessNm": 447.1440018315019,
+          "lossFactorRatio": 0.01
+        }
+      ],
+      "transmission": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ],
+      "absorption": false
+    },
+    {
+      "id": "重い板と軽い板の二重壁",
+      "layers": [
+        {
+          "kind": "plate",
+          "surfaceDensityKgm2": 20,
+          "bendingStiffnessNm": 0,
+          "lossFactorRatio": 0
+        },
+        {
+          "kind": "air",
+          "thicknessM": 0.05
+        },
+        {
+          "kind": "plate",
+          "surfaceDensityKgm2": 5,
+          "bendingStiffnessNm": 0,
+          "lossFactorRatio": 0
+        }
+      ],
+      "transmission": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ],
+      "absorption": false
+    },
+    {
+      "id": "多孔質50mm（剛壁裏打ち）",
+      "layers": [
+        {
+          "kind": "porous",
+          "thicknessM": 0.05,
+          "flowResistivityPasm2": 10000
+        }
+      ],
+      "absorption": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ],
+      "transmission": false
+    },
+    {
+      "id": "多孔質25mm＋空気層75mm（剛壁裏打ち）",
+      "layers": [
+        {
+          "kind": "porous",
+          "thicknessM": 0.025,
+          "flowResistivityPasm2": 20000
+        },
+        {
+          "kind": "air",
+          "thicknessM": 0.075
+        }
+      ],
+      "absorption": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ],
+      "transmission": false
+    },
+    {
+      "id": "微細穿孔板＋空気層30mm",
+      "layers": [
+        {
+          "kind": "perforated",
+          "thicknessM": 0.001,
+          "holeDiameterM": 0.00025,
+          "perforationRatio": 0.05
+        },
+        {
+          "kind": "air",
+          "thicknessM": 0.03
+        }
+      ],
+      "absorption": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ],
+      "transmission": false
+    },
+    {
+      "id": "有孔ボード＋多孔質＋空気層",
+      "layers": [
+        {
+          "kind": "perforated",
+          "thicknessM": 0.0055,
+          "holeDiameterM": 0.005,
+          "perforationRatio": 0.087
+        },
+        {
+          "kind": "porous",
+          "thicknessM": 0.025,
+          "flowResistivityPasm2": 15000
+        },
+        {
+          "kind": "air",
+          "thicknessM": 0.025
+        }
+      ],
+      "absorption": true,
+      "transmission": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ]
+    },
+    {
+      "id": "穴の大きい有孔ボード＋空気層",
+      "layers": [
+        {
+          "kind": "perforated",
+          "thicknessM": 0.009,
+          "holeDiameterM": 0.008,
+          "perforationRatio": 0.2
+        },
+        {
+          "kind": "air",
+          "thicknessM": 0.045
+        }
+      ],
+      "absorption": true,
+      "frequenciesHz": [
+        63.0957,
+        125.893,
+        251.189,
+        501.187,
+        1000.0,
+        1995.26,
+        2511.89,
+        3162.28,
+        3981.07,
+        5011.87
+      ],
+      "transmission": false
+    }
+  ]
+}

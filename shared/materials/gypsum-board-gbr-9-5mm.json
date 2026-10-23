@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "gypsum-board-gbr-9-5mm",
+  "name": "せっこうボード（GB-R）9.5mm",
+  "properties": {
+    "thickness": {
+      "value": 0.0095,
+      "unit": "m",
+      "source": {
+        "title": "吉野石膏「JIS製品規格一覧」JIS A 6901 せっこうボード（GB-R）の単位面積質量",
+        "url": "https://yoshino-gypsum.com/en/special/hosoku/list_jis",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "規格",
+      "note": "JIS A 6901 の呼び厚さ"
+    },
+    "surfaceDensity": {
+      "value": 7.6,
+      "unit": "kg/m2",
+      "source": {
+        "title": "吉野石膏「JIS製品規格一覧」JIS A 6901 せっこうボード（GB-R）の単位面積質量",
+        "url": "https://yoshino-gypsum.com/en/special/hosoku/list_jis",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "規格",
+      "note": "JIS の範囲 6.2〜9.0 kg/m² の中央値"
+    },
+    "coincidenceProduct": {
+      "value": 38,
+      "unit": "m/s",
+      "source": {
+        "title": "Architectural Acoustics（Long）第9章 表9.1 臨界周波数×板厚 fc·h（講義資料に収録された抜粋）",
+        "url": "https://ocw.upj.ac.id/files/Textbook-ARS-405-TEXTBOOK-09-FISIKA-BANGUNAN.pdf",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "二次情報",
+      "note": "Gypsum Board (plaster)。表には「10%程度のばらつきは珍しくない」と注記"
+    },
+    "lossFactor": {
+      "value": 0.01,
+      "unit": "1",
+      "source": {
+        "title": "出典未確認の仮の値（損失係数の公表値を確認できていない）",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "暫定",
+      "note": "板の損失係数。わかる場合は自分で入力する"
+    }
+  }
+}

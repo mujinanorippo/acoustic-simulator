@@ -1,0 +1,320 @@
+{
+  "description": "開口部による遮音低下の二重実装照合用の入力",
+  "cases": [
+    {
+      "id": "壁0dB・開口率0",
+      "wallTlDb": 0,
+      "openingRatio": 0
+    },
+    {
+      "id": "壁0dB・開口率0.0001",
+      "wallTlDb": 0,
+      "openingRatio": 0.0001
+    },
+    {
+      "id": "壁0dB・開口率0.001",
+      "wallTlDb": 0,
+      "openingRatio": 0.001
+    },
+    {
+      "id": "壁0dB・開口率0.005",
+      "wallTlDb": 0,
+      "openingRatio": 0.005
+    },
+    {
+      "id": "壁0dB・開口率0.01",
+      "wallTlDb": 0,
+      "openingRatio": 0.01
+    },
+    {
+      "id": "壁0dB・開口率0.05",
+      "wallTlDb": 0,
+      "openingRatio": 0.05
+    },
+    {
+      "id": "壁0dB・開口率0.1",
+      "wallTlDb": 0,
+      "openingRatio": 0.1
+    },
+    {
+      "id": "壁0dB・開口率0.5",
+      "wallTlDb": 0,
+      "openingRatio": 0.5
+    },
+    {
+      "id": "壁0dB・開口率1",
+      "wallTlDb": 0,
+      "openingRatio": 1
+    },
+    {
+      "id": "壁10dB・開口率0",
+      "wallTlDb": 10,
+      "openingRatio": 0
+    },
+    {
+      "id": "壁10dB・開口率0.0001",
+      "wallTlDb": 10,
+      "openingRatio": 0.0001
+    },
+    {
+      "id": "壁10dB・開口率0.001",
+      "wallTlDb": 10,
+      "openingRatio": 0.001
+    },
+    {
+      "id": "壁10dB・開口率0.005",
+      "wallTlDb": 10,
+      "openingRatio": 0.005
+    },
+    {
+      "id": "壁10dB・開口率0.01",
+      "wallTlDb": 10,
+      "openingRatio": 0.01
+    },
+    {
+      "id": "壁10dB・開口率0.05",
+      "wallTlDb": 10,
+      "openingRatio": 0.05
+    },
+    {
+      "id": "壁10dB・開口率0.1",
+      "wallTlDb": 10,
+      "openingRatio": 0.1
+    },
+    {
+      "id": "壁10dB・開口率0.5",
+      "wallTlDb": 10,
+      "openingRatio": 0.5
+    },
+    {
+      "id": "壁10dB・開口率1",
+      "wallTlDb": 10,
+      "openingRatio": 1
+    },
+    {
+      "id": "壁25dB・開口率0",
+      "wallTlDb": 25,
+      "openingRatio": 0
+    },
+    {
+      "id": "壁25dB・開口率0.0001",
+      "wallTlDb": 25,
+      "openingRatio": 0.0001
+    },
+    {
+      "id": "壁25dB・開口率0.001",
+      "wallTlDb": 25,
+      "openingRatio": 0.001
+    },
+    {
+      "id": "壁25dB・開口率0.005",
+      "wallTlDb": 25,
+      "openingRatio": 0.005
+    },
+    {
+      "id": "壁25dB・開口率0.01",
+      "wallTlDb": 25,
+      "openingRatio": 0.01
+    },
+    {
+      "id": "壁25dB・開口率0.05",
+      "wallTlDb": 25,
+      "openingRatio": 0.05
+    },
+    {
+      "id": "壁25dB・開口率0.1",
+      "wallTlDb": 25,
+      "openingRatio": 0.1
+    },
+    {
+      "id": "壁25dB・開口率0.5",
+      "wallTlDb": 25,
+      "openingRatio": 0.5
+    },
+    {
+      "id": "壁25dB・開口率1",
+      "wallTlDb": 25,
+      "openingRatio": 1
+    },
+    {
+      "id": "壁35dB・開口率0",
+      "wallTlDb": 35,
+      "openingRatio": 0
+    },
+    {
+      "id": "壁35dB・開口率0.0001",
+      "wallTlDb": 35,
+      "openingRatio": 0.0001
+    },
+    {
+      "id": "壁35dB・開口率0.001",
+      "wallTlDb": 35,
+      "openingRatio": 0.001
+    },
+    {
+      "id": "壁35dB・開口率0.005",
+      "wallTlDb": 35,
+      "openingRatio": 0.005
+    },
+    {
+      "id": "壁35dB・開口率0.01",
+      "wallTlDb": 35,
+      "openingRatio": 0.01
+    },
+    {
+      "id": "壁35dB・開口率0.05",
+      "wallTlDb": 35,
+      "openingRatio": 0.05
+    },
+    {
+      "id": "壁35dB・開口率0.1",
+      "wallTlDb": 35,
+      "openingRatio": 0.1
+    },
+    {
+      "id": "壁35dB・開口率0.5",
+      "wallTlDb": 35,
+      "openingRatio": 0.5
+    },
+    {
+      "id": "壁35dB・開口率1",
+      "wallTlDb": 35,
+      "openingRatio": 1
+    },
+    {
+      "id": "壁45dB・開口率0",
+      "wallTlDb": 45,
+      "openingRatio": 0
+    },
+    {
+      "id": "壁45dB・開口率0.0001",
+      "wallTlDb": 45,
+      "openingRatio": 0.0001
+    },
+    {
+      "id": "壁45dB・開口率0.001",
+      "wallTlDb": 45,
+      "openingRatio": 0.001
+    },
+    {
+      "id": "壁45dB・開口率0.005",
+      "wallTlDb": 45,
+      "openingRatio": 0.005
+    },
+    {
+      "id": "壁45dB・開口率0.01",
+      "wallTlDb": 45,
+      "openingRatio": 0.01
+    },
+    {
+      "id": "壁45dB・開口率0.05",
+      "wallTlDb": 45,
+      "openingRatio": 0.05
+    },
+    {
+      "id": "壁45dB・開口率0.1",
+      "wallTlDb": 45,
+      "openingRatio": 0.1
+    },
+    {
+      "id": "壁45dB・開口率0.5",
+      "wallTlDb": 45,
+      "openingRatio": 0.5
+    },
+    {
+      "id": "壁45dB・開口率1",
+      "wallTlDb": 45,
+      "openingRatio": 1
+    },
+    {
+      "id": "壁55dB・開口率0",
+      "wallTlDb": 55,
+      "openingRatio": 0
+    },
+    {
+      "id": "壁55dB・開口率0.0001",
+      "wallTlDb": 55,
+      "openingRatio": 0.0001
+    },
+    {
+      "id": "壁55dB・開口率0.001",
+      "wallTlDb": 55,
+      "openingRatio": 0.001
+    },
+    {
+      "id": "壁55dB・開口率0.005",
+      "wallTlDb": 55,
+      "openingRatio": 0.005
+    },
+    {
+      "id": "壁55dB・開口率0.01",
+      "wallTlDb": 55,
+      "openingRatio": 0.01
+    },
+    {
+      "id": "壁55dB・開口率0.05",
+      "wallTlDb": 55,
+      "openingRatio": 0.05
+    },
+    {
+      "id": "壁55dB・開口率0.1",
+      "wallTlDb": 55,
+      "openingRatio": 0.1
+    },
+    {
+      "id": "壁55dB・開口率0.5",
+      "wallTlDb": 55,
+      "openingRatio": 0.5
+    },
+    {
+      "id": "壁55dB・開口率1",
+      "wallTlDb": 55,
+      "openingRatio": 1
+    },
+    {
+      "id": "壁65dB・開口率0",
+      "wallTlDb": 65,
+      "openingRatio": 0
+    },
+    {
+      "id": "壁65dB・開口率0.0001",
+      "wallTlDb": 65,
+      "openingRatio": 0.0001
+    },
+    {
+      "id": "壁65dB・開口率0.001",
+      "wallTlDb": 65,
+      "openingRatio": 0.001
+    },
+    {
+      "id": "壁65dB・開口率0.005",
+      "wallTlDb": 65,
+      "openingRatio": 0.005
+    },
+    {
+      "id": "壁65dB・開口率0.01",
+      "wallTlDb": 65,
+      "openingRatio": 0.01
+    },
+    {
+      "id": "壁65dB・開口率0.05",
+      "wallTlDb": 65,
+      "openingRatio": 0.05
+    },
+    {
+      "id": "壁65dB・開口率0.1",
+      "wallTlDb": 65,
+      "openingRatio": 0.1
+    },
+    {
+      "id": "壁65dB・開口率0.5",
+      "wallTlDb": 65,
+      "openingRatio": 0.5
+    },
+    {
+      "id": "壁65dB・開口率1",
+      "wallTlDb": 65,
+      "openingRatio": 1
+    }
+  ]
+}

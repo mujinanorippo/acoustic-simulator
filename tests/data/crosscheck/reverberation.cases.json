@@ -1,0 +1,565 @@
+{
+  "description": "残響式の二重実装照合用の入力。期待値は tools/generate_crosscheck.py が照合用Pythonで作る",
+  "cases": [
+    {
+      "id": "6畳（中京間364×273cm、天井240cm） / 全面同じ（0.05）",
+      "room": {
+        "lengthXM": 3.64,
+        "widthYM": 2.73,
+        "heightZM": 2.4
+      },
+      "faceAbsorption": {
+        "xMin": 0.05,
+        "xMax": 0.05,
+        "yMin": 0.05,
+        "yMax": 0.05,
+        "zMin": 0.05,
+        "zMax": 0.05
+      }
+    },
+    {
+      "id": "6畳（中京間364×273cm、天井240cm） / 全面同じ（0.3）",
+      "room": {
+        "lengthXM": 3.64,
+        "widthYM": 2.73,
+        "heightZM": 2.4
+      },
+      "faceAbsorption": {
+        "xMin": 0.3,
+        "xMax": 0.3,
+        "yMin": 0.3,
+        "yMax": 0.3,
+        "zMin": 0.3,
+        "zMax": 0.3
+      }
+    },
+    {
+      "id": "6畳（中京間364×273cm、天井240cm） / 床だけ吸音（0.6）",
+      "room": {
+        "lengthXM": 3.64,
+        "widthYM": 2.73,
+        "heightZM": 2.4
+      },
+      "faceAbsorption": {
+        "xMin": 0.03,
+        "xMax": 0.03,
+        "yMin": 0.03,
+        "yMax": 0.03,
+        "zMin": 0.6,
+        "zMax": 0.03
+      }
+    },
+    {
+      "id": "6畳（中京間364×273cm、天井240cm） / 天井と床が吸音",
+      "room": {
+        "lengthXM": 3.64,
+        "widthYM": 2.73,
+        "heightZM": 2.4
+      },
+      "faceAbsorption": {
+        "xMin": 0.02,
+        "xMax": 0.02,
+        "yMin": 0.02,
+        "yMax": 0.02,
+        "zMin": 0.7,
+        "zMax": 0.8
+      }
+    },
+    {
+      "id": "6畳（中京間364×273cm、天井240cm） / 片側の壁だけ吸音",
+      "room": {
+        "lengthXM": 3.64,
+        "widthYM": 2.73,
+        "heightZM": 2.4
+      },
+      "faceAbsorption": {
+        "xMin": 0.9,
+        "xMax": 0.04,
+        "yMin": 0.04,
+        "yMax": 0.04,
+        "zMin": 0.04,
+        "zMax": 0.04
+      }
+    },
+    {
+      "id": "6畳（中京間364×273cm、天井240cm） / ほぼ全吸音（0.95）",
+      "room": {
+        "lengthXM": 3.64,
+        "widthYM": 2.73,
+        "heightZM": 2.4
+      },
+      "faceAbsorption": {
+        "xMin": 0.95,
+        "xMax": 0.95,
+        "yMin": 0.95,
+        "yMax": 0.95,
+        "zMin": 0.95,
+        "zMax": 0.95
+      }
+    },
+    {
+      "id": "6畳（中京間364×273cm、天井240cm） / 一面が完全吸音（1.0）",
+      "room": {
+        "lengthXM": 3.64,
+        "widthYM": 2.73,
+        "heightZM": 2.4
+      },
+      "faceAbsorption": {
+        "xMin": 1.0,
+        "xMax": 0.1,
+        "yMin": 0.1,
+        "yMax": 0.1,
+        "zMin": 0.1,
+        "zMax": 0.1
+      }
+    },
+    {
+      "id": "半間押し入れ下段 / 全面同じ（0.05）",
+      "room": {
+        "lengthXM": 0.9,
+        "widthYM": 0.8,
+        "heightZM": 0.75
+      },
+      "faceAbsorption": {
+        "xMin": 0.05,
+        "xMax": 0.05,
+        "yMin": 0.05,
+        "yMax": 0.05,
+        "zMin": 0.05,
+        "zMax": 0.05
+      }
+    },
+    {
+      "id": "半間押し入れ下段 / 全面同じ（0.3）",
+      "room": {
+        "lengthXM": 0.9,
+        "widthYM": 0.8,
+        "heightZM": 0.75
+      },
+      "faceAbsorption": {
+        "xMin": 0.3,
+        "xMax": 0.3,
+        "yMin": 0.3,
+        "yMax": 0.3,
+        "zMin": 0.3,
+        "zMax": 0.3
+      }
+    },
+    {
+      "id": "半間押し入れ下段 / 床だけ吸音（0.6）",
+      "room": {
+        "lengthXM": 0.9,
+        "widthYM": 0.8,
+        "heightZM": 0.75
+      },
+      "faceAbsorption": {
+        "xMin": 0.03,
+        "xMax": 0.03,
+        "yMin": 0.03,
+        "yMax": 0.03,
+        "zMin": 0.6,
+        "zMax": 0.03
+      }
+    },
+    {
+      "id": "半間押し入れ下段 / 天井と床が吸音",
+      "room": {
+        "lengthXM": 0.9,
+        "widthYM": 0.8,
+        "heightZM": 0.75
+      },
+      "faceAbsorption": {
+        "xMin": 0.02,
+        "xMax": 0.02,
+        "yMin": 0.02,
+        "yMax": 0.02,
+        "zMin": 0.7,
+        "zMax": 0.8
+      }
+    },
+    {
+      "id": "半間押し入れ下段 / 片側の壁だけ吸音",
+      "room": {
+        "lengthXM": 0.9,
+        "widthYM": 0.8,
+        "heightZM": 0.75
+      },
+      "faceAbsorption": {
+        "xMin": 0.9,
+        "xMax": 0.04,
+        "yMin": 0.04,
+        "yMax": 0.04,
+        "zMin": 0.04,
+        "zMax": 0.04
+      }
+    },
+    {
+      "id": "半間押し入れ下段 / ほぼ全吸音（0.95）",
+      "room": {
+        "lengthXM": 0.9,
+        "widthYM": 0.8,
+        "heightZM": 0.75
+      },
+      "faceAbsorption": {
+        "xMin": 0.95,
+        "xMax": 0.95,
+        "yMin": 0.95,
+        "yMax": 0.95,
+        "zMin": 0.95,
+        "zMax": 0.95
+      }
+    },
+    {
+      "id": "半間押し入れ下段 / 一面が完全吸音（1.0）",
+      "room": {
+        "lengthXM": 0.9,
+        "widthYM": 0.8,
+        "heightZM": 0.75
+      },
+      "faceAbsorption": {
+        "xMin": 1.0,
+        "xMax": 0.1,
+        "yMin": 0.1,
+        "yMax": 0.1,
+        "zMin": 0.1,
+        "zMax": 0.1
+      }
+    },
+    {
+      "id": "卓上ブース60cm / 全面同じ（0.05）",
+      "room": {
+        "lengthXM": 0.6,
+        "widthYM": 0.6,
+        "heightZM": 0.6
+      },
+      "faceAbsorption": {
+        "xMin": 0.05,
+        "xMax": 0.05,
+        "yMin": 0.05,
+        "yMax": 0.05,
+        "zMin": 0.05,
+        "zMax": 0.05
+      }
+    },
+    {
+      "id": "卓上ブース60cm / 全面同じ（0.3）",
+      "room": {
+        "lengthXM": 0.6,
+        "widthYM": 0.6,
+        "heightZM": 0.6
+      },
+      "faceAbsorption": {
+        "xMin": 0.3,
+        "xMax": 0.3,
+        "yMin": 0.3,
+        "yMax": 0.3,
+        "zMin": 0.3,
+        "zMax": 0.3
+      }
+    },
+    {
+      "id": "卓上ブース60cm / 床だけ吸音（0.6）",
+      "room": {
+        "lengthXM": 0.6,
+        "widthYM": 0.6,
+        "heightZM": 0.6
+      },
+      "faceAbsorption": {
+        "xMin": 0.03,
+        "xMax": 0.03,
+        "yMin": 0.03,
+        "yMax": 0.03,
+        "zMin": 0.6,
+        "zMax": 0.03
+      }
+    },
+    {
+      "id": "卓上ブース60cm / 天井と床が吸音",
+      "room": {
+        "lengthXM": 0.6,
+        "widthYM": 0.6,
+        "heightZM": 0.6
+      },
+      "faceAbsorption": {
+        "xMin": 0.02,
+        "xMax": 0.02,
+        "yMin": 0.02,
+        "yMax": 0.02,
+        "zMin": 0.7,
+        "zMax": 0.8
+      }
+    },
+    {
+      "id": "卓上ブース60cm / 片側の壁だけ吸音",
+      "room": {
+        "lengthXM": 0.6,
+        "widthYM": 0.6,
+        "heightZM": 0.6
+      },
+      "faceAbsorption": {
+        "xMin": 0.9,
+        "xMax": 0.04,
+        "yMin": 0.04,
+        "yMax": 0.04,
+        "zMin": 0.04,
+        "zMax": 0.04
+      }
+    },
+    {
+      "id": "卓上ブース60cm / ほぼ全吸音（0.95）",
+      "room": {
+        "lengthXM": 0.6,
+        "widthYM": 0.6,
+        "heightZM": 0.6
+      },
+      "faceAbsorption": {
+        "xMin": 0.95,
+        "xMax": 0.95,
+        "yMin": 0.95,
+        "yMax": 0.95,
+        "zMin": 0.95,
+        "zMax": 0.95
+      }
+    },
+    {
+      "id": "卓上ブース60cm / 一面が完全吸音（1.0）",
+      "room": {
+        "lengthXM": 0.6,
+        "widthYM": 0.6,
+        "heightZM": 0.6
+      },
+      "faceAbsorption": {
+        "xMin": 1.0,
+        "xMax": 0.1,
+        "yMin": 0.1,
+        "yMax": 0.1,
+        "zMin": 0.1,
+        "zMax": 0.1
+      }
+    },
+    {
+      "id": "細長い部屋 / 全面同じ（0.05）",
+      "room": {
+        "lengthXM": 6.0,
+        "widthYM": 2.0,
+        "heightZM": 2.5
+      },
+      "faceAbsorption": {
+        "xMin": 0.05,
+        "xMax": 0.05,
+        "yMin": 0.05,
+        "yMax": 0.05,
+        "zMin": 0.05,
+        "zMax": 0.05
+      }
+    },
+    {
+      "id": "細長い部屋 / 全面同じ（0.3）",
+      "room": {
+        "lengthXM": 6.0,
+        "widthYM": 2.0,
+        "heightZM": 2.5
+      },
+      "faceAbsorption": {
+        "xMin": 0.3,
+        "xMax": 0.3,
+        "yMin": 0.3,
+        "yMax": 0.3,
+        "zMin": 0.3,
+        "zMax": 0.3
+      }
+    },
+    {
+      "id": "細長い部屋 / 床だけ吸音（0.6）",
+      "room": {
+        "lengthXM": 6.0,
+        "widthYM": 2.0,
+        "heightZM": 2.5
+      },
+      "faceAbsorption": {
+        "xMin": 0.03,
+        "xMax": 0.03,
+        "yMin": 0.03,
+        "yMax": 0.03,
+        "zMin": 0.6,
+        "zMax": 0.03
+      }
+    },
+    {
+      "id": "細長い部屋 / 天井と床が吸音",
+      "room": {
+        "lengthXM": 6.0,
+        "widthYM": 2.0,
+        "heightZM": 2.5
+      },
+      "faceAbsorption": {
+        "xMin": 0.02,
+        "xMax": 0.02,
+        "yMin": 0.02,
+        "yMax": 0.02,
+        "zMin": 0.7,
+        "zMax": 0.8
+      }
+    },
+    {
+      "id": "細長い部屋 / 片側の壁だけ吸音",
+      "room": {
+        "lengthXM": 6.0,
+        "widthYM": 2.0,
+        "heightZM": 2.5
+      },
+      "faceAbsorption": {
+        "xMin": 0.9,
+        "xMax": 0.04,
+        "yMin": 0.04,
+        "yMax": 0.04,
+        "zMin": 0.04,
+        "zMax": 0.04
+      }
+    },
+    {
+      "id": "細長い部屋 / ほぼ全吸音（0.95）",
+      "room": {
+        "lengthXM": 6.0,
+        "widthYM": 2.0,
+        "heightZM": 2.5
+      },
+      "faceAbsorption": {
+        "xMin": 0.95,
+        "xMax": 0.95,
+        "yMin": 0.95,
+        "yMax": 0.95,
+        "zMin": 0.95,
+        "zMax": 0.95
+      }
+    },
+    {
+      "id": "細長い部屋 / 一面が完全吸音（1.0）",
+      "room": {
+        "lengthXM": 6.0,
+        "widthYM": 2.0,
+        "heightZM": 2.5
+      },
+      "faceAbsorption": {
+        "xMin": 1.0,
+        "xMax": 0.1,
+        "yMin": 0.1,
+        "yMax": 0.1,
+        "zMin": 0.1,
+        "zMax": 0.1
+      }
+    },
+    {
+      "id": "大きめの部屋 / 全面同じ（0.05）",
+      "room": {
+        "lengthXM": 8.0,
+        "widthYM": 6.0,
+        "heightZM": 3.0
+      },
+      "faceAbsorption": {
+        "xMin": 0.05,
+        "xMax": 0.05,
+        "yMin": 0.05,
+        "yMax": 0.05,
+        "zMin": 0.05,
+        "zMax": 0.05
+      }
+    },
+    {
+      "id": "大きめの部屋 / 全面同じ（0.3）",
+      "room": {
+        "lengthXM": 8.0,
+        "widthYM": 6.0,
+        "heightZM": 3.0
+      },
+      "faceAbsorption": {
+        "xMin": 0.3,
+        "xMax": 0.3,
+        "yMin": 0.3,
+        "yMax": 0.3,
+        "zMin": 0.3,
+        "zMax": 0.3
+      }
+    },
+    {
+      "id": "大きめの部屋 / 床だけ吸音（0.6）",
+      "room": {
+        "lengthXM": 8.0,
+        "widthYM": 6.0,
+        "heightZM": 3.0
+      },
+      "faceAbsorption": {
+        "xMin": 0.03,
+        "xMax": 0.03,
+        "yMin": 0.03,
+        "yMax": 0.03,
+        "zMin": 0.6,
+        "zMax": 0.03
+      }
+    },
+    {
+      "id": "大きめの部屋 / 天井と床が吸音",
+      "room": {
+        "lengthXM": 8.0,
+        "widthYM": 6.0,
+        "heightZM": 3.0
+      },
+      "faceAbsorption": {
+        "xMin": 0.02,
+        "xMax": 0.02,
+        "yMin": 0.02,
+        "yMax": 0.02,
+        "zMin": 0.7,
+        "zMax": 0.8
+      }
+    },
+    {
+      "id": "大きめの部屋 / 片側の壁だけ吸音",
+      "room": {
+        "lengthXM": 8.0,
+        "widthYM": 6.0,
+        "heightZM": 3.0
+      },
+      "faceAbsorption": {
+        "xMin": 0.9,
+        "xMax": 0.04,
+        "yMin": 0.04,
+        "yMax": 0.04,
+        "zMin": 0.04,
+        "zMax": 0.04
+      }
+    },
+    {
+      "id": "大きめの部屋 / ほぼ全吸音（0.95）",
+      "room": {
+        "lengthXM": 8.0,
+        "widthYM": 6.0,
+        "heightZM": 3.0
+      },
+      "faceAbsorption": {
+        "xMin": 0.95,
+        "xMax": 0.95,
+        "yMin": 0.95,
+        "yMax": 0.95,
+        "zMin": 0.95,
+        "zMax": 0.95
+      }
+    },
+    {
+      "id": "大きめの部屋 / 一面が完全吸音（1.0）",
+      "room": {
+        "lengthXM": 8.0,
+        "widthYM": 6.0,
+        "heightZM": 3.0
+      },
+      "faceAbsorption": {
+        "xMin": 1.0,
+        "xMax": 0.1,
+        "yMin": 0.1,
+        "yMax": 0.1,
+        "zMin": 0.1,
+        "zMax": 0.1
+      }
+    }
+  ]
+}

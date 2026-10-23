@@ -1,0 +1,460 @@
+/* CAD の画面に近い、隙間の少ない落ち着いた見た目（仕様書「画面構成」：同系色・暗い線・角はほぼ丸めない）
+   配色はすべて色の変数で決め、明るい画面と暗い画面の両方を用意する */
+:root {
+  --bg: #e8eaed;
+  --panel: #f5f6f7;
+  --field: #ffffff;
+  --button: #eceef1;
+  --button-hover: #dde2e7;
+  --line: #4a5058;
+  --line-light: #b8bec6;
+  --grid: #e1e4e8;
+  --header: #e0e4e8;
+  --text: #1d2126;
+  --muted: #5b626b;
+  --faint: #8c949c;
+  --accent: #1f5f9e;
+  --accent-hover: #18507f;
+  --accent-border: #123f6b;
+  --accent-text: #ffffff;
+  --titlebar: #2e3338;
+  --titlebar-text: #eef0f2;
+  --titlebar-muted: #b9c0c7;
+  --notice: #fff6e0;
+  --warning: #7a4f00;
+  font-family: "Yu Gothic UI", "Meiryo UI", "Hiragino Sans", system-ui, sans-serif;
+  font-size: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1f23;
+    --panel: #24282d;
+    --field: #1a1d21;
+    --button: #30353b;
+    --button-hover: #3a4047;
+    --line: #8a929b;
+    --line-light: #3f454c;
+    --grid: #33383e;
+    --header: #2c3136;
+    --text: #e3e6e9;
+    --muted: #a2a9b1;
+    --faint: #7b838b;
+    --accent: #4f8fd0;
+    --accent-hover: #6aa2da;
+    --accent-border: #2c5f93;
+    --accent-text: #0e1418;
+    --titlebar: #121417;
+    --titlebar-text: #e3e6e9;
+    --titlebar-muted: #8f979f;
+    --notice: #33290f;
+    --warning: #e6c27a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1c1f23;
+  --panel: #24282d;
+  --field: #1a1d21;
+  --button: #30353b;
+  --button-hover: #3a4047;
+  --line: #8a929b;
+  --line-light: #3f454c;
+  --grid: #33383e;
+  --header: #2c3136;
+  --text: #e3e6e9;
+  --muted: #a2a9b1;
+  --faint: #7b838b;
+  --accent: #4f8fd0;
+  --accent-hover: #6aa2da;
+  --accent-border: #2c5f93;
+  --accent-text: #0e1418;
+  --titlebar: #121417;
+  --titlebar-text: #e3e6e9;
+  --titlebar-muted: #8f979f;
+  --notice: #33290f;
+  --warning: #e6c27a;
+  color-scheme: dark;
+}
+/* display を指定した要素にも hidden 属性を確実に効かせる */
+[hidden] {
+  display: none !important;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+.titlebar,
+.notice,
+.tabs,
+main {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.titlebar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 12px;
+  padding-block: 6px;
+  background: var(--titlebar);
+  color: var(--titlebar-text);
+}
+.titlebar h1 {
+  font-size: 15px;
+  margin: 0;
+  font-weight: 600;
+}
+.subtitle {
+  font-size: 12px;
+  color: var(--titlebar-muted);
+}
+.notice {
+  margin: 0;
+  padding-block: 6px;
+  background: var(--notice);
+  color: var(--warning);
+  border-bottom: 1px solid var(--line-light);
+  font-size: 12px;
+}
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  background: var(--header);
+}
+.tabs button {
+  border: 0;
+  border-right: 1px solid var(--line-light);
+  background: transparent;
+  padding: 6px 16px;
+  color: var(--text);
+}
+.tabs button[aria-selected="true"] {
+  background: var(--panel);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+main {
+  padding-block: 12px;
+  max-width: 1100px;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 12px;
+  min-width: 0;
+}
+.panel h2 {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+.hint {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 6px 0;
+}
+.layer-list {
+  border: 1px solid var(--line-light);
+}
+.layer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 6px;
+  padding: 6px;
+  border-bottom: 1px solid var(--line-light);
+}
+.layer-row:last-child {
+  border-bottom: 0;
+}
+.row-number {
+  width: 20px;
+  text-align: right;
+  color: var(--muted);
+  padding-bottom: 4px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.field input {
+  width: 110px;
+}
+input,
+select,
+button {
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 1px;
+  background: var(--field);
+  color: var(--text);
+  padding: 3px 6px;
+}
+select {
+  max-width: 100%;
+  min-width: 0;
+  width: 240px;
+}
+button {
+  background: var(--button);
+  cursor: pointer;
+}
+button:hover:not(:disabled) {
+  background: var(--button-hover);
+}
+button:disabled {
+  color: var(--faint);
+  cursor: default;
+}
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent-border);
+  color: var(--accent-text);
+}
+button.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.row-buttons {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin: 8px 0;
+}
+.status {
+  color: var(--muted);
+}
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.notes {
+  margin: 6px 0;
+  padding-left: 18px;
+}
+.chart-box {
+  max-width: 760px;
+  border: 1px solid var(--line-light);
+  background: var(--field);
+  margin: 8px 0;
+}
+.chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.chart .grid {
+  stroke: var(--grid);
+  stroke-width: 1;
+}
+.chart .tick {
+  font-size: 10px;
+  fill: var(--muted);
+}
+.chart .axis-label {
+  font-size: 11px;
+  fill: var(--muted);
+}
+.chart .series {
+  fill: none;
+  stroke-width: 2;
+}
+.chart .series.primary {
+  stroke: var(--accent);
+}
+.chart .series.secondary {
+  stroke: var(--faint);
+  stroke-dasharray: 4 3;
+}
+.table-scroll {
+  overflow-x: auto;
+}
+.results {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.results th,
+.results td {
+  border: 1px solid var(--line-light);
+  padding: 2px 10px;
+  text-align: right;
+}
+.results th {
+  background: var(--header);
+  font-weight: 600;
+}
+.results tr.reference td {
+  color: var(--faint);
+}
+dialog {
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 12px 16px;
+  min-width: min(320px, 90vw);
+  background: var(--panel);
+  color: var(--text);
+}
+dialog h2 {
+  font-size: 14px;
+  margin: 0 0 6px;
+}
+.dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+.tab-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.reference-box {
+  border: 1px solid var(--line-light);
+  background: var(--panel);
+  padding: 12px;
+  min-width: 0;
+}
+.reference-box h2 {
+  font-size: 14px;
+  margin: 12px 0 4px;
+}
+.reference-box h2:first-child {
+  margin-top: 0;
+}
+.row-selects,
+.row-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 6px;
+  min-width: 0;
+}
+.row-fields .field {
+  max-width: 220px;
+}
+.input-line {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.reference-tag {
+  color: var(--warning);
+  font-size: 11px;
+  cursor: help;
+  white-space: nowrap;
+}
+.field-help {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.material-select {
+  width: 300px;
+}
+.face-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.face-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.face-label {
+  width: 120px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.inline-field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.inline-field input {
+  width: 70px;
+}
+.input-error {
+  color: var(--warning);
+}
+.results a,
+.reference-box a {
+  color: var(--accent);
+}
+.results td:first-child {
+  text-align: left;
+}
+.results td.text,
+.results th {
+  text-align: left;
+}
+.results td.number {
+  text-align: right;
+}
+input:disabled {
+  color: var(--faint);
+  background: var(--bg);
+}
+.kind-select {
+  width: 110px;
+}
+.face-row select {
+  width: 320px;
+}
+.face-table {
+  border-collapse: collapse;
+  font-size: 12px;
+}
+/* 表計算ソフトのように欄どうしをくっつけた表（入力欄は枠なしでセルいっぱい） */
+.face-table th,
+.face-table td {
+  border: 1px solid var(--line-light);
+  padding: 0;
+  text-align: left;
+  font-weight: normal;
+}
+.face-table thead th {
+  background: var(--header);
+  padding: 2px 6px;
+}
+.face-table tbody th {
+  padding: 0 6px;
+  white-space: nowrap;
+}
+.face-table select,
+.face-table input {
+  display: block;
+  border: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  width: 100%;
+  background: transparent;
+}
+.face-table select {
+  min-width: 290px;
+}
+.band-input {
+  min-width: 56px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.band-input.is-reference {
+  color: var(--warning);
+}

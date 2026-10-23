@@ -24,7 +24,32 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
       - run: npm ci --no-audit --no-fund
-      - run: npm run check
+      - name: lint・整形・テスト（失敗したテスト名を注釈に出す）
+        run: |
+          set -o pipefail
+          npm run check 2>&1 | tee check.log || { grep -E "FAIL|✖|error" check.log | head -30 | sed 's/^/::error::/'; exit 1; }
+      - name: カバー率（どの行がテストで実行されたか）
+        run: npm run test:coverage
+
+  e2e:
+    name: 画面操作テスト（ビルドした完成品をブラウザで操作）
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: 画面操作テスト（失敗したテスト名を注釈に出す）
+        run: |
+          set -o pipefail
+          npm run test:e2e 2>&1 | tee e2e.log || { grep -E "✘|Error" e2e.log | head -30 | sed 's/^/::error::/'; exit 1; }
 
   python:
     name: 計算側・チェックツール
@@ -37,8 +62,19 @@ jobs:
       - run: pip install --require-hashes -r compute/requirements.txt -r compute/requirements-dev.txt
       - run: ruff check .
       - run: ruff format --check .
-      - run: pytest
+      - name: pytest（失敗したテスト名を注釈に出す）
+        run: |
+          set -o pipefail
+          pytest -rf --cov=tests/reference_py --cov-report=term 2>&1 | tee pytest.log || { grep -E "^(FAILED|ERROR)" pytest.log | sed 's/^/::error::/'; exit 1; }
       - name: モジュール間の依存チェック
-        run: python tools/check_module_deps.py
-      - name: 材料データの出典チェック
-        run: python tools/check_materials.py
+        run: |
+          out=$(python tools/check_module_deps.py) || { echo "$out" | sed 's/^/::error::/'; exit 1; }
+          echo "$out"
+      - name: 材料データ・定数の出典チェック
+        run: |
+          out=$(python tools/check_materials.py) || { echo "$out" | sed 's/^/::error::/'; exit 1; }
+          echo "$out"
+      - name: 二重実装照合の期待値が最新か
+        run: |
+          out=$(python tools/generate_crosscheck.py --check) || { echo "$out" | sed 's/^/::error::/'; exit 1; }
+          echo "$out"

@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "id": "frequency-bands",
+  "name": "1/3オクターブ帯域（全モジュール共通の周波数帯域表）",
+  "values": {
+    "referenceFrequency": {
+      "value": 1000,
+      "unit": "Hz",
+      "source": {
+        "title": "acoustic-toolbox: IEC 61260-1:2014（REFERENCE_FREQUENCY）",
+        "url": "https://acoustic-toolbox.readthedocs.io/en/latest/standards/iec_61260_1_2014/",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "NI『Octave Analysis Standards』も同じ定義（fr を基準周波数とする）"
+    },
+    "octaveRatioLog10": {
+      "value": 0.3,
+      "unit": "1",
+      "source": {
+        "title": "acoustic-toolbox: IEC 61260-1:2014（G = 10^(3/10)、10進法）",
+        "url": "https://acoustic-toolbox.readthedocs.io/en/latest/standards/iec_61260_1_2014/",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "オクターブ比 G = 10^0.3。NI『Octave Analysis Standards』（https://www.ni.com/docs/en-US/bundle/labview-sound-and-vibration-toolkit/page/octave-analysis-standards.html）も G = 10^0.3"
+    },
+    "bandsPerOctave": {
+      "value": 3,
+      "unit": "1",
+      "source": {
+        "title": "acoustic-toolbox: IEC 61260-1:2014（b が奇数のとき fm = fr·G^(x/b)、帯域端 fm·G^(±1/2b)）",
+        "url": "https://acoustic-toolbox.readthedocs.io/en/latest/standards/iec_61260_1_2014/",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "1/3オクターブ（b = 3）を採用。建築の遮音評価（ISO 717-1）が1/3オクターブで行われるため"
+    },
+    "bandIndexMin": {
+      "value": -13,
+      "unit": "1",
+      "source": {
+        "title": "AcouVApp: ISO 717-1 の計算範囲（21点のとき 50 Hz〜5000 Hz）",
+        "url": "https://app.impulsion-acoustique.fr/globalindex",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "x = -13 で呼び周波数 50 Hz（正確な値 1000·10^(-1.3) ≈ 50.12 Hz）"
+    },
+    "bandIndexMax": {
+      "value": 7,
+      "unit": "1",
+      "source": {
+        "title": "AcouVApp: ISO 717-1 の計算範囲（21点のとき 50 Hz〜5000 Hz）",
+        "url": "https://app.impulsion-acoustique.fr/globalindex",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "x = 7 で呼び周波数 5000 Hz（正確な値 1000·10^0.7 ≈ 5011.9 Hz）"
+    },
+    "ratingBandIndexMin": {
+      "value": -10,
+      "unit": "1",
+      "source": {
+        "title": "Sound reduction index（Wikipedia）: Rw は 100〜3150 Hz の16個の1/3オクターブ帯域で決める",
+        "url": "https://en.wikipedia.org/wiki/Sound_reduction_index",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "x = -10 で 100 Hz"
+    },
+    "ratingBandIndexMax": {
+      "value": 5,
+      "unit": "1",
+      "source": {
+        "title": "Sound reduction index（Wikipedia）: Rw は 100〜3150 Hz の16個の1/3オクターブ帯域で決める",
+        "url": "https://en.wikipedia.org/wiki/Sound_reduction_index",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "x = 5 で 3150 Hz"
+    },
+    "nominalCenterFrequencies": {
+      "value": [
+        50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000,
+        2500, 3150, 4000, 5000
+      ],
+      "unit": "Hz",
+      "source": {
+        "title": "acoustic-toolbox: IEC 61260-1:2014 の呼び中心周波数（1/3オクターブ）",
+        "url": "https://acoustic-toolbox.readthedocs.io/en/latest/standards/iec_61260_1_2014/",
+        "accessed": "2026-10-22"
+      },
+      "reliability": "二次情報",
+      "note": "画面表示用の呼び値。計算には正確な中心周波数 fr·G^(x/3) を使う"
+    }
+  }
+}
