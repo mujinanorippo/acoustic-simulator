@@ -422,20 +422,39 @@ input:disabled {
   border-collapse: collapse;
   font-size: 12px;
 }
+/* 表計算ソフトのように欄どうしをくっつけた表（入力欄は枠なしでセルいっぱい） */
 .face-table th,
 .face-table td {
-  padding: 2px 4px;
+  border: 1px solid var(--line-light);
+  padding: 0;
   text-align: left;
-  color: var(--muted);
   font-weight: normal;
 }
+.face-table thead th {
+  background: var(--header);
+  padding: 2px 6px;
+}
+.face-table tbody th {
+  padding: 0 6px;
+  white-space: nowrap;
+}
+.face-table select,
+.face-table input {
+  display: block;
+  border: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  width: 100%;
+  background: transparent;
+}
 .face-table select {
-  width: 260px;
+  min-width: 290px;
 }
 .band-input {
-  width: 52px;
+  min-width: 56px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 .band-input.is-reference {
   color: var(--warning);
-  border-style: dashed;
 }
