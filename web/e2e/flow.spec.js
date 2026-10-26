@@ -16,6 +16,8 @@ test.beforeEach(async ({ page }, testInfo) => {
   });
   testInfo.problems = problems;
   await page.goto("/");
+  // フェーズ1の計算画面のテスト：起動直後は「部屋の形」タブなので、壁の遮音タブに切り替える
+  await page.click("[data-tab=wall]");
 });
 
 test.afterEach(async ({ page }, testInfo) => {
@@ -37,10 +39,10 @@ async function expectDialog(page, text) {
   return dialog;
 }
 
-test("1. 起動：入力例の4層・材料の参考値・参考表・3つのタブが出る", async ({ page }) => {
+test("1. 起動：入力例の4層・材料の参考値・参考表・4つのタブが出る", async ({ page }) => {
   await expect(page).toHaveTitle("音響シミュレーター 計算確認");
   await expect(page.locator(".layer-row")).toHaveCount(4);
-  await expect(page.locator("[data-tab]")).toHaveCount(3);
+  await expect(page.locator("[data-tab]")).toHaveCount(4);
   await expect(page.locator(".layer-row").first().locator(".reference-tag")).toHaveCount(4);
   await expect(page.locator("#plate-reference tbody tr")).toHaveCount(31);
   await expect(page.locator("#porous-reference tbody tr")).toHaveCount(13);
@@ -78,7 +80,8 @@ test("2. 壁の遮音：計算すると全帯域の表とグラフが出て、�
   await expect(page.locator("#wall-chart path.series")).toHaveCount(2);
   await expect(page.locator("#wall-notes")).toContainText("二重壁の共鳴周波数");
   await expect(page.locator("#wall-notes")).toContainText("間柱の間隔 455 mm");
-  await expect(page.locator("#wall-sources tbody tr")).toHaveCount(17);
+  await expect(page.locator("#wall-sources tbody tr")).toHaveCount(27);
+  await expect(page.locator("#wall-sources")).toContainText("HDD 回転音");
   await expect(page.locator("#wall-notes")).toContainText("コインシデンス限界周波数：3040 Hz");
   await expect(page.locator("#wall-notes")).toContainText("暫定値を含みます");
   const values = await page.locator("#wall-table td:nth-child(2)").allTextContents();

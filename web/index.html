@@ -10,13 +10,14 @@
   <body>
     <header class="titlebar">
       <h1>音響シミュレーター</h1>
-      <span class="subtitle">フェーズ1：計算の確認画面（数値入力のみ）</span>
+      <span class="subtitle">フェーズ2：モデラーの骨組み（形・開口部・保存）と計算の確認</span>
     </header>
     <p class="notice">
       計算に使う定数（音速・空気の密度など）は二次情報の出典によるもので、結果は暫定値を含みます。初期値は入力例で、実在の材料の値ではありません。
     </p>
     <nav class="tabs" role="tablist">
-      <button type="button" role="tab" data-tab="wall" aria-selected="true">壁の遮音</button>
+      <button type="button" role="tab" data-tab="modeler" aria-selected="true">部屋の形</button>
+      <button type="button" role="tab" data-tab="wall" aria-selected="false">壁の遮音</button>
       <button type="button" role="tab" data-tab="opening" aria-selected="false">開口部</button>
       <button type="button" role="tab" data-tab="reverberation" aria-selected="false">
         残響時間
@@ -24,7 +25,87 @@
     </nav>
 
     <main>
-      <div id="wall" class="tab-page">
+      <div id="modeler" class="tab-page">
+        <section class="panel">
+          <div class="ribbon">
+            <div class="ribbon-group">
+              <div class="ribbon-buttons">
+                <button type="button" id="new-project">新規作成(N)</button>
+                <button type="button" id="open-project">開く(O)</button>
+                <button type="button" id="save-project">保存(S)</button>
+                <input type="file" id="open-file" accept=".json,application/json" hidden />
+              </div>
+              <span class="ribbon-label">ファイル</span>
+            </div>
+            <div class="ribbon-group">
+              <div class="ribbon-buttons">
+                <button type="button" id="add-block" class="shape-button">ブロック</button>
+                <button type="button" id="add-blockHole" class="shape-button">ブロック穴</button>
+                <button type="button" id="add-cylinder" class="shape-button">円柱</button>
+                <button type="button" id="add-cylinderHole" class="shape-button">円柱穴</button>
+              </div>
+              <span class="ribbon-label">形状</span>
+            </div>
+            <div class="ribbon-group">
+              <div class="ribbon-buttons">
+                <button type="button" id="add-door">ドア</button>
+                <button type="button" id="add-window">窓</button>
+                <button type="button" id="add-opening">開口部</button>
+              </div>
+              <span class="ribbon-label">開口部サーフェス</span>
+            </div>
+          </div>
+          <p class="status" id="file-status" aria-live="polite"></p>
+          <div id="room-view" class="room-view"></div>
+          <p class="status" id="room-summary"></p>
+          <h2>形（上から順に、一体化・くり抜き）</h2>
+          <p class="hint">
+            長さは mm。座標は x：幅、y：奥行き、z：高さ（床が
+            0）。ブロックは位置が左手前下の角、円柱は底面の中心。くっつけたブロックは面で接していないと「部屋が分かれた」として元に戻します。
+          </p>
+          <div class="table-scroll">
+            <table class="sheet">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>種類</th>
+                  <th>位置 x</th>
+                  <th>位置 y</th>
+                  <th>位置 z</th>
+                  <th>大きさ x ／向き</th>
+                  <th>大きさ y ／直径</th>
+                  <th>大きさ z ／長さ</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="feature-table"></tbody>
+            </table>
+          </div>
+          <h2>開口部サーフェス（ドア・窓の位置に貼る面）</h2>
+          <div class="table-scroll">
+            <table class="sheet">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>種類</th>
+                  <th>面</th>
+                  <th>面の位置</th>
+                  <th>軸</th>
+                  <th>始まり</th>
+                  <th>終わり</th>
+                  <th>軸</th>
+                  <th>始まり</th>
+                  <th>終わり</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="opening-surface-table"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <div id="wall" class="tab-page" hidden>
         <section class="panel">
           <h2>壁の遮音（伝達マトリクス法）</h2>
           <p class="hint">

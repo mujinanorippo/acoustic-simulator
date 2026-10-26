@@ -8,7 +8,7 @@ const FULL_WIDTH_PATTERN = /[０-９．－＋，]/;
 
 /**
  * 入力欄の文字列を数値にする。結果は { ok: true, value } か { ok: false, message }。
- * options: { min, max, allowZero }（min・max は画面の単位）
+ * options: { min, max, allowZero, allowNegative }（min・max は画面の単位。allowNegative は位置などの座標）
  */
 export function parseNumberField(text, label, options = {}) {
   const trimmed = typeof text === "string" ? text.trim() : "";
@@ -25,7 +25,7 @@ export function parseNumberField(text, label, options = {}) {
   if (!Number.isFinite(value)) {
     return { ok: false, message: `${label}が大きすぎます` };
   }
-  if (value < 0 || (value === 0 && !options.allowZero)) {
+  if (!options.allowNegative && (value < 0 || (value === 0 && !options.allowZero))) {
     return {
       ok: false,
       message: `${label}は${options.allowZero ? "0以上" : "0より大きい数"}で入力してください`,

@@ -16,9 +16,9 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # 開発設計書の表と同じ内容。変えるときは設計書を先に直す。
 JS_ALLOWED: dict[str, set[str]] = {
     "core-acoustics": {"materials", "schema", "constants"},
-    "core-model": {"schema"},
+    "core-model": {"schema", "manifold-3d"},
     "viewer": {"three", "core-model"},
-    "ui": {"viewer", "core-acoustics", "core-model"},
+    "ui": {"viewer", "io", "core-acoustics", "core-model"},
     "io": {"schema", "core-model"},
 }
 PY_ALLOWED: dict[str, set[str]] = {
@@ -29,7 +29,8 @@ PY_ALLOWED: dict[str, set[str]] = {
 PY_REFERENCE_ALLOWED: dict[str, set[str]] = {"reference_py": {"numpy"}}
 # テスト専用ファイルだけが使ってよい道具と、共通テストデータ（tests/data/）
 TEST_DATA = "test-data"
-TEST_ONLY_PACKAGES = {"vitest", "fast-check", "pytest", "hypothesis", TEST_DATA}
+# プロジェクトファイルの見本（shared/samples/）もテストだけが読む
+TEST_ONLY_PACKAGES = {"vitest", "fast-check", "pytest", "hypothesis", TEST_DATA, "samples"}
 PY_STDLIB = set(sys.stdlib_module_names)
 
 IMPORT_PATTERN = re.compile(
