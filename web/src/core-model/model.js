@@ -127,6 +127,32 @@ function requireUniqueIds(items, label) {
   }
 }
 
+// 同じ面にあるとみなす座標の差 [m]（1 µm。入力は mm 単位なので十分小さい）
+const SAME_PLANE_TOLERANCE_M = 1e-6;
+
+/** 2つの開口部が同じ面で重なっているか（辺が接するだけなら重なりではない） */
+export function openingsOverlap(first, second) {
+  if (first.axis !== second.axis) return false;
+  if (Math.abs(first.coordinate - second.coordinate) > SAME_PLANE_TOLERANCE_M) return false;
+  return PLANE_AXES[first.axis].every(
+    (axis) =>
+      Math.min(first.max[axis], second.max[axis]) - Math.max(first.min[axis], second.min[axis]) >
+      SAME_PLANE_TOLERANCE_M,
+  );
+}
+
+function requireNoOverlap(openings) {
+  openings.forEach((opening, index) => {
+    const other = openings.findIndex((item, at) => at > index && openingsOverlap(opening, item));
+    if (other !== -1) {
+      throw new GeometryError(
+        GEOMETRY_ERRORS.OPENINGS_OVERLAP,
+        `${index + 1}番目と${other + 1}番目の開口部が重なっています`,
+      );
+    }
+  });
+}
+
 /** 部屋の形全体を確かめる（形が無い・最初が穴・数が多すぎる、などを止める） */
 export function validateRoom(room) {
   const features = room?.features;
@@ -150,6 +176,7 @@ export function validateRoom(room) {
   openings.forEach(validateOpening);
   requireUniqueIds(features, "形");
   requireUniqueIds(openings, "開口部");
+  requireNoOverlap(openings);
 }
 
 /** 新しい形の id（既存と重ならない短い文字列） */

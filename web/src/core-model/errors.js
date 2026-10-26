@@ -12,6 +12,7 @@ export const GEOMETRY_ERRORS = Object.freeze({
   OPENING_NOT_ON_SURFACE: "E-GEO-008",
   INVALID_OPENING: "E-GEO-009",
   DUPLICATE_ID: "E-GEO-010",
+  OPENINGS_OVERLAP: "E-GEO-011",
 });
 
 export class GeometryError extends Error {

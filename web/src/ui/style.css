@@ -495,3 +495,80 @@ input:disabled {
   font-size: 12px;
   line-height: 1.6;
 }
+/* 部屋の形タブ：リボン（グループ名を下に）、3D表示（青系グラデーション）、表計算風の表 */
+.ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid var(--line-light);
+  background: var(--header);
+}
+.ribbon-group {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line-light);
+  padding: 4px 6px 2px;
+}
+.ribbon-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.ribbon-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 2px;
+}
+.shape-button {
+  font-weight: 600;
+}
+.room-view {
+  height: 420px;
+  border: 1px solid var(--line);
+  background: linear-gradient(#f4f7fb, #9db7d3);
+}
+.room-view canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.sheet {
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.sheet th,
+.sheet td {
+  border: 1px solid var(--line-light);
+  padding: 0;
+  text-align: left;
+  font-weight: normal;
+}
+.sheet th {
+  background: var(--header);
+  padding: 2px 6px;
+}
+.sheet td.row-number,
+.sheet td.axis-label,
+.sheet td > span {
+  padding: 0 6px;
+}
+.sheet .cell-input,
+.sheet .cell-select {
+  display: block;
+  border: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 72px;
+  background: transparent;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.sheet button {
+  border: 0;
+  border-radius: 0;
+}
+.sheet td > span,
+.sheet button {
+  white-space: nowrap;
+}

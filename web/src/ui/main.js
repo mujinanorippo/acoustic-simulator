@@ -1,5 +1,6 @@
-// フェーズ1の確認画面：数値を入れて、壁の遮音・開口部・残響時間を計算する
+// 画面の起動：部屋の形（3Dモデラー）と、壁の遮音・開口部・残響時間の計算
 import "./style.css";
+import { setupModelerPanel } from "./modeler-panel.js";
 import { setOpeningWallResults, setupOpeningPanel } from "./opening-panel.js";
 import { setupReverbPanel } from "./reverb-panel.js";
 import { setupWallPanel } from "./wall-panel.js";
@@ -18,6 +19,7 @@ function setupTabs() {
 }
 
 setupTabs();
+setupModelerPanel();
 setupWallPanel(setOpeningWallResults);
 setupOpeningPanel();
 setupReverbPanel();

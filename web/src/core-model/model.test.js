@@ -89,3 +89,37 @@ describe("nextId", () => {
     expect(nextId("b", [{ id: "b1" }, { id: "b3" }])).toBe("b4");
   });
 });
+
+describe("開口部の重なり", () => {
+  const door = {
+    id: "o1",
+    kind: "door",
+    axis: "y",
+    coordinate: 0,
+    min: { x: 0.5, z: 0 },
+    max: { x: 1.3, z: 2 },
+  };
+  const room = (openings) => ({
+    features: [
+      { id: "b1", kind: "block", position: { x: 0, y: 0, z: 0 }, size: { x: 3, y: 3, z: 2.4 } },
+    ],
+    openings,
+  });
+
+  it("同じ面で重なる開口部は E-GEO-011", () => {
+    const windowOpening = {
+      ...door,
+      id: "o2",
+      kind: "window",
+      min: { x: 1, z: 0.9 },
+      max: { x: 2, z: 1.8 },
+    };
+    expect(() => validateRoom(room([door, windowOpening]))).toThrow(/E-GEO-011/);
+  });
+
+  it("辺で接するだけ・別の面なら重なりではない", () => {
+    const touching = { ...door, id: "o2", min: { x: 1.3, z: 0 }, max: { x: 2, z: 2 } };
+    const otherWall = { ...door, id: "o3", coordinate: 3 };
+    expect(() => validateRoom(room([door, touching, otherWall]))).not.toThrow();
+  });
+});
