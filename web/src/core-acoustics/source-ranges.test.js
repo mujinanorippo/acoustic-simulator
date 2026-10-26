@@ -26,8 +26,8 @@ describe("rangeTransmissionLossDb", () => {
 });
 
 describe("SOUND_SOURCES", () => {
-  it("下限 ≤ 上限（ドラムは1つの周波数）、男性の話し声は 90〜155 Hz、25種類", () => {
-    expect(SOUND_SOURCES).toHaveLength(25);
+  it("下限 ≤ 上限（ドラムは1つの周波数）、男性の話し声は 90〜155 Hz、27種類", () => {
+    expect(SOUND_SOURCES).toHaveLength(27);
     for (const source of SOUND_SOURCES) {
       expect(source.rangeHz[0]).toBeLessThanOrEqual(source.rangeHz[1]);
     }
