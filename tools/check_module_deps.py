@@ -29,7 +29,8 @@ PY_ALLOWED: dict[str, set[str]] = {
 PY_REFERENCE_ALLOWED: dict[str, set[str]] = {"reference_py": {"numpy"}}
 # テスト専用ファイルだけが使ってよい道具と、共通テストデータ（tests/data/）
 TEST_DATA = "test-data"
-TEST_ONLY_PACKAGES = {"vitest", "fast-check", "pytest", "hypothesis", TEST_DATA}
+# プロジェクトファイルの見本（shared/samples/）もテストだけが読む
+TEST_ONLY_PACKAGES = {"vitest", "fast-check", "pytest", "hypothesis", TEST_DATA, "samples"}
 PY_STDLIB = set(sys.stdlib_module_names)
 
 IMPORT_PATTERN = re.compile(

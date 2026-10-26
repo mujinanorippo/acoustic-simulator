@@ -1,11 +1,89 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "project.schema.json",
-  "title": "プロジェクトファイル（フェーズ0の骨組み。中身はフェーズ2以降で定義）",
+  "title": "プロジェクトファイル（開発設計書「プロジェクトJSON」）。長さはすべて m",
   "type": "object",
-  "required": ["schemaVersion", "lengthUnit"],
+  "required": ["schemaVersion", "kind", "lengthUnit", "name", "room"],
+  "additionalProperties": false,
   "properties": {
     "schemaVersion": { "type": "integer", "const": 1 },
-    "lengthUnit": { "const": "m" }
+    "kind": { "const": "acoustic-simulator-project" },
+    "lengthUnit": { "const": "m" },
+    "name": { "type": "string", "maxLength": 200 },
+    "room": {
+      "type": "object",
+      "required": ["features", "openings"],
+      "additionalProperties": false,
+      "properties": {
+        "features": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 200,
+          "items": {
+            "oneOf": [{ "$ref": "#/$defs/box" }, { "$ref": "#/$defs/cylinder" }]
+          }
+        },
+        "openings": {
+          "type": "array",
+          "maxItems": 100,
+          "items": { "$ref": "#/$defs/opening" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "point": {
+      "type": "object",
+      "required": ["x", "y", "z"],
+      "additionalProperties": false,
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      }
+    },
+    "box": {
+      "type": "object",
+      "required": ["id", "kind", "position", "size"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["block", "blockHole"] },
+        "position": { "$ref": "#/$defs/point" },
+        "size": { "$ref": "#/$defs/point" }
+      }
+    },
+    "cylinder": {
+      "type": "object",
+      "required": ["id", "kind", "position", "axis", "diameter", "length"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["cylinder", "cylinderHole"] },
+        "position": { "$ref": "#/$defs/point" },
+        "axis": { "enum": ["x", "y", "z"] },
+        "diameter": { "type": "number", "exclusiveMinimum": 0 },
+        "length": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "opening": {
+      "type": "object",
+      "required": ["id", "kind", "axis", "coordinate", "min", "max"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["door", "window", "opening"] },
+        "axis": { "enum": ["x", "y", "z"] },
+        "coordinate": { "type": "number" },
+        "min": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        },
+        "max": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        }
+      }
+    }
   }
 }

@@ -1,7 +1,8 @@
 """出典付きデータのチェック（開発設計書「データ形式・材料データ」「禁則：数値・根拠」）。
 
 shared/materials/ の JSON が material.schema.json に、shared/constants/ の JSON が
-constant.schema.json に合っているかを確かめる。1件でも不合格なら終了コード 1 を返す。
+constant.schema.json に、shared/samples/ の JSON が project.schema.json に合っているかを
+確かめる。1件でも不合格なら終了コード 1 を返す。
 """
 
 from __future__ import annotations
@@ -17,8 +18,10 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_DIR = REPO_ROOT / "shared" / "schema"
 MATERIAL_SCHEMA = "material.schema.json"
 CONSTANT_SCHEMA = "constant.schema.json"
+PROJECT_SCHEMA = "project.schema.json"
 DEFAULT_MATERIALS_DIR = REPO_ROOT / "shared" / "materials"
 DEFAULT_CONSTANTS_DIR = REPO_ROOT / "shared" / "constants"
+DEFAULT_SAMPLES_DIR = REPO_ROOT / "shared" / "samples"
 
 
 def load_validator(schema_name: str = MATERIAL_SCHEMA) -> Draft202012Validator:
@@ -35,7 +38,9 @@ def load_validator(schema_name: str = MATERIAL_SCHEMA) -> Draft202012Validator:
     return Draft202012Validator(schema, registry=registry, format_checker=FormatChecker())
 
 
-def check_file(path: Path, validator: Draft202012Validator) -> list[str]:
+def check_file(
+    path: Path, validator: Draft202012Validator, *, id_must_match: bool = True
+) -> list[str]:
     """1ファイルを検査し、問題の説明の一覧を返す（空なら合格）。"""
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -45,7 +50,8 @@ def check_file(path: Path, validator: Draft202012Validator) -> list[str]:
     for error in validator.iter_errors(data):
         location = "/".join(str(part) for part in error.absolute_path) or "(先頭)"
         problems.append(f"{path.name}: {location}: {error.message}")
-    if isinstance(data, dict) and data.get("id") != path.stem:
+    # 材料・定数は id とファイル名を一致させる（プロジェクトの見本は id を持たない）
+    if id_must_match and isinstance(data, dict) and data.get("id") != path.stem:
         problems.append(f"{path.name}: id がファイル名と一致しない")
     return problems
 
@@ -54,7 +60,7 @@ def check_directory(directory: Path, schema_name: str = MATERIAL_SCHEMA) -> list
     validator = load_validator(schema_name)
     problems: list[str] = []
     for path in sorted(directory.glob("*.json")):
-        problems.extend(check_file(path, validator))
+        problems.extend(check_file(path, validator, id_must_match=schema_name != PROJECT_SCHEMA))
     return problems
 
 
@@ -65,6 +71,7 @@ def main(argv: list[str]) -> int:
     for label, directory, schema_name in (
         ("材料", materials_dir, MATERIAL_SCHEMA),
         ("定数", constants_dir, CONSTANT_SCHEMA),
+        ("プロジェクトの見本", DEFAULT_SAMPLES_DIR, PROJECT_SCHEMA),
     ):
         problems = check_directory(directory, schema_name)
         for problem in problems:
