@@ -117,6 +117,14 @@ describe("applyMaterial", () => {
     expect(row.texts).toEqual({ thickness: "50", density: "30", flowResistivity: "13397" });
   });
 
+  it("マグ・イゾベール HG16-38 は密度16・繊維径4μmで流れ抵抗 13823", () => {
+    const row = applyMaterial(
+      { kind: "porous", materialId: "", texts: { thickness: "105" }, referenceKeys: [] },
+      "mag-isover-hg16-38",
+    );
+    expect(row.texts).toEqual({ thickness: "105", density: "16", flowResistivity: "13823" });
+  });
+
   it("密度が空欄なら流れ抵抗は計算しない", () => {
     const row = applyMaterial(
       { kind: "porous", materialId: "", texts: { thickness: "50" }, referenceKeys: [] },

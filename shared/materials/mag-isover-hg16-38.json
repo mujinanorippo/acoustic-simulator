@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "mag-isover-hg16-38",
+  "name": "マグ・イゾベール 高性能グラスウール 16K（HG16-38、密度から計算）",
+  "properties": {
+    "density": {
+      "value": 16,
+      "unit": "kg/m3",
+      "source": {
+        "title": "マグ・イゾベール 住宅用断熱材カタログ 2024-2025（高性能品 HG16-38：密度16 kg/m³・熱伝導率0.038、「通常グラスウールの約半分の繊維径(4μm)」）",
+        "url": "https://www.isover.co.jp/documents/catalogue/catalog-2024-2025-residential-1.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "メーカー公表",
+      "note": "厚さ105 mm などの製品がある（例：IC38105L390）。厚さは自分で入れる"
+    },
+    "fiberDiameter": {
+      "value": 4e-6,
+      "unit": "m",
+      "source": {
+        "title": "マグ・イゾベール 住宅用断熱材カタログ 2024-2025（高性能品 HG16-38：密度16 kg/m³・熱伝導率0.038、「通常グラスウールの約半分の繊維径(4μm)」）",
+        "url": "https://www.isover.co.jp/documents/catalogue/catalog-2024-2025-residential-1.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "メーカー公表",
+      "note": "カタログの技術説明の値（16K 製品に限った値かは書かれていない）。流れ抵抗は Bies & Hansen の式で計算"
+    }
+  }
+}

@@ -43,7 +43,7 @@ test("1. 起動：入力例の4層・材料の参考値・参考表・3つのタ
   await expect(page.locator("[data-tab]")).toHaveCount(3);
   await expect(page.locator(".layer-row").first().locator(".reference-tag")).toHaveCount(4);
   await expect(page.locator("#plate-reference tbody tr")).toHaveCount(29);
-  await expect(page.locator("#porous-reference tbody tr")).toHaveCount(12);
+  await expect(page.locator("#porous-reference tbody tr")).toHaveCount(13);
   await expect(page.locator("#plate-reference a").first()).toHaveAttribute("href", /^https:/);
 });
 
