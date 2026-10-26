@@ -3,11 +3,15 @@ import { describe, expect, it } from "vitest";
 import { findMaterial, MATERIALS, materialsOf, plateSurfaceDensityKgm2 } from "./materials.js";
 import { openingRatioFromAreas } from "./openings.js";
 import { flowResistivityFromFiber } from "./layer-models.js";
-import { bendingStiffnessFromCoincidenceNm, criticalFrequencyHz } from "./tmm.js";
+import {
+  bendingStiffnessFromCoincidenceNm,
+  bendingStiffnessNm,
+  criticalFrequencyHz,
+} from "./tmm.js";
 
 describe("材料データ", () => {
   it("shared/materials の全ファイルが読み込まれ、分類できる", () => {
-    expect(MATERIALS.length).toBe(37);
+    expect(MATERIALS.length).toBe(42);
     expect(MATERIALS.every((material) => material.category !== "other")).toBe(true);
     expect(materialsOf("absorption")).toHaveLength(6);
   });
@@ -55,6 +59,18 @@ describe("材料データ", () => {
     const twelve = findMaterial("structural-plywood-12mm");
     expect(plateSurfaceDensityKgm2(twelve, 0.012)).toBeCloseTo(7.2, 12);
     expect(twelve.values.coincidenceProduct / twelve.values.thickness).toBeCloseTo(1808.33, 1);
+  });
+
+  it("パーティクルボードの fc·h 31.7 は、実測の密度 750 kg/m³・ヤング率 3.145 GPa から出した値と合う", () => {
+    const thicknessM = 0.009;
+    const stiffness = bendingStiffnessNm({
+      youngsModulusPa: 3.145e9,
+      poissonRatio: 0,
+      thicknessM,
+    });
+    const criticalHz = criticalFrequencyHz(750 * thicknessM, stiffness);
+    const material = findMaterial("particleboard-novopan-stp2-9mm");
+    expect(criticalHz * thicknessM).toBeCloseTo(material.values.coincidenceProduct, 1);
   });
 
   it("無い材料は null", () => {

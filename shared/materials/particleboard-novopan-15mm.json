@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "particleboard-novopan-15mm",
+  "name": "パーティクルボード 15mm（ノボパン 13タイプ、密度は推定）",
+  "properties": {
+    "thickness": {
+      "value": 0.015,
+      "unit": "m",
+      "source": {
+        "title": "日本ノボパン工業「パーティクルボード ノボパン」製品一覧（家具・木工用 13REG(U) 厚み12・15・20・25 mm）",
+        "url": "https://www.novopan.co.jp/products/novopan/",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "メーカー公表",
+      "note": "製品一覧の厚み"
+    },
+    "density": {
+      "value": 750,
+      "unit": "kg/m3",
+      "source": {
+        "title": "吹野信ほか「市販耐力面材の諸性能」林産試験場報 第546号（2018）構造用PB（18P）の実測値（密度 平均0.75 g/cm³、曲げヤング係数 長さ方向3.24・幅方向3.05 GPa）",
+        "url": "https://www.hro.or.jp/upload/12340/546-4.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "この製品の密度は公表されていないので、構造用PBの実測平均で代用（JIS の密度の範囲は0.40〜0.90 g/cm³と広い）。実物の重さがわかれば面密度を書き換える"
+    },
+    "coincidenceProduct": {
+      "value": 31.7,
+      "unit": "m/s",
+      "source": {
+        "title": "吹野信ほか「市販耐力面材の諸性能」林産試験場報 第546号（2018）構造用PB（18P）の実測値（密度 平均0.75 g/cm³、曲げヤング係数 長さ方向3.24・幅方向3.05 GPa）",
+        "url": "https://www.hro.or.jp/upload/12340/546-4.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "構造用PB（18タイプ）の実測値で代用。13タイプは JIS の曲げヤング係数の参考値が低い（2,500 N/mm² 以上、18タイプは3,000以上）ので、実際の臨界周波数はこれより高めの可能性がある。実測の密度750 kg/m³と曲げヤング係数（長さ・幅方向の平均3.145 GPa）から fc·h = c²/(2π)·√(12ρ/E) で計算（c = 343.2 m/s）。ポアソン比は資料がないので0とした（0.3でも差は約5%）"
+    },
+    "lossFactor": {
+      "value": 0.01,
+      "unit": "1",
+      "source": {
+        "title": "出典未確認の仮の値（損失係数の公表値を確認できていない）",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "板の損失係数。わかる場合は自分で入力する"
+    }
+  }
+}
