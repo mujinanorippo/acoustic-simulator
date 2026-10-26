@@ -276,7 +276,7 @@ function resultNotes(layers, rows, studSpacingM, results) {
   return notes;
 }
 
-function sourceTable(results) {
+function sourceTable(results, studSpacingM) {
   const independent = results.map((band) => ({
     centerHz: band.centerHz,
     value: band.transmissionLossDb,
@@ -289,12 +289,20 @@ function sourceTable(results) {
     const [low, high] = source.rangeHz;
     return [
       source.note.split("。")[0],
-      `${low}〜${high}`,
+      low === high ? `${low}` : `${low}〜${high}`,
+      bridged ? rangeTransmissionLossDb(bridged, low, high).toFixed(1) : "—（二重壁でない）",
       rangeTransmissionLossDb(independent, low, high).toFixed(1),
-      bridged ? rangeTransmissionLossDb(bridged, low, high).toFixed(1) : "—",
     ];
   });
-  return table(["音源", "基本周波数 [Hz]", "完全に独立 [dB]", "間柱でつながる [dB]"], rows);
+  return table(
+    [
+      "楽器名",
+      "周波数 [Hz]",
+      `平均透過損失：間柱 ${(studSpacingM * 1000).toFixed(0)} mm でつながる [dB]`,
+      "理論値：完全に独立 [dB]",
+    ],
+    rows,
+  );
 }
 
 function showResults(layers, rows, studSpacingM, results) {
@@ -325,7 +333,7 @@ function showResults(layers, rows, studSpacingM, results) {
     ],
     { yLabel: "透過損失 [dB]" },
   );
-  document.getElementById("wall-sources").replaceChildren(sourceTable(results));
+  document.getElementById("wall-sources").replaceChildren(sourceTable(results, studSpacingM));
   document.getElementById("wall-table").replaceChildren(
     ...results.map((band) =>
       create("tr", { class: band.porousOutOfRange.length > 0 ? "reference" : "" }, [

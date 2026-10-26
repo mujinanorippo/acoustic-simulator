@@ -78,7 +78,7 @@ test("2. 壁の遮音：計算すると全帯域の表とグラフが出て、�
   await expect(page.locator("#wall-chart path.series")).toHaveCount(2);
   await expect(page.locator("#wall-notes")).toContainText("二重壁の共鳴周波数");
   await expect(page.locator("#wall-notes")).toContainText("間柱の間隔 455 mm");
-  await expect(page.locator("#wall-sources tbody tr")).toHaveCount(8);
+  await expect(page.locator("#wall-sources tbody tr")).toHaveCount(17);
   await expect(page.locator("#wall-notes")).toContainText("コインシデンス限界周波数：3040 Hz");
   await expect(page.locator("#wall-notes")).toContainText("暫定値を含みます");
   const values = await page.locator("#wall-table td:nth-child(2)").allTextContents();
