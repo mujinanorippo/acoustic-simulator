@@ -485,8 +485,9 @@ input:disabled {
   margin: 8px 0;
 }
 .layer-figure .layer-drawing {
-  flex: 0 0 auto;
-  width: 380px;
+  flex: 0 1 380px;
+  width: 100%;
+  min-width: 0;
 }
 .layer-names {
   margin: 20px 0 0;
