@@ -460,7 +460,7 @@ input:disabled {
 }
 .layer-drawing {
   width: 100%;
-  max-width: 260px;
+  max-width: 380px;
   height: auto;
   display: block;
 }
@@ -476,4 +476,21 @@ input:disabled {
 .layer-drawing .tick {
   font-size: 11px;
   fill: var(--muted);
+}
+.layer-figure {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 8px 0;
+}
+.layer-figure .layer-drawing {
+  flex: 0 0 auto;
+  width: 380px;
+}
+.layer-names {
+  margin: 20px 0 0;
+  padding-left: 24px;
+  font-size: 12px;
+  line-height: 1.6;
 }
