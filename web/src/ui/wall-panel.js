@@ -1,5 +1,6 @@
 // 壁の遮音タブ：積層の入力（材料を選ぶと参考値が入る）、別スレッドでの計算と中止、結果、参考表
 import { renderChart } from "./chart.js";
+import { drawLayers } from "./layer-drawing.js";
 import { create, runSafely, showError, sourceLink, table } from "./dom.js";
 import {
   applyMaterial,
@@ -127,7 +128,10 @@ function layerRow(rows, index, redraw) {
   const update = (next, shouldRedraw) => {
     rows[index] = next;
     if (shouldRedraw) redraw();
-    else redrawTags(index, next);
+    else {
+      redrawTags(index, next);
+      drawLayers(document.getElementById("layer-drawing"), rows);
+    }
   };
   return create("div", { class: "layer-row", "data-index": String(index) }, [
     create("span", { class: "row-number", text: `${index + 1}` }),
@@ -340,8 +344,10 @@ function porousReferenceTable() {
 export function setupWallPanel(onResults) {
   const rows = exampleRows();
   const list = document.getElementById("layer-list");
-  const redraw = () =>
+  const redraw = () => {
     list.replaceChildren(...rows.map((_, index) => layerRow(rows, index, redraw)));
+    drawLayers(document.getElementById("layer-drawing"), rows);
+  };
   redraw();
   document.getElementById("add-layer").addEventListener("click", () => {
     rows.push({ kind: "air", materialId: "", texts: { thickness: "50" }, referenceKeys: [] });

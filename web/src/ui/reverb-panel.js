@@ -157,10 +157,10 @@ function referenceTable() {
   const rows = materialsOf("absorption").map((material) => [
     material.name,
     ...material.values.absorptionOctave.map((value) => value.toFixed(2)),
-    material.sources.absorptionOctave.note?.split("。").slice(2).join("。") || "—",
     sourceLink(material.sources.absorptionOctave.source),
+    material.sources.absorptionOctave.reliability,
   ]);
-  return table(["材料", ...OCTAVE_BANDS_HZ.map((hz) => `${hz} Hz`), "条件", "出典"], rows);
+  return table(["材料", ...OCTAVE_BANDS_HZ.map((hz) => `${hz} Hz`), "出典", "信頼度"], rows);
 }
 
 export function setupReverbPanel() {

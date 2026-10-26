@@ -11,9 +11,9 @@ import {
 
 describe("材料データ", () => {
   it("shared/materials の全ファイルが読み込まれ、分類できる", () => {
-    expect(MATERIALS.length).toBe(52);
+    expect(MATERIALS.length).toBe(55);
     expect(MATERIALS.every((material) => material.category !== "other")).toBe(true);
-    expect(materialsOf("absorption")).toHaveLength(6);
+    expect(materialsOf("absorption")).toHaveLength(8);
   });
 
   it("吸音率は6帯域・0〜1", () => {

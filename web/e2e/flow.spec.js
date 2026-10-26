@@ -42,8 +42,9 @@ test("1. 起動：入力例の4層・材料の参考値・参考表・3つのタ
   await expect(page.locator(".layer-row")).toHaveCount(4);
   await expect(page.locator("[data-tab]")).toHaveCount(3);
   await expect(page.locator(".layer-row").first().locator(".reference-tag")).toHaveCount(4);
-  await expect(page.locator("#plate-reference tbody tr")).toHaveCount(30);
+  await expect(page.locator("#plate-reference tbody tr")).toHaveCount(31);
   await expect(page.locator("#porous-reference tbody tr")).toHaveCount(13);
+  await expect(page.locator("#layer-drawing rect.layer-box")).toHaveCount(4);
   await expect(page.locator("#plate-reference a").first()).toHaveAttribute("href", /^https:/);
 });
 
@@ -191,7 +192,7 @@ test("9. 開口部：面積を入れるとその場で計算、壁より大き�
 
 test("10. 残響時間：材料ごとの吸音率で6帯域の表が出て、吸音ゼロは止まる", async ({ page }) => {
   await page.click("[data-tab=reverberation]");
-  await expect(page.locator("#absorption-reference tbody tr")).toHaveCount(6);
+  await expect(page.locator("#absorption-reference tbody tr")).toHaveCount(8);
   await page.click("#calculate-reverberation");
   await expect(page.locator("#reverberation-result tbody tr")).toHaveCount(6);
   // 1つの帯域だけ書き換えると、その欄だけ参考値の印が消える

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "cardboard-a-flute-5mm",
+  "name": "段ボール A段 5mm（両面、面密度は下限の目安）",
+  "properties": {
+    "thickness": {
+      "value": 0.00535,
+      "unit": "m",
+      "source": {
+        "title": "岐阜県生産情報技術研究所 研究報告7「段ボール製品の強度解析技術に関する研究（第2報）」表1（外装用両面段ボール A段 厚み5.35 mm、ライナー・中芯の坪量の測定値）",
+        "url": "https://www.gitec.rd.pref.gifu.lg.jp/files/reports/2005/information_2005_06.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "A段の厚み 5.35 mm"
+    },
+    "surfaceDensity": {
+      "value": 0.46,
+      "unit": "kg/m2",
+      "source": {
+        "title": "岐阜県生産情報技術研究所 研究報告7「段ボール製品の強度解析技術に関する研究（第2報）」表1（外装用両面段ボール A段 厚み5.35 mm、ライナー・中芯の坪量の測定値）",
+        "url": "https://www.gitec.rd.pref.gifu.lg.jp/files/reports/2005/information_2005_06.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "表ライナー171.6・中芯121.6・裏ライナー168.6 g/m² の合計。中芯の波の分（段繰り）を入れていないので実物はもっと重い。重さ÷面積を測って書き換えるのがいちばん正確"
+    },
+    "coincidenceProduct": {
+      "value": 0,
+      "unit": "m/s",
+      "source": {
+        "title": "計算上の扱い：段ボールは曲げの硬さを無視して重さだけで計算する",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "段ボールは軽いわりに硬いが、値が無いので重さだけで計算する"
+    },
+    "lossFactor": {
+      "value": 0.01,
+      "unit": "1",
+      "source": {
+        "title": "出典未確認の仮の値（損失係数の公表値を確認できていない）",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "板の損失係数。わかる場合は自分で入力する"
+    }
+  }
+}

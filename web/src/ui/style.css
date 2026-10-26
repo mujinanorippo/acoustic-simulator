@@ -458,3 +458,21 @@ input:disabled {
 .band-input.is-reference {
   color: var(--warning);
 }
+.layer-drawing {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.layer-drawing .layer-outline {
+  stroke: #2b2f33;
+  stroke-width: 1;
+}
+.layer-drawing .hatch-line {
+  stroke: #5b626b;
+  stroke-width: 0.7;
+  fill: none;
+}
+.layer-drawing .tick {
+  font-size: 11px;
+  fill: var(--muted);
+}
