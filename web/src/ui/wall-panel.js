@@ -267,7 +267,7 @@ function resultNotes(layers, rows, studSpacingM, results) {
   const bridge = lineBridgeParameters(layers, studSpacingM);
   notes.push(
     bridge === null
-      ? "「間柱でつながる」は、板・空気層（多孔質材）・板の二重壁のときだけ計算します（この積層は対象外）"
+      ? "「間柱でつながる」は、空気層（多孔質材）で区切られた板の面が2つ以上あるときに計算します（この積層は一重壁か、面に有孔板があるため対象外）"
       : `「間柱でつながる」は Sharp の線接続のモデル（間柱の間隔 ${(studSpacingM * 1000).toFixed(0)} mm、臨界周波数 ${bridge.criticalHz.toFixed(0)} Hz、質量則に ${bridge.offsetDb.toFixed(1)} dB を足した値を間柱経由の上限とし、空気層経由と透過率で合成）。間柱の硬さや固定方法は考えていない目安`,
   );
   if (rows.some(rowUsesTentativeValues)) {
@@ -290,7 +290,7 @@ function sourceTable(results, studSpacingM) {
     return [
       source.note.split("。")[0],
       low === high ? `${low}` : `${low}〜${high}`,
-      bridged ? rangeTransmissionLossDb(bridged, low, high).toFixed(1) : "—（二重壁でない）",
+      bridged ? rangeTransmissionLossDb(bridged, low, high).toFixed(1) : "—（対象外）",
       rangeTransmissionLossDb(independent, low, high).toFixed(1),
     ];
   });

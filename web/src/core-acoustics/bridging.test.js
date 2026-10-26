@@ -4,7 +4,7 @@ import {
   bridgedBandTransmissionLossDb,
   combineTransmissionLossDb,
   lineBridgeParameters,
-  splitDoubleLeaf,
+  splitLeaves,
 } from "./bridging.js";
 import { bandTransmissionLossDb, bendingStiffnessFromCoincidenceNm } from "./tmm.js";
 
@@ -17,20 +17,30 @@ const gypsum = {
 const air = { kind: "air", thicknessM: 0.05 };
 const wool = { kind: "porous", thicknessM: 0.05, flowResistivityPasm2: 8000 };
 
-describe("splitDoubleLeaf", () => {
-  it("板・空気層・多孔質材・板 → 面1と面2", () => {
-    expect(splitDoubleLeaf([gypsum, air, wool, gypsum])).toEqual({
-      leaf1: [gypsum],
-      leaf2: [gypsum],
-    });
-    expect(splitDoubleLeaf([gypsum, gypsum, air, gypsum])?.leaf1).toHaveLength(2);
+describe("splitLeaves", () => {
+  it("板・空気層・多孔質材・板 → 面2つ", () => {
+    expect(splitLeaves([gypsum, air, wool, gypsum])).toEqual([[gypsum], [gypsum]]);
+    expect(splitLeaves([gypsum, gypsum, air, gypsum])[0]).toHaveLength(2);
   });
 
-  it("一重壁・三重壁・面に板以外がある積層は対象外", () => {
-    expect(splitDoubleLeaf([gypsum])).toBeNull();
-    expect(splitDoubleLeaf([gypsum, air, gypsum, air, gypsum])).toBeNull();
-    expect(splitDoubleLeaf([air, gypsum])).toBeNull();
-    expect(splitDoubleLeaf([gypsum, air])).toBeNull();
+  it("三重壁（せっこうボード・空気層・せっこうボード・グラスウール・合板）は面3つ", () => {
+    expect(splitLeaves([gypsum, air, gypsum, wool, gypsum])).toHaveLength(3);
+  });
+
+  it("端の空気層は無視する", () => {
+    expect(splitLeaves([air, gypsum, wool, gypsum, air])).toEqual([[gypsum], [gypsum]]);
+  });
+
+  it("一重壁・面に有孔板がある積層は対象外", () => {
+    expect(splitLeaves([gypsum])).toBeNull();
+    expect(splitLeaves([gypsum, air])).toBeNull();
+    const perforated = {
+      kind: "perforated",
+      thicknessM: 0.01,
+      holeDiameterM: 0.005,
+      perforationRatio: 0.1,
+    };
+    expect(splitLeaves([perforated, air, gypsum])).toBeNull();
   });
 });
 
@@ -45,6 +55,12 @@ describe("lineBridgeParameters", () => {
     const narrow = lineBridgeParameters([gypsum, air, gypsum], 0.3).offsetDb;
     const wide = lineBridgeParameters([gypsum, air, gypsum], 0.6).offsetDb;
     expect(wide - narrow).toBeCloseTo(10 * Math.log10(2), 9);
+  });
+
+  it("三重壁は m1 = 室内側の面、m2 = 残りの合計", () => {
+    const result = lineBridgeParameters([gypsum, air, gypsum, wool, gypsum], 0.455);
+    expect(result.m1).toBeCloseTo(9.9, 12);
+    expect(result.m2).toBeCloseTo(19.8, 12);
   });
 
   it("曲げの硬さが無い板だけの二重壁・0 の間隔は対象外・止める", () => {
