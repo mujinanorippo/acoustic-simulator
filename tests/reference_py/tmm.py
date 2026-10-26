@@ -143,6 +143,14 @@ def miki(frequency_hz: float, flow_resistivity: float) -> tuple[complex, complex
     return impedance, wavenumber
 
 
+def flow_resistivity_from_fiber(density_kgm3: float, fiber_diameter_m: float) -> float:
+    """繊維系の多孔質材の流れ抵抗 [Pa·s/m²]（Bies & Hansen 1980）σ = K·ρ^n / d²"""
+    require_positive_finite(density_kgm3, NOT_POSITIVE_PROPERTY, "密度")
+    require_positive_finite(fiber_diameter_m, NOT_POSITIVE_PROPERTY, "繊維径")
+    density_term = density_kgm3**const.BIES_HANSEN_EXPONENT
+    return const.BIES_HANSEN_COEFFICIENT * density_term / fiber_diameter_m**2
+
+
 def perforated_impedance(frequency_hz: float, layer: Perforated) -> complex:
     omega = 2 * math.pi * frequency_hz
     viscosity = air_viscosity_pas()

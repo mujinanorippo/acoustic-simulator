@@ -3,6 +3,7 @@
 import air from "../../../shared/constants/air.json" with { type: "json" };
 import calculation from "../../../shared/constants/calculation.json" with { type: "json" };
 import frequencyBands from "../../../shared/constants/frequency-bands.json" with { type: "json" };
+import porous from "../../../shared/constants/porous.json" with { type: "json" };
 
 function valueOf(constantFile, key) {
   return constantFile.values[key].value;
@@ -19,6 +20,11 @@ export const AIR = Object.freeze({
 
 export const CALCULATION = Object.freeze({
   fieldIncidenceLimitDeg: valueOf(calculation, "fieldIncidenceLimitAngle"),
+});
+
+export const POROUS = Object.freeze({
+  biesHansenCoefficient: valueOf(porous, "biesHansenCoefficient"),
+  biesHansenExponent: valueOf(porous, "biesHansenExponent"),
 });
 
 export const FREQUENCY_BANDS = Object.freeze({

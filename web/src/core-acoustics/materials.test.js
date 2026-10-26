@@ -2,11 +2,12 @@
 import { describe, expect, it } from "vitest";
 import { findMaterial, MATERIALS, materialsOf, plateSurfaceDensityKgm2 } from "./materials.js";
 import { openingRatioFromAreas } from "./openings.js";
+import { flowResistivityFromFiber } from "./layer-models.js";
 import { bendingStiffnessFromCoincidenceNm, criticalFrequencyHz } from "./tmm.js";
 
 describe("材料データ", () => {
   it("shared/materials の全ファイルが読み込まれ、分類できる", () => {
-    expect(MATERIALS.length).toBe(23);
+    expect(MATERIALS.length).toBe(25);
     expect(MATERIALS.every((material) => material.category !== "other")).toBe(true);
     expect(materialsOf("absorption")).toHaveLength(6);
   });
@@ -74,5 +75,29 @@ describe("openingRatioFromAreas", () => {
     expect(() => openingRatioFromAreas(1, 2)).toThrow(/E-CALC-011/);
     expect(() => openingRatioFromAreas(1, -1)).toThrow(/E-CALC-001/);
     expect(() => openingRatioFromAreas(0, 0)).toThrow(/E-CALC-001/);
+  });
+});
+
+describe("flowResistivityFromFiber（Bies & Hansen）", () => {
+  it("手計算の値：3.18e-9 × 16^1.53 ÷ (8e-6)² = 3455.8 Pa·s/m²", () => {
+    expect(flowResistivityFromFiber(16, 8e-6)).toBeCloseTo(3455.816862832866, 9);
+  });
+
+  it("繊維径が半分なら4倍、密度が2倍なら 2^1.53 倍", () => {
+    const base = flowResistivityFromFiber(24, 8e-6);
+    expect(flowResistivityFromFiber(24, 4e-6) / base).toBeCloseTo(4, 12);
+    expect(flowResistivityFromFiber(48, 8e-6) / base).toBeCloseTo(2 ** 1.53, 12);
+  });
+
+  it("通常品・高性能品の材料データは繊維径 8μm・4μm", () => {
+    expect(findMaterial("glass-wool-standard").values.fiberDiameter).toBe(8e-6);
+    expect(findMaterial("glass-wool-high-performance").values.fiberDiameter).toBe(4e-6);
+    expect(findMaterial("glass-wool-standard").category).toBe("porous");
+  });
+
+  it("0・負・数でない密度や繊維径は止める", () => {
+    expect(() => flowResistivityFromFiber(0, 8e-6)).toThrow(/E-CALC/);
+    expect(() => flowResistivityFromFiber(16, -1)).toThrow(/E-CALC/);
+    expect(() => flowResistivityFromFiber(Number.NaN, 8e-6)).toThrow(/E-CALC/);
   });
 });

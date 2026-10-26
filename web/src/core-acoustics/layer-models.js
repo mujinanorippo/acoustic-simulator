@@ -1,7 +1,7 @@
 // 積層の各層の音響モデル（時間因子 e^{jωt}。質量のインピーダンスが +jωm になる向き）
 import * as cx from "./complex.js";
 import { besselRatioJ1OverJ0 } from "./bessel.js";
-import { AIR } from "./constants.js";
+import { AIR, POROUS } from "./constants.js";
 import { ERROR_CODES, requirePositiveFinite, requireRatio } from "./errors.js";
 
 const THREE_HALVES = 1.5;
@@ -67,6 +67,18 @@ export function mikiEquivalentFluid(frequencyHz, flowResistivityPasm2) {
       -airWavenumber * MIKI_WAVENUMBER_IMAG * wavenumberTerm,
     ),
   };
+}
+
+/**
+ * 繊維系の多孔質材の流れ抵抗 [Pa·s/m²] を、かさ密度と繊維径から推定する（Bies & Hansen 1980）。
+ * σ = K·ρ^n / d²。定数と出典は shared/constants/porous.json
+ */
+export function flowResistivityFromFiber(densityKgm3, fiberDiameterM) {
+  requirePositiveFinite(densityKgm3, ERROR_CODES.NOT_POSITIVE_PROPERTY, "密度");
+  requirePositiveFinite(fiberDiameterM, ERROR_CODES.NOT_POSITIVE_PROPERTY, "繊維径");
+  return (
+    (POROUS.biesHansenCoefficient * densityKgm3 ** POROUS.biesHansenExponent) / fiberDiameterM ** 2
+  );
 }
 
 // 有孔板（Maa の厳密式＋端部補正）

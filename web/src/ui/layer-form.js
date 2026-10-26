@@ -1,6 +1,7 @@
 // 積層の入力行 → 計算コアの層データへの変換と、材料を選んだときの参考値の自動入力
 // （画面に触れない純粋な関数）。入力の上限は「打ち間違いを止めるための範囲」で、物理的な限界値ではない。
 import { findMaterial, materialsOf, plateSurfaceDensityKgm2 } from "../core-acoustics/materials.js";
+import { flowResistivityFromFiber } from "../core-acoustics/layer-models.js";
 import { bendingStiffnessFromCoincidenceNm } from "../core-acoustics/tmm.js";
 import { mmToM, parseNumberField, percentToRatio } from "./forms.js";
 
@@ -42,11 +43,19 @@ export const LAYER_KINDS = Object.freeze({
     fields: [
       { key: "thickness", label: "厚さ", unit: "mm", max: 1000 },
       {
+        key: "density",
+        label: "密度",
+        unit: "kg/m³",
+        max: 1000,
+        optional: true,
+        help: "16K なら 16。「密度から計算」の材料では、ここから流れ抵抗を計算します",
+      },
+      {
         key: "flowResistivity",
         label: "流れ抵抗",
         unit: "Pa·s/m²",
         max: 1e7,
-        help: "空気の通りにくさ。材料を選ぶと測定例の値が入ります（表の例では密度が高いほど大きい）",
+        help: "空気の通りにくさ。材料を選ぶと入ります。わかる場合は書き換えてください",
       },
     ],
   },
@@ -91,25 +100,51 @@ export function applyMaterial(row, materialId) {
     put("surfaceDensity", plateSurfaceDensityKgm2(material, material.values.thickness));
     put("coincidenceProduct", material.values.coincidenceProduct);
     put("lossFactor", material.values.lossFactor);
+  } else if ("fiberDiameter" in material.values) {
+    const estimated = estimateFlowResistivity(material, texts.density);
+    if (estimated !== null) put("flowResistivity", estimated);
   } else if (material.category === "porous") {
+    put("density", material.values.density);
     put("flowResistivity", material.values.flowResistivity);
   }
   return { ...row, materialId, texts, referenceKeys };
 }
 
+/** 「密度から計算」の材料：密度の欄が正しい数なら流れ抵抗を計算する（だめなら null） */
+function estimateFlowResistivity(material, densityText) {
+  const density = parseNumberField(densityText, "密度", { max: 1000 });
+  if (!density.ok) return null;
+  return Math.round(flowResistivityFromFiber(density.value, material.values.fiberDiameter));
+}
+
 /** 入力欄を自分で書き換えたら、その欄は参考値ではなくなる */
 export function editField(row, key, text) {
-  return {
+  const edited = {
     ...row,
     texts: { ...row.texts, [key]: text },
     referenceKeys: (row.referenceKeys ?? []).filter((item) => item !== key),
   };
+  // 「密度から計算」の材料で、流れ抵抗がまだ参考値のままなら、密度に合わせて計算し直す
+  const material = findMaterial(row.materialId);
+  if (
+    key === "density" &&
+    material &&
+    "fiberDiameter" in material.values &&
+    edited.referenceKeys.includes("flowResistivity")
+  ) {
+    const estimated = estimateFlowResistivity(material, text);
+    if (estimated !== null) {
+      edited.texts.flowResistivity = formatNumber(estimated);
+    }
+  }
+  return edited;
 }
 
 function parseFields(kind, texts, rowLabel) {
   const values = {};
   const errors = [];
   for (const field of LAYER_KINDS[kind].fields) {
+    if (field.optional && (texts[field.key] ?? "").trim() === "") continue;
     const result = parseNumberField(texts[field.key], `${rowLabel}の${field.label}`, field);
     if (result.ok) {
       values[field.key] = result.value;

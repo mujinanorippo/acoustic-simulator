@@ -12,7 +12,9 @@
     "values": {
       "type": "object",
       "minProperties": 1,
-      "additionalProperties": { "$ref": "material.schema.json#/$defs/sourcedValue" }
+      "additionalProperties": {
+        "$ref": "material.schema.json#/$defs/sourcedValue"
+      }
     }
   }
 }

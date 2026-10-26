@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "porous",
+  "name": "多孔質材（繊維系）の流れ抵抗の推定式 σ = K·ρ^n / d²",
+  "values": {
+    "biesHansenCoefficient": {
+      "value": 3.18e-9,
+      "unit": "1",
+      "source": {
+        "title": "Forum Acusticum 2026 論文 000320 の式(1)（Bies & Hansen「Flow resistance information for acoustical design」Applied Acoustics 13(5), 357–391, 1980 の引用）",
+        "url": "https://dael.euracoustics.org/confs/fa2026/data/articles/000320.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "σ [Pa·s/m²]、ρ：かさ密度 [kg/m³]、d：繊維径 [m]。繊維径15μm未満・バインダーの少ないグラスファイバーで求めた定数（同論文の記載）"
+    },
+    "biesHansenExponent": {
+      "value": 1.53,
+      "unit": "1",
+      "source": {
+        "title": "Forum Acusticum 2026 論文 000320 の式(1)（Bies & Hansen「Flow resistance information for acoustical design」Applied Acoustics 13(5), 357–391, 1980 の引用）",
+        "url": "https://dael.euracoustics.org/confs/fa2026/data/articles/000320.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "KISTEC 2022（平均繊維径3μm、日本の製品14個）の推定式とは 24〜48 kg/m³ で1〜2割の差（テストで確認）"
+    }
+  }
+}

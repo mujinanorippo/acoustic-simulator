@@ -18,7 +18,7 @@ const MM_PER_M = 1000;
 const EXAMPLE_ROWS = [
   ["plate", "gypsum-board-gbr-12-5mm"],
   ["air", "", { thickness: "50" }],
-  ["porous", "glass-fiber-16k", { thickness: "50" }],
+  ["porous", "glass-wool-standard", { thickness: "50", density: "16" }],
   ["plate", "gypsum-board-gbr-12-5mm"],
 ];
 
@@ -143,12 +143,19 @@ function layerRow(rows, index, redraw) {
   ]);
 }
 
-/** 入力した欄の「（参考値）」の印だけを外す（描き直さない） */
+/**
+ * 入力した欄の「（参考値）」の印を外し、計算し直された欄（密度から出す流れ抵抗）の値を入れ直す。
+ * 入力中の欄は触らない（描き直すとカーソルが外れるため）
+ */
 function redrawTags(index, row) {
   const element = document.querySelector(`.layer-row[data-index="${index}"]`);
   for (const input of element.querySelectorAll("input[data-key]")) {
+    const key = input.dataset.key;
     const tag = input.parentElement.querySelector(".reference-tag");
-    if (tag && !(row.referenceKeys ?? []).includes(input.dataset.key)) tag.remove();
+    if (tag && !(row.referenceKeys ?? []).includes(key)) tag.remove();
+    if (input !== document.activeElement && input.value !== (row.texts[key] ?? "")) {
+      input.value = row.texts[key] ?? "";
+    }
   }
 }
 
@@ -308,7 +315,8 @@ function plateReferenceTable() {
 }
 
 function porousReferenceTable() {
-  const rows = materialsOf("porous").map((material) => [
+  const measured = materialsOf("porous").filter((material) => "flowResistivity" in material.values);
+  const rows = measured.map((material) => [
     material.name,
     material.values.density.toFixed(1),
     material.values.flowResistivity.toFixed(0),

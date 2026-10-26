@@ -61,6 +61,14 @@ test("1b. 材料の参考値：書き換えた欄だけ印が消え、自分で�
   await expect(row.locator('input[data-key="surfaceDensity"]')).toHaveValue("12.25");
 });
 
+test("1c. グラスウール：密度を入れると流れ抵抗が計算し直される", async ({ page }) => {
+  const row = page.locator(".layer-row").nth(2);
+  await expect(row.locator('input[data-key="flowResistivity"]')).toHaveValue("3456");
+  await row.locator('input[data-key="density"]').fill("32");
+  await expect(row.locator('input[data-key="flowResistivity"]')).toHaveValue("9980");
+  await expect(row.locator(".reference-tag")).toHaveCount(1);
+});
+
 test("2. 壁の遮音：計算すると全帯域の表とグラフが出て、数値がすべて有限", async ({ page }) => {
   const started = Date.now();
   await calculateWall(page);

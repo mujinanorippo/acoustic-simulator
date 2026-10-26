@@ -189,3 +189,12 @@ def test_bending_stiffness_from_coincidence_round_trip():
     stiffness = tmm.bending_stiffness_from_coincidence_nm(9.9, 38, 0.0125)
     assert tmm.critical_frequency_hz(9.9, stiffness) == pytest.approx(38 / 0.0125, rel=1e-12)
     assert tmm.bending_stiffness_from_coincidence_nm(10, 0, 0.01) == 0
+
+
+def test_flow_resistivity_from_fiber_matches_hand_calculation():
+    # 3.18e-9 × 16^1.53 ÷ (8e-6)²（Bies & Hansen 1980）
+    assert tmm.flow_resistivity_from_fiber(16, 8e-6) == pytest.approx(3455.816862832866, rel=1e-12)
+    ratio = tmm.flow_resistivity_from_fiber(24, 4e-6) / tmm.flow_resistivity_from_fiber(24, 8e-6)
+    assert ratio == pytest.approx(4, rel=1e-12)
+    with pytest.raises(AcousticsInputError):
+        tmm.flow_resistivity_from_fiber(0, 8e-6)

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "glass-wool-high-performance",
+  "name": "グラスウール 高性能品（密度から計算）",
+  "properties": {
+    "fiberDiameter": {
+      "value": 4e-6,
+      "unit": "m",
+      "source": {
+        "title": "硝子繊維協会「建材トップランナー資料」（2021年11月30日）スライド11「グラスウールの繊維径と断熱性能」",
+        "url": "https://www.meti.go.jp/shingikai/enecho/shoene_shinene/sho_energy/kenchiku_zairyo/pdf/012_02_00.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "図のラベル「高性能グラスウール 4μ」による代表値（平均値かどうかは資料に書かれていない）。流れ抵抗は入力した密度とこの繊維径から計算する"
+    }
+  }
+}

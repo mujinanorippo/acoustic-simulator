@@ -41,13 +41,37 @@ describe("applyMaterial", () => {
     expect(toCoreLayer(row, 0).layer.bendingStiffnessNm).toBe(0);
   });
 
-  it("多孔質材は流れ抵抗だけ入り、厚さは自分の入力のまま", () => {
+  it("多孔質材の測定例は密度と流れ抵抗が入り、厚さは自分の入力のまま", () => {
     const row = applyMaterial(
       { kind: "porous", materialId: "", texts: { thickness: "75" }, referenceKeys: [] },
       "glass-fiber-16k",
     );
-    expect(row.texts).toEqual({ thickness: "75", flowResistivity: "7900" });
+    expect(row.texts).toEqual({ thickness: "75", density: "16.4", flowResistivity: "7900" });
+    expect(row.referenceKeys).toEqual(["density", "flowResistivity"]);
+  });
+
+  it("グラスウール通常品は、入力した密度から流れ抵抗を計算する（16 kg/m³ → 3456）", () => {
+    const row = applyMaterial(
+      {
+        kind: "porous",
+        materialId: "",
+        texts: { thickness: "50", density: "16" },
+        referenceKeys: [],
+      },
+      "glass-wool-standard",
+    );
+    expect(row.texts).toEqual({ thickness: "50", density: "16", flowResistivity: "3456" });
     expect(row.referenceKeys).toEqual(["flowResistivity"]);
+    expect(toCoreLayer(row, 0).layer.flowResistivityPasm2).toBe(3456);
+  });
+
+  it("密度が空欄なら流れ抵抗は計算しない", () => {
+    const row = applyMaterial(
+      { kind: "porous", materialId: "", texts: { thickness: "50" }, referenceKeys: [] },
+      "glass-wool-standard",
+    );
+    expect(row.texts.flowResistivity).toBeUndefined();
+    expect(row.referenceKeys).toEqual([]);
   });
 
   it("「自分で入力」に戻すと値はそのまま、参考値の印だけ消える", () => {
@@ -66,6 +90,38 @@ describe("editField", () => {
     expect(edited.texts.lossFactor).toBe("0.03");
     expect(edited.referenceKeys).toEqual(["thickness", "surfaceDensity", "coincidenceProduct"]);
     expect(chosen.texts.lossFactor).toBe("0.01");
+  });
+});
+
+describe("密度を書き換えたときの流れ抵抗", () => {
+  const chosen = applyMaterial(
+    {
+      kind: "porous",
+      materialId: "",
+      texts: { thickness: "50", density: "16" },
+      referenceKeys: [],
+    },
+    "glass-wool-standard",
+  );
+
+  it("流れ抵抗が参考値のままなら、密度に合わせて計算し直す（32 kg/m³ → 9980）", () => {
+    const edited = editField(chosen, "density", "32");
+    expect(edited.texts.flowResistivity).toBe("9980");
+    expect(edited.referenceKeys).toEqual(["flowResistivity"]);
+  });
+
+  it("流れ抵抗を自分で入れた後は、密度を変えても上書きしない", () => {
+    const manual = editField(chosen, "flowResistivity", "12000");
+    expect(editField(manual, "density", "32").texts.flowResistivity).toBe("12000");
+  });
+
+  it("密度が数でないときは前の値のまま", () => {
+    expect(editField(chosen, "density", "abc").texts.flowResistivity).toBe("3456");
+  });
+
+  it("密度は空欄でも計算できる（流れ抵抗があれば十分）", () => {
+    const row = { kind: "porous", texts: { thickness: "50", flowResistivity: "8000" } };
+    expect(toCoreLayer(row, 0).ok).toBe(true);
   });
 });
 

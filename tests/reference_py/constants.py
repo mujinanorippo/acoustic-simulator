@@ -32,3 +32,7 @@ BAND_INDEX_MAX: int = _BANDS["bandIndexMax"]
 RATING_BAND_INDEX_MIN: int = _BANDS["ratingBandIndexMin"]
 RATING_BAND_INDEX_MAX: int = _BANDS["ratingBandIndexMax"]
 NOMINAL_CENTER_FREQUENCIES_HZ: tuple[float, ...] = tuple(_BANDS["nominalCenterFrequencies"])
+
+_POROUS = _values("porous")
+BIES_HANSEN_COEFFICIENT: float = _POROUS["biesHansenCoefficient"]
+BIES_HANSEN_EXPONENT: float = _POROUS["biesHansenExponent"]

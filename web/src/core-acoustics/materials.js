@@ -10,7 +10,7 @@ const TENTATIVE_RELIABILITIES = new Set(["暫定", "二次情報"]);
 
 function categoryOf(properties) {
   if ("absorptionOctave" in properties) return "absorption";
-  if ("flowResistivity" in properties) return "porous";
+  if ("flowResistivity" in properties || "fiberDiameter" in properties) return "porous";
   if ("coincidenceProduct" in properties) return "plate";
   return "other";
 }
