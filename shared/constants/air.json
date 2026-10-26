@@ -7,12 +7,12 @@
       "value": 293.15,
       "unit": "K",
       "source": {
-        "title": "pyfar.constants.speed_of_sound（ISO 9613-1:1993 式 A.5 の基準温度 20 °C）",
-        "url": "https://pyfar.readthedocs.io/en/stable/_modules/pyfar/constants/speed_of_sound.html",
-        "accessed": "2026-10-22"
+        "title": "JIS Z 8738:1999（ISO 9613-1:1993 と一致）4.2 気圧及び気温「基準気温T0は，293.15K (20℃) とする。」",
+        "url": "https://kikakurui.com/z8/Z8738-1999-01.html",
+        "accessed": "2026-10-26"
       },
-      "reliability": "二次情報",
-      "note": "フェーズ1では温度を20 °Cに固定する。温度を変えられるようにするのは後のフェーズ"
+      "reliability": "規格",
+      "note": "本文は規格の転載サイトで確認（公式の閲覧は日本産業標準調査会）。フェーズ1では温度を20 °Cに固定する"
     },
     "speedOfSound": {
       "value": 343.2,
@@ -37,7 +37,7 @@
       "note": "理想気体 ρ = p / (R_specific T)、R_specific = 287.058 J/(kg·K) と整合"
     },
     "sutherlandReferenceViscosity": {
-      "value": 1.716e-05,
+      "value": 1.716e-5,
       "unit": "Pa·s",
       "source": {
         "title": "CFD Online Wiki: Sutherland's law（空気の定数。原典 Sutherland 1893, Phil. Mag. 36）",
