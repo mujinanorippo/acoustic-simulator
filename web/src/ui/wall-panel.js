@@ -10,6 +10,7 @@ import {
   toCoreLayer,
 } from "./layer-form.js";
 import { findMaterial, materialsOf, plateSurfaceDensityKgm2 } from "../core-acoustics/materials.js";
+import { flowResistivityFromFiber } from "../core-acoustics/layer-models.js";
 import { doubleWallResonanceHz, plateCriticalFrequencies } from "../core-acoustics/tmm.js";
 
 const MM_PER_M = 1000;
@@ -315,14 +316,24 @@ function plateReferenceTable() {
 }
 
 function porousReferenceTable() {
-  const measured = materialsOf("porous").filter((material) => "flowResistivity" in material.values);
-  const rows = measured.map((material) => [
-    material.name,
-    material.values.density.toFixed(1),
-    material.values.flowResistivity.toFixed(0),
-    sourceLink(material.sources.flowResistivity.source),
-    material.sources.flowResistivity.reliability,
-  ]);
+  // 測定値のある材料と、密度が決まっていて流れ抵抗を計算できる材料（GCボードなど）を並べる
+  const rows = materialsOf("porous").flatMap((material) => {
+    const { density, flowResistivity, fiberDiameter } = material.values;
+    const value =
+      flowResistivity ??
+      (density && fiberDiameter ? flowResistivityFromFiber(density, fiberDiameter) : null);
+    if (value === null) return [];
+    const sourceKey = flowResistivity === undefined ? "fiberDiameter" : "flowResistivity";
+    return [
+      [
+        material.name,
+        density === undefined ? "—" : density.toFixed(1),
+        flowResistivity === undefined ? `${value.toFixed(0)}（計算）` : value.toFixed(0),
+        sourceLink(material.sources[sourceKey].source),
+        material.sources[sourceKey].reliability,
+      ],
+    ];
+  });
   return table(["材料", "密度 [kg/m³]", "流れ抵抗 [Pa·s/m²]", "出典", "信頼度"], rows);
 }
 

@@ -65,6 +65,58 @@ describe("applyMaterial", () => {
     expect(toCoreLayer(row, 0).layer.flowResistivityPasm2).toBe(3456);
   });
 
+  it("GCボード 32K は密度32が入り、流れ抵抗を計算する（9980）", () => {
+    const row = applyMaterial(
+      { kind: "porous", materialId: "", texts: { thickness: "25" }, referenceKeys: [] },
+      "gc-board-32k",
+    );
+    expect(row.texts).toEqual({ thickness: "25", density: "32", flowResistivity: "9980" });
+    expect(row.referenceKeys).toEqual(["density", "flowResistivity"]);
+  });
+
+  it("ウレタンスポンジは密度が無く、流れ抵抗の測定例だけ入る", () => {
+    const row = applyMaterial(
+      { kind: "porous", materialId: "", texts: { thickness: "30" }, referenceKeys: [] },
+      "urethane-sponge-example",
+    );
+    expect(row.texts).toEqual({ thickness: "30", flowResistivity: "13078" });
+    expect(toCoreLayer(row, 0).ok).toBe(true);
+  });
+
+  it("ホワイトキューオンは密度30と流れ抵抗の代用値が入る", () => {
+    const row = applyMaterial(
+      { kind: "porous", materialId: "", texts: { thickness: "50" }, referenceKeys: [] },
+      "white-kuon-polyester",
+    );
+    expect(row.texts).toEqual({ thickness: "50", density: "30", flowResistivity: "13397" });
+  });
+
+  it("GCボード 32K は密度32が入り、流れ抵抗を計算する（9980）", () => {
+    const row = applyMaterial(
+      { kind: "porous", materialId: "", texts: { thickness: "25" }, referenceKeys: [] },
+      "gc-board-32k",
+    );
+    expect(row.texts).toEqual({ thickness: "25", density: "32", flowResistivity: "9980" });
+    expect(row.referenceKeys).toEqual(["density", "flowResistivity"]);
+  });
+
+  it("ウレタンスポンジは密度が無く、流れ抵抗の測定例だけ入る", () => {
+    const row = applyMaterial(
+      { kind: "porous", materialId: "", texts: { thickness: "30" }, referenceKeys: [] },
+      "urethane-sponge-example",
+    );
+    expect(row.texts).toEqual({ thickness: "30", flowResistivity: "13078" });
+    expect(toCoreLayer(row, 0).ok).toBe(true);
+  });
+
+  it("ホワイトキューオンは密度30と流れ抵抗の代用値が入る", () => {
+    const row = applyMaterial(
+      { kind: "porous", materialId: "", texts: { thickness: "50" }, referenceKeys: [] },
+      "white-kuon-polyester",
+    );
+    expect(row.texts).toEqual({ thickness: "50", density: "30", flowResistivity: "13397" });
+  });
+
   it("密度が空欄なら流れ抵抗は計算しない", () => {
     const row = applyMaterial(
       { kind: "porous", materialId: "", texts: { thickness: "50" }, referenceKeys: [] },

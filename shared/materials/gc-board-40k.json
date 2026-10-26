@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "gc-board-40k",
+  "name": "GCボード 40K（パラマウント硝子、厚さ25・50mm、密度から計算）",
+  "properties": {
+    "density": {
+      "value": 40,
+      "unit": "kg/m3",
+      "source": {
+        "title": "渡邉純一（パラマウント硝子工業）「グラスウール吸音材「GCボード」のご紹介」音響技術 No.199（2022年9月）2.仕様",
+        "url": "https://www.onzai.or.jp/file/upload/gijutsu202209_02.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "メーカー公表",
+      "note": "仕様は厚さ25・50 mm、密度32・40 kg/m³。表面のガラスクロス（厚さ0.125・0.180 mm）は計算に入れていない"
+    },
+    "fiberDiameter": {
+      "value": 8e-6,
+      "unit": "m",
+      "source": {
+        "title": "硝子繊維協会「建材トップランナー資料」（2021年11月30日）スライド11「グラスウールの繊維径と断熱性能」",
+        "url": "https://www.meti.go.jp/shingikai/enecho/shoene_shinene/sho_energy/kenchiku_zairyo/pdf/012_02_00.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "GCボードの繊維径は公表されていないので、通常グラスウールの代表値（図のラベル「8μ」）で代用"
+    }
+  }
+}

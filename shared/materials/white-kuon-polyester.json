@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "white-kuon-polyester",
+  "name": "ホワイトキューオン（ポリエステル繊維 30 kg/m³）",
+  "properties": {
+    "density": {
+      "value": 30,
+      "unit": "kg/m3",
+      "source": {
+        "title": "カインズ「吸音・防音材 ホワイトキューオン ESW-415」商品ページ（ポリエステル100%、厚さ50 mm、密度 30 kg/m³）",
+        "url": "https://www.cainz.com/g/4953237701300.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "販売店の商品ページの記載"
+    },
+    "flowResistivity": {
+      "value": 13397,
+      "unit": "Pa·s/m2",
+      "source": {
+        "title": "T. Yang ほか「Study on sound absorption behavior of multi-component polyester nonwovens」Textile Research Journal 89(16), 3342–3361（2019）表2 ST G1",
+        "url": "https://eprints.whiterose.ac.uk/142018/1/Accepted%20version.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "この製品の流れ抵抗は公表されていないので、密度の近いポリエステル不織布（30.94 kg/m³）の測定値で代用。同じ論文の別の試料では 27.5〜35.6 kg/m³ で 9,800〜15,000 と幅がある"
+    }
+  }
+}

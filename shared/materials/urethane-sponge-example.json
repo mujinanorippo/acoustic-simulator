@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "urethane-sponge-example",
+  "name": "ウレタンスポンジ（吸音用の測定例）",
+  "properties": {
+    "flowResistivity": {
+      "value": 13078,
+      "unit": "Pa·s/m2",
+      "source": {
+        "title": "X. Yang ほか「Improving and Optimizing Sound Absorption Performance of Polyurethane Foam by Prepositive Microperforated Polymethyl Methacrylate Panel」Applied Sciences 10(6), 2103（2020）",
+        "url": "https://www.mdpi.com/2076-3417/10/6/2103/xml",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "査読論文",
+      "note": "市販の吸音用ポリウレタンフォームについて、論文が測定から求めた値（多孔度0.958）。製品で大きく違う。Miki のモデルは繊維系の材料の測定から作られたので、発泡材に使うのは近似"
+    }
+  }
+}

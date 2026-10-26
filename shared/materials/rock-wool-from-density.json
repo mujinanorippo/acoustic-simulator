@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "rock-wool-from-density",
+  "name": "ロックウール・ロックウールボード（密度から計算）",
+  "properties": {
+    "fiberDiameter": {
+      "value": 7e-6,
+      "unit": "m",
+      "source": {
+        "title": "ロックウール工業会 資料（rwa.gr.jp「C1」）吸音材の規格表の注記「繊維の平均太さ 7μm以下」",
+        "url": "https://www.rwa.gr.jp/download/data/C1.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "資料の上限値（平均7μm以下）を代表値として使う。グラスファイバー用の Bies & Hansen の式をロックウールに使うのは近似。北米の測定例（NRC、33・44・98 kg/m³）と3割以内で合う（テストで確認）"
+    }
+  }
+}

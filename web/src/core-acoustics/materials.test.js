@@ -11,7 +11,7 @@ import {
 
 describe("材料データ", () => {
   it("shared/materials の全ファイルが読み込まれ、分類できる", () => {
-    expect(MATERIALS.length).toBe(42);
+    expect(MATERIALS.length).toBe(47);
     expect(MATERIALS.every((material) => material.category !== "other")).toBe(true);
     expect(materialsOf("absorption")).toHaveLength(6);
   });
@@ -119,6 +119,26 @@ describe("flowResistivityFromFiber（Bies & Hansen）", () => {
     expect(findMaterial("glass-wool-standard").values.fiberDiameter).toBe(8e-6);
     expect(findMaterial("glass-wool-high-performance").values.fiberDiameter).toBe(4e-6);
     expect(findMaterial("glass-wool-standard").category).toBe("porous");
+  });
+
+  it("ロックウール（繊維径7μm）の計算値は、北米の測定例（33・44・98 kg/m³）と3割以内で合う", () => {
+    const fiber = findMaterial("rock-wool-from-density").values.fiberDiameter;
+    for (const id of ["mineral-wool-33k", "mineral-wool-44k", "mineral-wool-98k"]) {
+      const measured = findMaterial(id).values;
+      const ratio = flowResistivityFromFiber(measured.density, fiber) / measured.flowResistivity;
+      expect(ratio).toBeGreaterThan(0.7);
+      expect(ratio).toBeLessThan(1.3);
+    }
+  });
+
+  it("ロックウール（繊維径7μm）の計算値は、北米の測定例（33・44・98 kg/m³）と3割以内で合う", () => {
+    const fiber = findMaterial("rock-wool-from-density").values.fiberDiameter;
+    for (const id of ["mineral-wool-33k", "mineral-wool-44k", "mineral-wool-98k"]) {
+      const measured = findMaterial(id).values;
+      const ratio = flowResistivityFromFiber(measured.density, fiber) / measured.flowResistivity;
+      expect(ratio).toBeGreaterThan(0.7);
+      expect(ratio).toBeLessThan(1.3);
+    }
   });
 
   it("0・負・数でない密度や繊維径は止める", () => {

@@ -101,10 +101,11 @@ export function applyMaterial(row, materialId) {
     put("coincidenceProduct", material.values.coincidenceProduct);
     put("lossFactor", material.values.lossFactor);
   } else if ("fiberDiameter" in material.values) {
+    if ("density" in material.values) put("density", material.values.density);
     const estimated = estimateFlowResistivity(material, texts.density);
     if (estimated !== null) put("flowResistivity", estimated);
   } else if (material.category === "porous") {
-    put("density", material.values.density);
+    if ("density" in material.values) put("density", material.values.density);
     put("flowResistivity", material.values.flowResistivity);
   }
   return { ...row, materialId, texts, referenceKeys };
