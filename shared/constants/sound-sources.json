@@ -3,6 +3,50 @@
   "id": "sound-sources",
   "name": "音源ごとの基本周波数の範囲（下限・上限）",
   "values": {
+    "maleVocalBaritone": {
+      "value": [110.0, 440.0],
+      "unit": "Hz",
+      "source": {
+        "title": "Musicnotes「How To Determine Your Vocal Range」声種ごとの典型的な音域",
+        "url": "https://www.musicnotes.com/blog/determine-vocal-range",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "男性ボーカル（バリトン）A2〜A4。周波数は音名から平均律（A4 = 440 Hz）で計算。倍音はさらに上まで出る"
+    },
+    "maleVocalTenor": {
+      "value": [130.8, 523.3],
+      "unit": "Hz",
+      "source": {
+        "title": "Musicnotes「How To Determine Your Vocal Range」声種ごとの典型的な音域",
+        "url": "https://www.musicnotes.com/blog/determine-vocal-range",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "男性ボーカル（テノール）C3〜C5。周波数は音名から平均律（A4 = 440 Hz）で計算。倍音はさらに上まで出る"
+    },
+    "femaleVocalAlto": {
+      "value": [174.6, 698.5],
+      "unit": "Hz",
+      "source": {
+        "title": "Musicnotes「How To Determine Your Vocal Range」声種ごとの典型的な音域",
+        "url": "https://www.musicnotes.com/blog/determine-vocal-range",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "女性ボーカル（アルト）F3〜F5。周波数は音名から平均律（A4 = 440 Hz）で計算。倍音はさらに上まで出る"
+    },
+    "femaleVocalSoprano": {
+      "value": [261.6, 1046.5],
+      "unit": "Hz",
+      "source": {
+        "title": "Musicnotes「How To Determine Your Vocal Range」声種ごとの典型的な音域",
+        "url": "https://www.musicnotes.com/blog/determine-vocal-range",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "女性ボーカル（ソプラノ）C4〜C6。周波数は音名から平均律（A4 = 440 Hz）で計算。倍音はさらに上まで出る"
+    },
     "maleVoice": {
       "value": [90, 155],
       "unit": "Hz",
@@ -12,7 +56,7 @@
         "accessed": "2026-10-26"
       },
       "reliability": "二次情報",
-      "note": "男性の話し声（大人）。歌うときはもっと高くなる。倍音はさらに上まで出る"
+      "note": "話し声（男性）。歌うときはもっと高くなる。倍音はさらに上まで出る"
     },
     "femaleVoice": {
       "value": [165, 255],
@@ -23,7 +67,7 @@
         "accessed": "2026-10-26"
       },
       "reliability": "二次情報",
-      "note": "女性の話し声（大人）。歌うときはもっと高くなる。倍音はさらに上まで出る"
+      "note": "話し声（女性）。歌うときはもっと高くなる。倍音はさらに上まで出る"
     },
     "flute": {
       "value": [261.6, 2093.0],
@@ -189,6 +233,50 @@
       },
       "reliability": "査読論文",
       "note": "ドラム：スネア（打面の最低次の振動 224 Hz）"
+    },
+    "outdoorAirConditioner": {
+      "value": [63, 63],
+      "unit": "Hz",
+      "source": {
+        "title": "環境省 水・大気環境局「低周波音対応事例集」（平成20年12月）の測定事例",
+        "url": "https://www.env.go.jp/content/900405797.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "機械：エアコン室外機（63 Hz 帯が卓越した事例）。機種や運転状態で変わる"
+    },
+    "refrigeratorCondenser": {
+      "value": [50, 50],
+      "unit": "Hz",
+      "source": {
+        "title": "環境省 水・大気環境局「低周波音対応事例集」（平成20年12月）の測定事例",
+        "url": "https://www.env.go.jp/content/900405797.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "機械：冷蔵庫用の室外機（50 Hz 帯が卓越した事例）。機種や運転状態で変わる"
+    },
+    "refrigerator": {
+      "value": [80, 80],
+      "unit": "Hz",
+      "source": {
+        "title": "環境省 水・大気環境局「低周波音対応事例集」（平成20年12月）の測定事例",
+        "url": "https://www.env.go.jp/content/900405797.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "機械：冷蔵庫（80 Hz 帯が卓越した事例）。機種や運転状態で変わる"
+    },
+    "airCompressor": {
+      "value": [16, 16],
+      "unit": "Hz",
+      "source": {
+        "title": "環境省 水・大気環境局「低周波音対応事例集」（平成20年12月）の測定事例",
+        "url": "https://www.env.go.jp/content/900405797.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "機械：空気圧縮機（コンプレッサー、16 Hz 帯が卓越した事例）。計算範囲（50 Hz〜）より低い"
     }
   }
 }
