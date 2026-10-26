@@ -6,7 +6,7 @@ import { bendingStiffnessFromCoincidenceNm, criticalFrequencyHz } from "./tmm.js
 
 describe("材料データ", () => {
   it("shared/materials の全ファイルが読み込まれ、分類できる", () => {
-    expect(MATERIALS.length).toBe(20);
+    expect(MATERIALS.length).toBe(23);
     expect(MATERIALS.every((material) => material.category !== "other")).toBe(true);
     expect(materialsOf("absorption")).toHaveLength(6);
   });
@@ -24,6 +24,26 @@ describe("材料データ", () => {
   it("板の面密度：面密度の値があればそれ、なければ密度×厚さ", () => {
     expect(plateSurfaceDensityKgm2(findMaterial("gypsum-board-gbr-9-5mm"), 0.0095)).toBe(7.6);
     expect(plateSurfaceDensityKgm2(findMaterial("float-glass-6mm"), 0.006)).toBeCloseTo(14.7, 12);
+  });
+
+  it("平均繊維径3μmのグラスウールの流れ抵抗は KISTEC 2022 の推定式 σ = 316.97 D^1.5912 の値", () => {
+    for (const density of [24, 32, 48]) {
+      const material = findMaterial(`glass-wool-3um-${density}k`);
+      expect(material.values.density).toBe(density);
+      expect(material.values.flowResistivity).toBe(Math.round(316.97 * density ** 1.5912));
+    }
+  });
+
+  // Bies & Hansen（Applied Acoustics 13, 1980）σ = 3.18e-9 ρ^1.53 / d²（Forum Acusticum 2026 の論文 000320 の引用で確認）
+  it("推定式の値は Bies & Hansen の式（繊維径3μm）と2割以内で合う", () => {
+    const biesHansen = (density, diameterM) => (3.18e-9 * density ** 1.53) / diameterM ** 2;
+    for (const density of [24, 32, 48]) {
+      const ratio =
+        findMaterial(`glass-wool-3um-${density}k`).values.flowResistivity /
+        biesHansen(density, 3e-6);
+      expect(ratio).toBeGreaterThan(0.8);
+      expect(ratio).toBeLessThan(1.2);
+    }
   });
 
   it("無い材料は null", () => {

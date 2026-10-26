@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "glass-wool-3um-48k",
+  "name": "グラスウール 平均繊維径3μm 48 kg/m³（日本の製品の推定式）",
+  "properties": {
+    "density": {
+      "value": 48,
+      "unit": "kg/m3",
+      "source": {
+        "title": "KISTEC研究報告2022「グラスウールの吸音特性予測と従来モデルとの比較」小島真路（KISTEC）・岡村和馬（旭ファイバーグラス）式(1) σ = 316.97 D^1.5912",
+        "url": "https://www.kistec.jp/kistec-manage/wp-content/uploads/2022_annl_rprt_2.kikaizairyo_6.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "推定式に入れた嵩密度（密度区分の呼び値）。式のもとのサンプルは14個・嵩密度 20.2〜70.7 kg/m³"
+    },
+    "flowResistivity": {
+      "value": 150041,
+      "unit": "Pa·s/m2",
+      "source": {
+        "title": "KISTEC研究報告2022「グラスウールの吸音特性予測と従来モデルとの比較」小島真路（KISTEC）・岡村和馬（旭ファイバーグラス）式(1) σ = 316.97 D^1.5912",
+        "url": "https://www.kistec.jp/kistec-manage/wp-content/uploads/2022_annl_rprt_2.kikaizairyo_6.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "公設試験研究機関の研究報告（査読の有無は未確認）の推定式から計算した値。Bies & Hansen（1980）の繊維径の式とも約1〜2割の差で合う。流れ抵抗が大きく、報告では固体伝搬の影響で実測との差が大きくなるとされる範囲"
+    }
+  }
+}
