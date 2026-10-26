@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "absorb-curtain-pleated",
+  "name": "カーテン ひだ付き（ひだ倍率2倍・壁から100mm、167 g/m²）",
+  "properties": {
+    "absorptionOctave": {
+      "value": [0.15, 0.4, 0.65, 0.65, 0.7, 0.75],
+      "unit": "1",
+      "source": {
+        "title": "Zimmer + Rohde 布地 1290 の吸音試験報告（Müller-BBM、DIN EN ISO 354、2024-04-08 試験）",
+        "url": "https://www.zimmer-rohde.com/zertifikate/1290_sound%20absorbing.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "メーカー公表",
+      "note": "125〜4000 Hz のオクターブ帯域の実用吸音率 αp。100%フルネス（布の幅が窓幅の2倍）のひだ付き、反射する壁から100 mm 離して吊るした条件。布地で大きく変わる"
+    }
+  }
+}

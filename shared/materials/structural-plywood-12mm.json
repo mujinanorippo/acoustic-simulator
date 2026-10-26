@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "structural-plywood-12mm",
+  "name": "構造用合板 12mm（JAS の厚さ）",
+  "properties": {
+    "thickness": {
+      "value": 0.012,
+      "unit": "m",
+      "source": {
+        "title": "林野庁「木材 BIM 標準オブジェクトライブラリ：説明書」（2024年3月）3.4 JAS 構造用合板の厚さ",
+        "url": "https://www.rinya.maff.go.jp/j/mokusan/attach/pdf/bim-10.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "合板の日本農林規格（JAS）の構造用合板の厚さを、国の資料の一覧で確認"
+    },
+    "density": {
+      "value": 600,
+      "unit": "kg/m3",
+      "source": {
+        "title": "A.C.C. Warnock「Factors Affecting Sound Transmission Loss」Canadian Building Digest CBD-239（NRC Canada、1985）表1 Plywood",
+        "url": "https://nrc-publications.canada.ca/eng/view/ft/?id=6f04ffd7-4531-4ea2-ada6-3df32c9674ee",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "表の面密度 0.6 kg/m²（厚さ1 mmあたり）から。北米の合板の値で、日本の針葉樹合板（スギ・カラマツなど）は樹種で違う。わかる場合は面密度を書き換える"
+    },
+    "coincidenceProduct": {
+      "value": 21.7,
+      "unit": "m/s",
+      "source": {
+        "title": "A.C.C. Warnock「Factors Affecting Sound Transmission Loss」Canadian Building Digest CBD-239（NRC Canada、1985）表1 Plywood",
+        "url": "https://nrc-publications.canada.ca/eng/view/ft/?id=6f04ffd7-4531-4ea2-ada6-3df32c9674ee",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "表の定数 A = 21,700 Hz·mm（臨界周波数 = A ÷ 厚さ）"
+    },
+    "lossFactor": {
+      "value": 0.01,
+      "unit": "1",
+      "source": {
+        "title": "出典未確認の仮の値（損失係数の公表値を確認できていない）",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "板の損失係数。わかる場合は自分で入力する"
+    }
+  }
+}

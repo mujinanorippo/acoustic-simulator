@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "particleboard-novopan-stp2-9mm",
+  "name": "パーティクルボード 構造用 9mm（novopan STPⅡ）",
+  "properties": {
+    "thickness": {
+      "value": 0.009,
+      "unit": "m",
+      "source": {
+        "title": "日本ノボパン工業「novopan STPⅡ」パネル規格表（厚さ9.0 mm、寸法と1枚あたりの重量）",
+        "url": "https://www.novopan.co.jp/products/stp2/",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "メーカー公表",
+      "note": "厚さ 9.0 mm（許容差 ±0.3）"
+    },
+    "surfaceDensity": {
+      "value": 6.9,
+      "unit": "kg/m2",
+      "source": {
+        "title": "日本ノボパン工業「novopan STPⅡ」パネル規格表（厚さ9.0 mm、寸法と1枚あたりの重量）",
+        "url": "https://www.novopan.co.jp/products/stp2/",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "メーカー公表",
+      "note": "6つの寸法の重量÷面積（6.77〜6.98 kg/m²）の平均。重量が kg 単位の丸め値なので±数%の幅がある"
+    },
+    "coincidenceProduct": {
+      "value": 31.7,
+      "unit": "m/s",
+      "source": {
+        "title": "吹野信ほか「市販耐力面材の諸性能」林産試験場報 第546号（2018）構造用PB（18P）の実測値（密度 平均0.75 g/cm³、曲げヤング係数 長さ方向3.24・幅方向3.05 GPa）",
+        "url": "https://www.hro.or.jp/upload/12340/546-4.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "市販の構造用PB（銘柄の記載なし）の実測値から。実測の密度750 kg/m³と曲げヤング係数（長さ・幅方向の平均3.145 GPa）から fc·h = c²/(2π)·√(12ρ/E) で計算（c = 343.2 m/s）。ポアソン比は資料がないので0とした（0.3でも差は約5%）"
+    },
+    "lossFactor": {
+      "value": 0.01,
+      "unit": "1",
+      "source": {
+        "title": "出典未確認の仮の値（損失係数の公表値を確認できていない）",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "板の損失係数。わかる場合は自分で入力する"
+    }
+  }
+}

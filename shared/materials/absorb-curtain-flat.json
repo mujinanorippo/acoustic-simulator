@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "absorb-curtain-flat",
+  "name": "カーテン ひだなし（平らに吊るす・壁から100mm、349 g/m²）",
+  "properties": {
+    "absorptionOctave": {
+      "value": [0.05, 0.25, 0.7, 0.75, 0.7, 0.7],
+      "unit": "1",
+      "source": {
+        "title": "Gabriel「Medley」吸音試験報告（Müller-BBM、EN ISO 354、試験報告 M104146/22、2015-06-08 試験）",
+        "url": "https://gabrielfabrics.com/productmedia/ronhiaf5/medley-iso-354-acoustic-test-class-d-aw-055-08062015.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "メーカー公表",
+      "note": "125〜4000 Hz のオクターブ帯域の実用吸音率 αp。平らに吊るし、壁から100 mm 離した条件。布地で大きく変わる"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "absorb-glass-wool-50mm-air40",
+  "name": "グラスウール 50mm＋空気層40mm",
+  "properties": {
+    "absorptionOctave": {
+      "value": [0.25, 0.8, 0.95, 0.9, 0.85, 0.9],
+      "unit": "1",
+      "source": {
+        "title": "日本建設業連合会 音環境専門部会 用語「吸音率」表1（出典：前川・森本・阪上『建築・環境音響学 第3版』共立出版 2011）",
+        "url": "https://www.nikkenren.com/kenchiku/sound/pdf/glossary/ka-0210.pdf",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "二次情報",
+      "note": "残響室法吸音率。125・250・500・1000・2000・4000 Hz の順。背後の空気層 40 mm"
+    }
+  }
+}

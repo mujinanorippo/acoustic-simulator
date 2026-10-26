@@ -26,7 +26,7 @@ const PURE_CORE_RESTRICTED_SYNTAX = [
 ];
 
 export default [
-  { ignores: ["node_modules/", "dist/", "coverage/"] },
+  { ignores: ["node_modules/", "dist/", "coverage/", "test-results/", "playwright-report/"] },
   js.configs.recommended,
   {
     languageOptions: {
@@ -39,7 +39,7 @@ export default [
       "no-var": "error",
       "prefer-const": "error",
       eqeqeq: ["error", "always"],
-      "id-length": ["error", { min: 2, exceptions: ["i", "j", "k", "_"] }],
+      "id-length": ["error", { min: 2, exceptions: ["i", "j", "k", "_"], properties: "never" }],
       "max-lines-per-function": ["warn", { max: 60, skipBlankLines: true, skipComments: true }],
       "no-empty": ["error", { allowEmptyCatch: false }],
     },
@@ -53,7 +53,7 @@ export default [
     },
   },
   {
-    files: ["**/*.test.js", "*.config.js"],
+    files: ["**/*.test.js", "*.config.js", "e2e/**/*.js"],
     languageOptions: { globals: { ...globals.node } },
     rules: { "no-magic-numbers": "off", "max-lines-per-function": "off" },
   },

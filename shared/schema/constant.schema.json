@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "constant.schema.json",
+  "title": "出典付き定数（開発設計書「システム構成」constants）",
+  "type": "object",
+  "required": ["schemaVersion", "id", "name", "values"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "values": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "material.schema.json#/$defs/sourcedValue"
+      }
+    }
+  }
+}

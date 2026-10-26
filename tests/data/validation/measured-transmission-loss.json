@@ -1,0 +1,43 @@
+{
+  "description": "計算と実測を比べるための、建築材料の透過損失の実測値（オクターブ帯域 125〜2000 Hz）",
+  "source": {
+    "title": "神奈川県「（参考）建築材料の透過損失」（参考資料：日本建築学会編『実務的騒音対策指針（第二版）』技報堂出版）",
+    "url": "https://www.pref.kanagawa.jp/documents/33181/toukasonsitsu.pdf",
+    "accessed": "2026-10-26"
+  },
+  "reliability": "二次情報",
+  "note": "測定条件（試料の大きさ・取り付け方）は表に書かれていない。表の「せっこうボード（9）（12）」は厚さの呼びが今の JIS（9.5・12.5 mm）と違うため、近い材料データで計算する。合板はラワン合板の実測を、構造用合板の材料データ（密度は北米の合板の値）で計算して比べる。ラワン合板（12）は 125 Hz で実測が計算より 8 dB 高く（試料の大きさ・取り付けの影響と考えられる）、テストの範囲（±7 dB）を超えるため入れていない（docs/test-report-phase-1.md に記録）",
+  "octaveCentersHz": [125, 250, 500, 1000, 2000],
+  "cases": [
+    {
+      "name": "板ガラス（3）",
+      "materialId": "float-glass-3mm",
+      "measuredDb": [14, 19, 22, 28, 31]
+    },
+    {
+      "name": "板ガラス（5）",
+      "materialId": "float-glass-5mm",
+      "measuredDb": [17, 22, 27, 30, 27]
+    },
+    {
+      "name": "板ガラス（8）",
+      "materialId": "float-glass-8mm",
+      "measuredDb": [21, 25, 28, 29, 30]
+    },
+    {
+      "name": "せっこうボード（9）",
+      "materialId": "gypsum-board-gbr-9-5mm",
+      "measuredDb": [10, 14, 21, 27, 35]
+    },
+    {
+      "name": "せっこうボード（12）",
+      "materialId": "gypsum-board-gbr-12-5mm",
+      "measuredDb": [15, 15, 22, 29, 35]
+    },
+    {
+      "name": "ラワン合板（6）",
+      "materialId": "structural-plywood-6mm",
+      "measuredDb": [11, 12, 16, 21, 24]
+    }
+  ]
+}

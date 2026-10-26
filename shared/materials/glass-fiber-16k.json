@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "glass-fiber-16k",
+  "name": "グラスウール 約16 kg/m³（北米の住宅用の測定例 G2）",
+  "properties": {
+    "density": {
+      "value": 16.4,
+      "unit": "kg/m3",
+      "source": {
+        "title": "Warnock & Quirt「Sound Transmission Through Gypsum Board Walls」（NRC Canada）表1 吸音材の密度と流れ抵抗",
+        "url": "https://jcaa.caa-aca.ca/index.php/jcaa/article/download/936/657",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "二次情報",
+      "note": "学術誌に載った測定値（査読の有無は未確認）"
+    },
+    "flowResistivity": {
+      "value": 7900,
+      "unit": "Pa·s/m2",
+      "source": {
+        "title": "Warnock & Quirt「Sound Transmission Through Gypsum Board Walls」（NRC Canada）表1 吸音材の密度と流れ抵抗",
+        "url": "https://jcaa.caa-aca.ca/index.php/jcaa/article/download/936/657",
+        "accessed": "2026-10-23"
+      },
+      "reliability": "二次情報",
+      "note": "表の単位 mks rayls/m（= Pa·s/m²）。同じ製品でも方向や個体で差がある"
+    }
+  }
+}

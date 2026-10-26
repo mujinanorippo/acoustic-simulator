@@ -15,7 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # 開発設計書の表と同じ内容。変えるときは設計書を先に直す。
 JS_ALLOWED: dict[str, set[str]] = {
-    "core-acoustics": {"materials", "schema"},
+    "core-acoustics": {"materials", "schema", "constants"},
     "core-model": {"schema"},
     "viewer": {"three", "core-model"},
     "ui": {"viewer", "core-acoustics", "core-model"},
@@ -25,8 +25,11 @@ PY_ALLOWED: dict[str, set[str]] = {
     "compute_fdtd": {"numpy", "schema"},
     "compute_viz": {"pyvista"},
 }
-# テスト専用ファイルだけが使ってよい道具
-TEST_ONLY_PACKAGES = {"vitest", "fast-check", "pytest", "hypothesis"}
+# 照合用 Python（tests/reference_py）。配布しないが、計算コアと同じく NumPy だけに頼る
+PY_REFERENCE_ALLOWED: dict[str, set[str]] = {"reference_py": {"numpy"}}
+# テスト専用ファイルだけが使ってよい道具と、共通テストデータ（tests/data/）
+TEST_DATA = "test-data"
+TEST_ONLY_PACKAGES = {"vitest", "fast-check", "pytest", "hypothesis", TEST_DATA}
 PY_STDLIB = set(sys.stdlib_module_names)
 
 IMPORT_PATTERN = re.compile(
@@ -43,6 +46,8 @@ def js_target(source_file: Path, specifier: str, src_root: Path) -> str:
         return "/".join(parts[:2]) if specifier.startswith("@") else parts[0]
     resolved = (source_file.parent / specifier).resolve()
     shared_root = (REPO_ROOT / "shared").resolve()
+    if resolved.is_relative_to((REPO_ROOT / "tests" / "data").resolve()):
+        return TEST_DATA
     if resolved.is_relative_to(shared_root):
         return resolved.relative_to(shared_root).parts[0]
     if resolved.is_relative_to(src_root):
@@ -79,9 +84,9 @@ def python_imports(path: Path) -> set[str]:
     return names
 
 
-def check_python(compute_root: Path) -> list[str]:
+def check_python(compute_root: Path, rules: dict[str, set[str]] | None = None) -> list[str]:
     problems = []
-    for module, allowed in PY_ALLOWED.items():
+    for module, allowed in (PY_ALLOWED if rules is None else rules).items():
         for path in sorted((compute_root / module).rglob("*.py")):
             for name in sorted(python_imports(path)):
                 if name in PY_STDLIB or name == module or name in allowed:
@@ -94,7 +99,12 @@ def check_python(compute_root: Path) -> list[str]:
 def main(argv: list[str]) -> int:
     src_root = Path(argv[1]) if len(argv) > 1 else REPO_ROOT / "web" / "src"
     compute_root = Path(argv[2]) if len(argv) > 2 else REPO_ROOT / "compute"  # noqa: PLR2004
-    problems = check_js(src_root) + check_python(compute_root)
+    tests_root = Path(argv[3]) if len(argv) > 3 else REPO_ROOT / "tests"  # noqa: PLR2004
+    problems = (
+        check_js(src_root)
+        + check_python(compute_root)
+        + check_python(tests_root, PY_REFERENCE_ALLOWED)
+    )
     for problem in problems:
         print(problem)
     print(f"依存違反 {len(problems)} 件")

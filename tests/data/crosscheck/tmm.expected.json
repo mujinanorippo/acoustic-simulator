@@ -1,0 +1,591 @@
+{
+  "generatedBy": "tools/generate_crosscheck.py（照合用 Python）",
+  "results": [
+    {
+      "id": "質量だけの板 10 kg/m²",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "tauNormal": 0.04165271518676061,
+          "tauOblique": 0.0799742842878158,
+          "diffuseTlDb": 9.468453674573125
+        },
+        {
+          "frequencyHz": 125.893,
+          "tauNormal": 0.010799436993380325,
+          "tauOblique": 0.021368110424562985,
+          "diffuseTlDb": 14.762759769544182
+        },
+        {
+          "frequencyHz": 251.189,
+          "tauNormal": 0.00273482376937877,
+          "tauOblique": 0.005454729814006652,
+          "diffuseTlDb": 20.537850869808175
+        },
+        {
+          "frequencyHz": 501.187,
+          "tauNormal": 0.0006883689505161599,
+          "tauOblique": 0.0013757908493292374,
+          "diffuseTlDb": 26.47676899307197
+        },
+        {
+          "frequencyHz": 1000.0,
+          "tauNormal": 0.00017299947553976305,
+          "tauOblique": 0.00034593910379600057,
+          "diffuseTlDb": 32.46110397956164
+        },
+        {
+          "frequencyHz": 1995.26,
+          "tauNormal": 4.3461234500404476e-5,
+          "tauOblique": 8.691869140717926e-5,
+          "diffuseTlDb": 38.45713642763205
+        },
+        {
+          "frequencyHz": 2511.89,
+          "tauNormal": 2.7422483396602043e-5,
+          "tauOblique": 5.484346284925467e-5,
+          "diffuseTlDb": 40.45666831372553
+        },
+        {
+          "frequencyHz": 3162.28,
+          "tauNormal": 1.7302615962441044e-5,
+          "tauOblique": 3.460463317420373e-5,
+          "diffuseTlDb": 42.45635283277646
+        },
+        {
+          "frequencyHz": 3981.07,
+          "tauNormal": 1.091730784121395e-5,
+          "tauOblique": 2.183437730980928e-5,
+          "diffuseTlDb": 44.45614733293158
+        },
+        {
+          "frequencyHz": 5011.87,
+          "tauNormal": 6.8883838372188535e-6,
+          "tauOblique": 1.3776672775427626e-5,
+          "diffuseTlDb": 46.45602373473806
+        }
+      ],
+      "bandTlDb": [12.893351323227256, 32.42308486800305, 42.41820152640013]
+    },
+    {
+      "id": "曲げ剛性のある板（試験用）",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "tauNormal": 0.04165271518676061,
+          "tauOblique": 0.07999286784623745,
+          "diffuseTlDb": 9.466806576256486
+        },
+        {
+          "frequencyHz": 125.893,
+          "tauNormal": 0.010799436993380325,
+          "tauOblique": 0.021389179856216394,
+          "diffuseTlDb": 14.754247888158234
+        },
+        {
+          "frequencyHz": 251.189,
+          "tauNormal": 0.00273482376937877,
+          "tauOblique": 0.0054765552604072835,
+          "diffuseTlDb": 20.50067682687604
+        },
+        {
+          "frequencyHz": 501.187,
+          "tauNormal": 0.0006883689505161599,
+          "tauOblique": 0.0013980033449749378,
+          "diffuseTlDb": 26.323081301973865
+        },
+        {
+          "frequencyHz": 1000.0,
+          "tauNormal": 0.00017299947553976305,
+          "tauOblique": 0.00036903073523249555,
+          "diffuseTlDb": 31.812263230810302
+        },
+        {
+          "frequencyHz": 1995.26,
+          "tauNormal": 4.3461234500404476e-5,
+          "tauOblique": 0.00011394531293493507,
+          "diffuseTlDb": 35.10773548274865
+        },
+        {
+          "frequencyHz": 2511.89,
+          "tauNormal": 2.7422483396602043e-5,
+          "tauOblique": 8.583705541164608e-5,
+          "diffuseTlDb": 33.183530870980064
+        },
+        {
+          "frequencyHz": 3162.28,
+          "tauNormal": 1.7302615962441044e-5,
+          "tauOblique": 7.440918100802217e-5,
+          "diffuseTlDb": 20.215103660729326
+        },
+        {
+          "frequencyHz": 3981.07,
+          "tauNormal": 1.091730784121395e-5,
+          "tauOblique": 8.877255567482538e-5,
+          "diffuseTlDb": 25.7598690681554
+        },
+        {
+          "frequencyHz": 5011.87,
+          "tauNormal": 6.8883838372188535e-6,
+          "tauOblique": 0.0003399184279011727,
+          "diffuseTlDb": 29.875817137962166
+        }
+      ],
+      "bandTlDb": [12.888338652518081, 31.77845283281944, 21.067994273432326]
+    },
+    {
+      "id": "板－空気層100mm－板",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "tauNormal": 0.05303089466199519,
+          "tauOblique": 0.04024685099420414,
+          "diffuseTlDb": 12.616012631310717
+        },
+        {
+          "frequencyHz": 125.893,
+          "tauNormal": 0.001852093356641086,
+          "tauOblique": 0.30819211703576027,
+          "diffuseTlDb": 9.334226340839798
+        },
+        {
+          "frequencyHz": 251.189,
+          "tauNormal": 1.193447777885024e-5,
+          "tauOblique": 0.00012210316452255737,
+          "diffuseTlDb": 15.515494998461408
+        },
+        {
+          "frequencyHz": 501.187,
+          "tauNormal": 1.9590017282687924e-7,
+          "tauOblique": 1.4849318723885397e-6,
+          "diffuseTlDb": 37.35187600409671
+        },
+        {
+          "frequencyHz": 1000.0,
+          "tauNormal": 7.958551621988136e-9,
+          "tauOblique": 3.721417909659047e-8,
+          "diffuseTlDb": 58.566386249089746
+        },
+        {
+          "frequencyHz": 1995.26,
+          "tauNormal": 2.0199543620911616e-9,
+          "tauOblique": 1.1172102993278007e-8,
+          "diffuseTlDb": 43.507374661959695
+        },
+        {
+          "frequencyHz": 2511.89,
+          "tauNormal": 1.9068847102343402e-10,
+          "tauOblique": 1.8156659567141577e-7,
+          "diffuseTlDb": 45.183998137093475
+        },
+        {
+          "frequencyHz": 3162.28,
+          "tauNormal": 3.280880091608763e-10,
+          "tauOblique": 2.112035303109291e-9,
+          "diffuseTlDb": 29.887059620772
+        },
+        {
+          "frequencyHz": 3981.07,
+          "tauNormal": 4.197902700984438e-11,
+          "tauOblique": 2.3892989838108575e-9,
+          "diffuseTlDb": 37.62220282335167
+        },
+        {
+          "frequencyHz": 5011.87,
+          "tauNormal": 1.9103234755192587e-10,
+          "tauOblique": 8.417758199129591e-7,
+          "diffuseTlDb": 35.85073064545222
+        }
+      ],
+      "bandTlDb": [7.421625207467242, 58.256029810493246, 29.02725092235886]
+    },
+    {
+      "id": "板－多孔質50mm－空気層50mm－板",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "tauNormal": 0.07929386988533067,
+          "tauOblique": 0.08165200979442772,
+          "diffuseTlDb": 9.631234097996801
+        },
+        {
+          "frequencyHz": 125.893,
+          "tauNormal": 0.0011125861652663688,
+          "tauOblique": 0.0051424919698625495,
+          "diffuseTlDb": 18.689098953203175
+        },
+        {
+          "frequencyHz": 251.189,
+          "tauNormal": 9.195201744895784e-6,
+          "tauOblique": 3.228979124099922e-5,
+          "diffuseTlDb": 41.243404158412616
+        },
+        {
+          "frequencyHz": 501.187,
+          "tauNormal": 1.7485094131177605e-7,
+          "tauOblique": 5.775270626926748e-7,
+          "diffuseTlDb": 58.767162256190986
+        },
+        {
+          "frequencyHz": 1000.0,
+          "tauNormal": 8.327004089010515e-9,
+          "tauOblique": 2.1529673684599732e-8,
+          "diffuseTlDb": 73.1529597510096
+        },
+        {
+          "frequencyHz": 1995.26,
+          "tauNormal": 3.5701232869737177e-10,
+          "tauOblique": 2.576669056457732e-9,
+          "diffuseTlDb": 79.92457491620114
+        },
+        {
+          "frequencyHz": 2511.89,
+          "tauNormal": 1.4240352296014214e-10,
+          "tauOblique": 8.938074745223402e-10,
+          "diffuseTlDb": 75.10919910852833
+        },
+        {
+          "frequencyHz": 3162.28,
+          "tauNormal": 9.676420804213278e-11,
+          "tauOblique": 5.109479220874506e-10,
+          "diffuseTlDb": 41.46468238937114
+        },
+        {
+          "frequencyHz": 3981.07,
+          "tauNormal": 1.3267129204451846e-11,
+          "tauOblique": 7.612396448567961e-10,
+          "diffuseTlDb": 49.70161402805832
+        },
+        {
+          "frequencyHz": 5011.87,
+          "tauNormal": 5.3593953858885004e-12,
+          "tauOblique": 5.876967230179438e-9,
+          "diffuseTlDb": 56.957031075250356
+        }
+      ],
+      "bandTlDb": [8.434344524347239, 72.97141498330434, 42.80434565706055]
+    },
+    {
+      "id": "重い板と軽い板の二重壁",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "tauNormal": 0.011370157555236637,
+          "tauOblique": 0.01730456335335539,
+          "diffuseTlDb": 15.950836522112933
+        },
+        {
+          "frequencyHz": 125.893,
+          "tauNormal": 0.09064325903378209,
+          "tauOblique": 0.011090110081220328,
+          "diffuseTlDb": 16.7141272896357
+        },
+        {
+          "frequencyHz": 251.189,
+          "tauNormal": 6.953975105581025e-5,
+          "tauOblique": 0.0014857970649938797,
+          "diffuseTlDb": 17.573478945438453
+        },
+        {
+          "frequencyHz": 501.187,
+          "tauNormal": 6.936924750232688e-7,
+          "tauOblique": 6.278444105093206e-6,
+          "diffuseTlDb": 23.978712720546163
+        },
+        {
+          "frequencyHz": 1000.0,
+          "tauNormal": 1.2214156435070831e-8,
+          "tauOblique": 8.762642534643497e-8,
+          "diffuseTlDb": 52.97855783066198
+        },
+        {
+          "frequencyHz": 1995.26,
+          "tauNormal": 5.023389417345944e-10,
+          "tauOblique": 2.058077611929031e-9,
+          "diffuseTlDb": 73.03500040344194
+        },
+        {
+          "frequencyHz": 2511.89,
+          "tauNormal": 3.337843984325469e-10,
+          "tauOblique": 7.535275128712425e-10,
+          "diffuseTlDb": 78.99281064163608
+        },
+        {
+          "frequencyHz": 3162.28,
+          "tauNormal": 1.2029535627938948e-9,
+          "tauOblique": 3.761221896248253e-10,
+          "diffuseTlDb": 84.47696309272162
+        },
+        {
+          "frequencyHz": 3981.07,
+          "tauNormal": 1.3036200105992118e-10,
+          "tauOblique": 4.0852712963523545e-10,
+          "diffuseTlDb": 52.712946304837956
+        },
+        {
+          "frequencyHz": 5011.87,
+          "tauNormal": 1.2058608888782765e-11,
+          "tauOblique": 4.974938438087151e-9,
+          "diffuseTlDb": 54.713330550182036
+        }
+      ],
+      "bandTlDb": [18.26257872145155, 52.35267691646329, 60.59969021921164]
+    },
+    {
+      "id": "多孔質50mm（剛壁裏打ち）",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "absorptionNormal": 0.019956749505672715
+        },
+        {
+          "frequencyHz": 125.893,
+          "absorptionNormal": 0.06495989167064935
+        },
+        {
+          "frequencyHz": 251.189,
+          "absorptionNormal": 0.19129317126453263
+        },
+        {
+          "frequencyHz": 501.187,
+          "absorptionNormal": 0.48481127204537017
+        },
+        {
+          "frequencyHz": 1000.0,
+          "absorptionNormal": 0.8823953415241919
+        },
+        {
+          "frequencyHz": 1995.26,
+          "absorptionNormal": 0.9818339727648655
+        },
+        {
+          "frequencyHz": 2511.89,
+          "absorptionNormal": 0.9417609996166366
+        },
+        {
+          "frequencyHz": 3162.28,
+          "absorptionNormal": 0.9243117353903829
+        },
+        {
+          "frequencyHz": 3981.07,
+          "absorptionNormal": 0.9696519614314979
+        },
+        {
+          "frequencyHz": 5011.87,
+          "absorptionNormal": 0.9985001039200975
+        }
+      ]
+    },
+    {
+      "id": "多孔質25mm＋空気層75mm（剛壁裏打ち）",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "absorptionNormal": 0.0517762896300935
+        },
+        {
+          "frequencyHz": 125.893,
+          "absorptionNormal": 0.17536408870500364
+        },
+        {
+          "frequencyHz": 251.189,
+          "absorptionNormal": 0.49283071504834775
+        },
+        {
+          "frequencyHz": 501.187,
+          "absorptionNormal": 0.9002651933019562
+        },
+        {
+          "frequencyHz": 1000.0,
+          "absorptionNormal": 0.9605544762775285
+        },
+        {
+          "frequencyHz": 1995.26,
+          "absorptionNormal": 0.604455250837325
+        },
+        {
+          "frequencyHz": 2511.89,
+          "absorptionNormal": 0.9999385410620034
+        },
+        {
+          "frequencyHz": 3162.28,
+          "absorptionNormal": 0.8732182224637883
+        },
+        {
+          "frequencyHz": 3981.07,
+          "absorptionNormal": 0.9381498445756685
+        },
+        {
+          "frequencyHz": 5011.87,
+          "absorptionNormal": 0.9185149513297483
+        }
+      ]
+    },
+    {
+      "id": "微細穿孔板＋空気層30mm",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "absorptionNormal": 0.002175402084693648
+        },
+        {
+          "frequencyHz": 125.893,
+          "absorptionNormal": 0.008705538475489827
+        },
+        {
+          "frequencyHz": 251.189,
+          "absorptionNormal": 0.03509784950027363
+        },
+        {
+          "frequencyHz": 501.187,
+          "absorptionNormal": 0.14422633386766
+        },
+        {
+          "frequencyHz": 1000.0,
+          "absorptionNormal": 0.5651855717529201
+        },
+        {
+          "frequencyHz": 1995.26,
+          "absorptionNormal": 0.7988079912312008
+        },
+        {
+          "frequencyHz": 2511.89,
+          "absorptionNormal": 0.5981137094179075
+        },
+        {
+          "frequencyHz": 3162.28,
+          "absorptionNormal": 0.4033283068987864
+        },
+        {
+          "frequencyHz": 3981.07,
+          "absorptionNormal": 0.2456761786277718
+        },
+        {
+          "frequencyHz": 5011.87,
+          "absorptionNormal": 0.09828269718409662
+        }
+      ]
+    },
+    {
+      "id": "有孔ボード＋多孔質＋空気層",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "tauNormal": 0.4879801037036959,
+          "tauOblique": 0.5859305749154728,
+          "diffuseTlDb": 2.2124382129923457,
+          "absorptionNormal": 0.012683817494935011
+        },
+        {
+          "frequencyHz": 125.893,
+          "tauNormal": 0.4940305999274895,
+          "tauOblique": 0.5900942380390183,
+          "diffuseTlDb": 2.2008427365837475,
+          "absorptionNormal": 0.047788149123327954
+        },
+        {
+          "frequencyHz": 251.189,
+          "tauNormal": 0.47920406935713195,
+          "tauOblique": 0.5727861967812449,
+          "diffuseTlDb": 2.3727655618626287,
+          "absorptionNormal": 0.18814224540211552
+        },
+        {
+          "frequencyHz": 501.187,
+          "tauNormal": 0.4326951552511901,
+          "tauOblique": 0.5174126818909287,
+          "diffuseTlDb": 2.9058568229911748,
+          "absorptionNormal": 0.7474213225670155
+        },
+        {
+          "frequencyHz": 1000.0,
+          "tauNormal": 0.3322314623201726,
+          "tauOblique": 0.3788396219286533,
+          "diffuseTlDb": 4.3461893742464905,
+          "absorptionNormal": 0.6514939949138289
+        },
+        {
+          "frequencyHz": 1995.26,
+          "tauNormal": 0.1475656694510022,
+          "tauOblique": 0.1502767076693114,
+          "diffuseTlDb": 8.273018874051001,
+          "absorptionNormal": 0.263689543515874
+        },
+        {
+          "frequencyHz": 2511.89,
+          "tauNormal": 0.0887936806398128,
+          "tauOblique": 0.09224035099213483,
+          "diffuseTlDb": 10.36687351803999,
+          "absorptionNormal": 0.26201144918091507
+        },
+        {
+          "frequencyHz": 3162.28,
+          "tauNormal": 0.048397663293233875,
+          "tauOblique": 0.05335484155440059,
+          "diffuseTlDb": 12.741141789740817,
+          "absorptionNormal": 0.2667098715430838
+        },
+        {
+          "frequencyHz": 3981.07,
+          "tauNormal": 0.02544729194323256,
+          "tauOblique": 0.02988315930049083,
+          "diffuseTlDb": 15.259656328558979,
+          "absorptionNormal": 0.0810683751290483
+        },
+        {
+          "frequencyHz": 5011.87,
+          "tauNormal": 0.013762730223185377,
+          "tauOblique": 0.016488820792767884,
+          "diffuseTlDb": 17.821832753673363,
+          "absorptionNormal": 0.040808476445975725
+        }
+      ],
+      "bandTlDb": [2.189852064689146, 4.351850903170461, 12.68916325121468]
+    },
+    {
+      "id": "穴の大きい有孔ボード＋空気層",
+      "points": [
+        {
+          "frequencyHz": 63.0957,
+          "absorptionNormal": 5.183111230463145e-5
+        },
+        {
+          "frequencyHz": 125.893,
+          "absorptionNormal": 0.0002898766176879975
+        },
+        {
+          "frequencyHz": 251.189,
+          "absorptionNormal": 0.0017268877980218076
+        },
+        {
+          "frequencyHz": 501.187,
+          "absorptionNormal": 0.012694489088831062
+        },
+        {
+          "frequencyHz": 1000.0,
+          "absorptionNormal": 0.0667033438063611
+        },
+        {
+          "frequencyHz": 1995.26,
+          "absorptionNormal": 0.016146060078588372
+        },
+        {
+          "frequencyHz": 2511.89,
+          "absorptionNormal": 0.009352151165393261
+        },
+        {
+          "frequencyHz": 3162.28,
+          "absorptionNormal": 0.004542708475256865
+        },
+        {
+          "frequencyHz": 3981.07,
+          "absorptionNormal": 0.01554037569569855
+        },
+        {
+          "frequencyHz": 5011.87,
+          "absorptionNormal": 0.006447421092726545
+        }
+      ]
+    }
+  ]
+}

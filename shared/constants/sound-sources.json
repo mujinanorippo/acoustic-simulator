@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "id": "sound-sources",
+  "name": "音源ごとの基本周波数の範囲（下限・上限）",
+  "values": {
+    "maleVoice": {
+      "value": [90, 155],
+      "unit": "Hz",
+      "source": {
+        "title": "Wikipedia「Voice frequency」（出典：Baken, Clinical Measurement of Speech and Voice 第2版, 2000, p.177）話し声の基本周波数",
+        "url": "https://en.wikipedia.org/wiki/Voice_frequency",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "男性の話し声（大人）。歌うときはもっと高くなる。倍音はさらに上まで出る"
+    },
+    "femaleVoice": {
+      "value": [165, 255],
+      "unit": "Hz",
+      "source": {
+        "title": "Wikipedia「Voice frequency」（出典：Baken, Clinical Measurement of Speech and Voice 第2版, 2000, p.177）話し声の基本周波数",
+        "url": "https://en.wikipedia.org/wiki/Voice_frequency",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "女性の話し声（大人）。歌うときはもっと高くなる。倍音はさらに上まで出る"
+    },
+    "flute": {
+      "value": [261.6, 2093.0],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://hyperphysics.gsu.edu/hbase/Music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "フルート C4〜C7"
+    },
+    "clarinet": {
+      "value": [146.8, 1864.7],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://hyperphysics.gsu.edu/hbase/Music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "B♭クラリネット D3〜B♭6（実音）"
+    },
+    "altoSaxophone": {
+      "value": [138.6, 830.6],
+      "unit": "Hz",
+      "source": {
+        "title": "Wikipedia「Alto saxophone」（実音 D♭3〜A♭5）",
+        "url": "https://en.wikipedia.org/wiki/Alto_saxophone",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "アルトサックス D♭3〜A♭5（実音）。周波数は音名から平均律（A4 = 440 Hz）で計算"
+    },
+    "tenorSaxophone": {
+      "value": [103.8, 659.3],
+      "unit": "Hz",
+      "source": {
+        "title": "Wikipedia「Tenor saxophone」（実音 A♭2〜E5）",
+        "url": "https://en.wikipedia.org/wiki/Tenor_saxophone",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "テナーサックス A♭2〜E5（実音）。周波数は音名から平均律（A4 = 440 Hz）で計算"
+    },
+    "trumpet": {
+      "value": [164.8, 932.3],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://hyperphysics.gsu.edu/hbase/Music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "B♭トランペット E3〜B♭5（実音）"
+    },
+    "horn": {
+      "value": [61.7, 698.5],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://hyperphysics.gsu.edu/hbase/Music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "ホルン（F・B♭ダブル）B1〜F5"
+    },
+    "trombone": {
+      "value": [82.4, 466.2],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://hyperphysics.gsu.edu/hbase/Music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "テナートロンボーン E2〜B♭4"
+    },
+    "tuba": {
+      "value": [36.7, 329.6],
+      "unit": "Hz",
+      "source": {
+        "title": "D. Freund・D. Cutler「Brass | The Tuba Family」Extreme Orchestration（ISFEE, 2024）実用音域の下限 D1、E4 より上は効果が薄い",
+        "url": "https://timbreandorchestration.org/isfee/extreme-orchestration/brass/tuba",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "チューバ D1〜E4（実用音域の目安）。周波数は音名から平均律（A4 = 440 Hz）で計算"
+    },
+    "violin": {
+      "value": [196.0, 2637.0],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave, Georgia State University）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）",
+        "url": "https://hyperphysics.gsu.edu/hbase/Music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "バイオリン G3〜E7"
+    },
+    "doubleBass": {
+      "value": [41.2, 246.9],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave, Georgia State University）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）",
+        "url": "https://hyperphysics.gsu.edu/hbase/Music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "コントラバス E1〜B3"
+    },
+    "electricGuitar": {
+      "value": [82.41, 329.63],
+      "unit": "Hz",
+      "source": {
+        "title": "Wikipedia「Guitar tunings」標準チューニング E2 82.41 Hz〜E4 329.63 Hz",
+        "url": "https://en.wikipedia.org/wiki/Guitar_tunings",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "エレキギター 開放弦 E2〜E4（標準チューニング）。押さえた音はもっと高くまで出る"
+    },
+    "grandPiano": {
+      "value": [27.5, 4186.0],
+      "unit": "Hz",
+      "source": {
+        "title": "G. Dunbar「3.5: Instrument Ranges」Understanding Sound From Ear to Engineer（LibreTexts）ピアノ A0〜C8",
+        "url": "https://human.libretexts.org/Workbench/From_Ear_to_Engineer/03%3A_Psychoacoustics/3.05%3A_Instrument_Ranges",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "グランドピアノ A0〜C8"
+    },
+    "timpani": {
+      "value": [87.3, 349.2],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://hyperphysics.gsu.edu/hbase/Music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "ティンパニ F2〜F4"
+    },
+    "bassDrum": {
+      "value": [40, 40],
+      "unit": "Hz",
+      "source": {
+        "title": "H. Fletcher・I. G. Bassett「Some experiments with the bass drum」J. Acoust. Soc. Am. 64(6), 1978（基本周波数 約40 Hz）",
+        "url": "https://physics.byu.edu/docs/publication/1492",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "査読論文",
+      "note": "ドラム：バスドラム（基本周波数 約40 Hz）。計算範囲（50 Hz〜）より低いので50 Hz の帯域の値"
+    },
+    "snareDrum": {
+      "value": [224, 224],
+      "unit": "Hz",
+      "source": {
+        "title": "E. B. Skrodzka ほか「Vibroacoustic investigation of a batter head of a snare drum」Archives of Acoustics 31(3), 289–297, 2006（打面の最低次モード 224 Hz）",
+        "url": "https://acoustics.ippt.pan.pl/index.php/aa/article/download/674/592/1079",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "査読論文",
+      "note": "ドラム：スネア（打面の最低次の振動 224 Hz）"
+    }
+  }
+}
