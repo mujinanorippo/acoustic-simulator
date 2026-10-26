@@ -11,7 +11,7 @@ import {
 
 describe("材料データ", () => {
   it("shared/materials の全ファイルが読み込まれ、分類できる", () => {
-    expect(MATERIALS.length).toBe(47);
+    expect(MATERIALS.length).toBe(50);
     expect(MATERIALS.every((material) => material.category !== "other")).toBe(true);
     expect(materialsOf("absorption")).toHaveLength(6);
   });

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "fiber-cement-siding-16mm",
+  "name": "窯業系サイディング 16mm（曲げの硬さは未確認）",
+  "properties": {
+    "thickness": {
+      "value": 0.016,
+      "unit": "m",
+      "source": {
+        "title": "化粧窯業系サイディング（JIS A 5422）の認定書類の別添 PC030BE-4029「密度 1.1(±0.2) g/cm³、厚さ 15〜26 mm（中実品）」（吉野石膏 掲載）",
+        "url": "https://yoshino-gypsum.com/pdf/approved_doc/PC030BE-4029認定書.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "認定書類の厚さの範囲（15〜26 mm）の中の値"
+    },
+    "density": {
+      "value": 1100,
+      "unit": "kg/m3",
+      "source": {
+        "title": "化粧窯業系サイディング（JIS A 5422）の認定書類の別添 PC030BE-4029「密度 1.1(±0.2) g/cm³、厚さ 15〜26 mm（中実品）」（吉野石膏 掲載）",
+        "url": "https://yoshino-gypsum.com/pdf/approved_doc/PC030BE-4029認定書.pdf",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "認定書類の値 1.1 g/cm³（±0.2）。面密度は密度×厚さ"
+    },
+    "coincidenceProduct": {
+      "value": 0,
+      "unit": "m/s",
+      "source": {
+        "title": "出典未確認（窯業系サイディングの曲げの硬さの公表値を確認できていない）",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "曲げの硬さの値が見つかっていないので、重さだけで計算する。実際はコインシデンスで遮音が落ちる周波数があり、そのあたりは計算が高めに出る"
+    },
+    "lossFactor": {
+      "value": 0.01,
+      "unit": "1",
+      "source": {
+        "title": "出典未確認の仮の値（損失係数の公表値を確認できていない）",
+        "url": "https://github.com/mujinanorippo/acoustic-simulator/blob/main/docs/README.md",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "暫定",
+      "note": "板の損失係数。わかる場合は自分で入力する"
+    }
+  }
+}
