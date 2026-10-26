@@ -7,7 +7,7 @@ import { bendingStiffnessFromCoincidenceNm, criticalFrequencyHz } from "./tmm.js
 
 describe("材料データ", () => {
   it("shared/materials の全ファイルが読み込まれ、分類できる", () => {
-    expect(MATERIALS.length).toBe(25);
+    expect(MATERIALS.length).toBe(37);
     expect(MATERIALS.every((material) => material.category !== "other")).toBe(true);
     expect(materialsOf("absorption")).toHaveLength(6);
   });
@@ -45,6 +45,16 @@ describe("材料データ", () => {
       expect(ratio).toBeGreaterThan(0.8);
       expect(ratio).toBeLessThan(1.2);
     }
+  });
+
+  it("構造用合板は JAS の12種類の厚さ。12 mm は面密度 7.2 kg/m²、臨界周波数 約1808 Hz", () => {
+    const plywood = materialsOf("plate").filter((material) =>
+      material.id.startsWith("structural-plywood-"),
+    );
+    expect(plywood).toHaveLength(12);
+    const twelve = findMaterial("structural-plywood-12mm");
+    expect(plateSurfaceDensityKgm2(twelve, 0.012)).toBeCloseTo(7.2, 12);
+    expect(twelve.values.coincidenceProduct / twelve.values.thickness).toBeCloseTo(1808.33, 1);
   });
 
   it("無い材料は null", () => {
