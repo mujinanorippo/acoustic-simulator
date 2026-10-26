@@ -5,6 +5,9 @@
 import { IO_ERRORS, IoError } from "./errors.js";
 import { MAX_FILE_BYTES } from "./project-file.js";
 
+// ダウンロード用の一時 URL を消すまでの待ち時間 [ms]
+const REVOKE_DELAY_MS = 1000;
+export const DOWNLOAD_FILE_NAME = "room-project.json";
 const JSON_TYPE = {
   description: "音響シミュレーターのプロジェクト",
   accept: { "application/json": [".json"] },
@@ -23,7 +26,8 @@ function download(text, fileName) {
   document.body.append(link);
   link.click();
   link.remove();
-  URL.revokeObjectURL(url);
+  // すぐに URL を消すとブラウザがファイル名を受け取る前に消えるので、少し後で消す
+  setTimeout(() => URL.revokeObjectURL(url), REVOKE_DELAY_MS);
 }
 
 /**
@@ -32,7 +36,8 @@ function download(text, fileName) {
  */
 export async function saveTextFile(text, suggestedName) {
   if (!canChooseSaveLocation()) {
-    download(text, suggestedName);
+    // ダウンロード保存のファイル名は半角英数字にする（日本語名だと "download" になるブラウザがある）
+    download(text, DOWNLOAD_FILE_NAME);
     return "downloaded";
   }
   let handle;
