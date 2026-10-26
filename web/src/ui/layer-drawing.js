@@ -1,13 +1,16 @@
-// 積層の断面図：室内側（左）から順に、厚さの比率で層を並べて描く（SVG）。
+// 積層の断面図：壁を上から見た縦長の断面として、室内側（左）から順に厚さの比率で層を並べる（SVG）。
+// 画面の横幅いっぱいには広げず、壁とわかる程度の大きさ（幅 260・高さ 260 の枠の中）に収める。
 // 色とハッチングは材料の種類で決める。ハッチングの形は JIS A 0150 の材料構造表示記号に
 // 合わせるつもりで描いているが、規格の図はまだ確認できていない（docs/README.md の未確認事項）。
 const SVG_NS = "http://www.w3.org/2000/svg";
-const WIDTH = 640;
+const WIDTH = 260;
+const WALL_LEFT = 40;
+const WALL_WIDTH = 180;
 const TOP = 22;
-const STRIP_HEIGHT = 96;
+const STRIP_HEIGHT = 216;
 const HEIGHT = TOP + STRIP_HEIGHT + 20;
-const MIN_LAYER_WIDTH = 4;
-const LABEL_MIN_WIDTH = 14;
+const MIN_LAYER_WIDTH = 3;
+const LABEL_MIN_WIDTH = 10;
 const HATCH_SPACING = 6;
 
 // 材料の種類ごとの見た目。fill は塗り、hatch はハッチングの種類
@@ -53,7 +56,7 @@ export function appearanceOf(row) {
 }
 
 /** 層の幅 [px]：厚さの比率。厚さが読めない層は最小幅 */
-export function layerWidths(thicknessesMm, totalWidth = WIDTH) {
+export function layerWidths(thicknessesMm, totalWidth = WALL_WIDTH) {
   const valid = thicknessesMm.map((value) => (Number.isFinite(value) && value > 0 ? value : 0));
   const total = valid.reduce((sum, value) => sum + value, 0);
   const flexible = totalWidth - MIN_LAYER_WIDTH * valid.length;
@@ -112,7 +115,7 @@ export function drawLayers(container, rows) {
     element("text", { x: WIDTH, y: 14, class: "tick", "text-anchor": "end" }, "室外側"),
   );
   const widths = layerWidths(rows.map(thicknessOf));
-  let cursor = 0;
+  let cursor = WALL_LEFT;
   rows.forEach((row, index) => {
     const look = appearanceOf(row);
     const width = widths[index];

@@ -34,14 +34,14 @@ describe("appearanceKey", () => {
 });
 
 describe("layerWidths", () => {
-  it("厚さの比率（最小幅 4px を除いた残りを配分）で、合計は全体の幅", () => {
-    const widths = layerWidths([12.5, 50, 12.5], 640);
-    expect(widths.reduce((sum, value) => sum + value, 0)).toBeCloseTo(640, 9);
-    expect((widths[1] - 4) / (widths[0] - 4)).toBeCloseTo(4, 9);
+  it("厚さの比率（最小幅 3px を除いた残りを配分）で、合計は全体の幅", () => {
+    const widths = layerWidths([12.5, 50, 12.5], 180);
+    expect(widths.reduce((sum, value) => sum + value, 0)).toBeCloseTo(180, 9);
+    expect((widths[1] - 3) / (widths[0] - 3)).toBeCloseTo(4, 9);
   });
 
   it("読めない厚さ・0 は最小幅", () => {
-    expect(layerWidths([Number.NaN, 0, 10], 100)).toEqual([4, 4, 92]);
+    expect(layerWidths([Number.NaN, 0, 10], 100)).toEqual([3, 3, 94]);
     expect(layerWidths([], 100)).toEqual([]);
   });
 });

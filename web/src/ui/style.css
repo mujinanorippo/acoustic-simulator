@@ -460,6 +460,7 @@ input:disabled {
 }
 .layer-drawing {
   width: 100%;
+  max-width: 260px;
   height: auto;
   display: block;
 }

@@ -4,6 +4,7 @@ import air from "../../../shared/constants/air.json" with { type: "json" };
 import calculation from "../../../shared/constants/calculation.json" with { type: "json" };
 import frequencyBands from "../../../shared/constants/frequency-bands.json" with { type: "json" };
 import porous from "../../../shared/constants/porous.json" with { type: "json" };
+import soundSources from "../../../shared/constants/sound-sources.json" with { type: "json" };
 
 function valueOf(constantFile, key) {
   return constantFile.values[key].value;
@@ -39,3 +40,10 @@ export const FREQUENCY_BANDS = Object.freeze({
     ...valueOf(frequencyBands, "nominalCenterFrequencies"),
   ]),
 });
+
+/** 音源ごとの基本周波数の範囲 [下限, 上限] Hz（名前・出典は shared/constants/sound-sources.json） */
+export const SOUND_SOURCES = Object.freeze(
+  Object.entries(soundSources.values).map(([key, item]) =>
+    Object.freeze({ key, rangeHz: Object.freeze([...item.value]), note: item.note }),
+  ),
+);

@@ -75,12 +75,16 @@ test("2. 壁の遮音：計算すると全帯域の表とグラフが出て、�
   await calculateWall(page);
   const seconds = (Date.now() - started) / 1000;
   test.info().annotations.push({ type: "計算時間", description: `${seconds.toFixed(1)} 秒` });
-  await expect(page.locator("#wall-chart path.series")).toHaveCount(1);
+  await expect(page.locator("#wall-chart path.series")).toHaveCount(2);
   await expect(page.locator("#wall-notes")).toContainText("二重壁の共鳴周波数");
+  await expect(page.locator("#wall-notes")).toContainText("間柱の間隔 455 mm");
+  await expect(page.locator("#wall-sources tbody tr")).toHaveCount(8);
   await expect(page.locator("#wall-notes")).toContainText("コインシデンス限界周波数：3040 Hz");
   await expect(page.locator("#wall-notes")).toContainText("暫定値を含みます");
   const values = await page.locator("#wall-table td:nth-child(2)").allTextContents();
   expect(values.map(Number).every(Number.isFinite)).toBe(true);
+  const bridged = await page.locator("#wall-table td:nth-child(3)").allTextContents();
+  expect(bridged.map(Number).every(Number.isFinite)).toBe(true);
 });
 
 test("3. キャンセル：計算中は計算ボタンが押せず、中止すると元に戻って再計算できる", async ({

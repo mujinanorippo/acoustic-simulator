@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "id": "sound-sources",
+  "name": "音源ごとの基本周波数の範囲（下限・上限）",
+  "values": {
+    "maleVoice": {
+      "value": [90, 155],
+      "unit": "Hz",
+      "source": {
+        "title": "Wikipedia「Voice frequency」（出典：Baken, Clinical Measurement of Speech and Voice 第2版, 2000, p.177）話し声の基本周波数",
+        "url": "https://en.wikipedia.org/wiki/Voice_frequency",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "男性の話し声（大人）。歌うときはもっと高くなる。倍音はさらに上まで出る"
+    },
+    "femaleVoice": {
+      "value": [165, 255],
+      "unit": "Hz",
+      "source": {
+        "title": "Wikipedia「Voice frequency」（出典：Baken, Clinical Measurement of Speech and Voice 第2版, 2000, p.177）話し声の基本周波数",
+        "url": "https://en.wikipedia.org/wiki/Voice_frequency",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "女性の話し声（大人）。歌うときはもっと高くなる。倍音はさらに上まで出る"
+    },
+    "flute": {
+      "value": [261.6, 2093.0],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://www.hsc.edu.kw/student/materials/Physics/website/hyperphysics%20modified/hbase/music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "フルート C4〜C7"
+    },
+    "clarinet": {
+      "value": [146.8, 1864.7],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://www.hsc.edu.kw/student/materials/Physics/website/hyperphysics%20modified/hbase/music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "B♭クラリネット D3〜B♭6（実音）"
+    },
+    "trumpet": {
+      "value": [164.8, 932.3],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://www.hsc.edu.kw/student/materials/Physics/website/hyperphysics%20modified/hbase/music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "B♭トランペット E3〜B♭5（実音）"
+    },
+    "trombone": {
+      "value": [82.4, 466.2],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://www.hsc.edu.kw/student/materials/Physics/website/hyperphysics%20modified/hbase/music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "テナートロンボーン E2〜B♭4"
+    },
+    "horn": {
+      "value": [61.7, 698.5],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://www.hsc.edu.kw/student/materials/Physics/website/hyperphysics%20modified/hbase/music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "ホルン（F・B♭ダブル）B1〜F5"
+    },
+    "timpani": {
+      "value": [87.3, 349.2],
+      "unit": "Hz",
+      "source": {
+        "title": "HyperPhysics（R. Nave）「Playing Ranges of Instruments」（出典：Rossing『The Science of Sound』p.219、White & White p.280）の写し",
+        "url": "https://www.hsc.edu.kw/student/materials/Physics/website/hyperphysics%20modified/hbase/music/orchins.html",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "ティンパニ F2〜F4"
+    }
+  }
+}

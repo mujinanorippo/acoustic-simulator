@@ -12,7 +12,11 @@ import {
 } from "./layer-form.js";
 import { findMaterial, materialsOf, plateSurfaceDensityKgm2 } from "../core-acoustics/materials.js";
 import { flowResistivityFromFiber } from "../core-acoustics/layer-models.js";
+import { lineBridgeParameters } from "../core-acoustics/bridging.js";
+import { SOUND_SOURCES } from "../core-acoustics/constants.js";
+import { rangeTransmissionLossDb } from "../core-acoustics/source-ranges.js";
 import { doubleWallResonanceHz, plateCriticalFrequencies } from "../core-acoustics/tmm.js";
+import { mmToM, parseNumberField } from "./forms.js";
 
 const MM_PER_M = 1000;
 
@@ -180,7 +184,7 @@ function stopWorker() {
   run.worker = null;
 }
 
-function startCalculation(layers, rows, onResults) {
+function startCalculation(layers, rows, studSpacingM, onResults) {
   stopWorker();
   const worker = new Worker(new URL("./wall-worker.js", import.meta.url), { type: "module" });
   run.worker = worker;
@@ -195,7 +199,7 @@ function startCalculation(layers, rows, onResults) {
     setRunning(false, "");
     if (message.type === "done") {
       runSafely("結果を表示できませんでした", () => {
-        showResults(layers, rows, message.results);
+        showResults(layers, rows, studSpacingM, message.results);
         onResults(message.results);
       });
     } else {
@@ -207,7 +211,7 @@ function startCalculation(layers, rows, onResults) {
     setRunning(false, "");
     showError("計算できませんでした", [event.message || "計算用のスレッドを起動できませんでした"]);
   });
-  worker.postMessage({ layers });
+  worker.postMessage({ layers, studSpacingM });
 }
 
 function cancelCalculation() {
@@ -222,9 +226,14 @@ function calculate(rows, onResults) {
     return;
   }
   const converted = rows.map((row, index) => toCoreLayer(row, index));
-  const errors = converted.flatMap((result) =>
-    result.ok ? [] : result.errors.map((item) => item.message),
+  const spacing = parseNumberField(
+    document.getElementById("stud-spacing").value,
+    "間柱の間隔 [mm]",
+    { max: 10000 },
   );
+  const errors = converted
+    .flatMap((result) => (result.ok ? [] : result.errors.map((item) => item.message)))
+    .concat(spacing.ok ? [] : [spacing.message]);
   if (errors.length > 0) {
     showError("入力を確認してください", errors);
     return;
@@ -233,12 +242,13 @@ function calculate(rows, onResults) {
     startCalculation(
       converted.map((result) => result.layer),
       structuredClone(rows),
+      mmToM(spacing.value),
       onResults,
     ),
   );
 }
 
-function resultNotes(layers, rows, results) {
+function resultNotes(layers, rows, studSpacingM, results) {
   const notes = [];
   const resonance = doubleWallResonanceHz(layers);
   if (resonance !== null)
@@ -254,14 +264,41 @@ function resultNotes(layers, rows, results) {
       `多孔質材のモデル（Miki）の適用範囲外の帯域があります（${outOfRange.map((band) => band.nominalHz).join("、")} Hz）。参考値として見てください`,
     );
   }
+  const bridge = lineBridgeParameters(layers, studSpacingM);
+  notes.push(
+    bridge === null
+      ? "「間柱でつながる」は、板・空気層（多孔質材）・板の二重壁のときだけ計算します（この積層は対象外）"
+      : `「間柱でつながる」は Sharp の線接続のモデル（間柱の間隔 ${(studSpacingM * 1000).toFixed(0)} mm、臨界周波数 ${bridge.criticalHz.toFixed(0)} Hz、質量則に ${bridge.offsetDb.toFixed(1)} dB を足した値を間柱経由の上限とし、空気層経由と透過率で合成）。間柱の硬さや固定方法は考えていない目安`,
+  );
   if (rows.some(rowUsesTentativeValues)) {
     notes.push("材料の参考値（二次情報・暫定の値）を使っているため、結果は暫定値を含みます");
   }
   return notes;
 }
 
-function showResults(layers, rows, results) {
-  const notes = resultNotes(layers, rows, results);
+function sourceTable(results) {
+  const independent = results.map((band) => ({
+    centerHz: band.centerHz,
+    value: band.transmissionLossDb,
+  }));
+  const hasBridge = results.every((band) => band.bridgedTransmissionLossDb !== null);
+  const bridged = hasBridge
+    ? results.map((band) => ({ centerHz: band.centerHz, value: band.bridgedTransmissionLossDb }))
+    : null;
+  const rows = SOUND_SOURCES.map((source) => {
+    const [low, high] = source.rangeHz;
+    return [
+      source.note.split("。")[0],
+      `${low}〜${high}`,
+      rangeTransmissionLossDb(independent, low, high).toFixed(1),
+      bridged ? rangeTransmissionLossDb(bridged, low, high).toFixed(1) : "—",
+    ];
+  });
+  return table(["音源", "基本周波数 [Hz]", "完全に独立 [dB]", "間柱でつながる [dB]"], rows);
+}
+
+function showResults(layers, rows, studSpacingM, results) {
+  const notes = resultNotes(layers, rows, studSpacingM, results);
   document
     .getElementById("wall-notes")
     .replaceChildren(...notes.map((text) => create("li", { text })));
@@ -269,24 +306,41 @@ function showResults(layers, rows, results) {
     document.getElementById("wall-chart"),
     [
       {
-        label: "透過損失",
+        label: "完全に独立",
         className: "primary",
         points: results.map((band) => ({ hz: band.nominalHz, value: band.transmissionLossDb })),
       },
+      ...(results.every((band) => band.bridgedTransmissionLossDb !== null)
+        ? [
+            {
+              label: "間柱でつながる",
+              className: "secondary",
+              points: results.map((band) => ({
+                hz: band.nominalHz,
+                value: band.bridgedTransmissionLossDb,
+              })),
+            },
+          ]
+        : []),
     ],
     { yLabel: "透過損失 [dB]" },
   );
-  document
-    .getElementById("wall-table")
-    .replaceChildren(
-      ...results.map((band) =>
-        create("tr", { class: band.porousOutOfRange.length > 0 ? "reference" : "" }, [
-          create("td", { text: String(band.nominalHz) }),
-          create("td", { text: band.transmissionLossDb.toFixed(1) }),
-          create("td", { text: band.absorptionRatio.toFixed(2) }),
-        ]),
-      ),
-    );
+  document.getElementById("wall-sources").replaceChildren(sourceTable(results));
+  document.getElementById("wall-table").replaceChildren(
+    ...results.map((band) =>
+      create("tr", { class: band.porousOutOfRange.length > 0 ? "reference" : "" }, [
+        create("td", { text: String(band.nominalHz) }),
+        create("td", { text: band.transmissionLossDb.toFixed(1) }),
+        create("td", {
+          text:
+            band.bridgedTransmissionLossDb === null
+              ? "—"
+              : band.bridgedTransmissionLossDb.toFixed(1),
+        }),
+        create("td", { text: band.absorptionRatio.toFixed(2) }),
+      ]),
+    ),
+  );
 }
 
 // ---- 参考表 ----

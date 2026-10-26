@@ -31,21 +31,27 @@
             音が入ってくる側（室内）から順に層を並べます。材料を選ぶと、出典のある値が「（参考値）」として入ります。自分で分かる値があれば書き換えてください（書き換えた欄は参考値の印が消えます）。印にマウスを乗せると出典が出ます。
           </p>
           <div id="layer-list" class="layer-list"></div>
-          <div id="layer-drawing" class="chart-box"></div>
+          <div id="layer-drawing"></div>
           <div class="actions">
             <button type="button" id="add-layer">層を追加</button>
+            <label class="inline-field"
+              >間柱の間隔 [mm]<input id="stud-spacing" type="text" inputmode="decimal" value="455"
+            /></label>
             <button type="button" id="calculate-wall" class="primary">計算</button>
             <button type="button" id="cancel-wall" hidden>中止</button>
             <span id="wall-status" class="status" aria-live="polite"></span>
           </div>
           <ul id="wall-notes" class="notes"></ul>
           <div id="wall-chart" class="chart-box"></div>
+          <h2>音源ごとの透過損失（基本周波数の範囲の平均）</h2>
+          <div id="wall-sources" class="table-scroll"></div>
           <div class="table-scroll">
             <table class="results">
               <thead>
                 <tr>
                   <th>周波数 [Hz]</th>
-                  <th>透過損失 [dB]</th>
+                  <th>透過損失：完全に独立 [dB]</th>
+                  <th>透過損失：間柱でつながる [dB]</th>
                   <th>剛壁に付けたときの吸音率</th>
                 </tr>
               </thead>
