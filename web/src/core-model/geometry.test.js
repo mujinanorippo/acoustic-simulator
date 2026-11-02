@@ -14,6 +14,12 @@ const origin = { x: 0, y: 0, z: 0 };
 const room6 = block("b1", origin, { x: 3.64, y: 2.73, z: 2.4 });
 
 describe("一体化・くり抜き", () => {
+  it("部屋の中に浮いたブロック穴（宙に浮いた障害物）は1つの部屋のまま", () => {
+    const floating = block("h1", { x: 1, y: 1, z: 0.5 }, { x: 1, y: 1, z: 1 }, "blockHole");
+    const result = buildRoom(wasm, { features: [room6, floating] });
+    expect(result.volumeM3).toBeCloseTo(3.64 * 2.73 * 2.4 - 1, 9);
+  });
+
   it("6畳の直方体：体積 3.64×2.73×2.4、範囲は原点から", () => {
     const result = buildRoom(wasm, { features: [room6] });
     expect(result.volumeM3).toBeCloseTo(3.64 * 2.73 * 2.4, 9);

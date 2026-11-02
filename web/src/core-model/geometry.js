@@ -114,8 +114,10 @@ export function buildRoom(wasm, room) {
         "穴で部屋が全部なくなりました。穴の大きさや位置を見直してください",
       );
     }
+    // 部屋の中に浮いた穴（障害物）は、内側を向いた面の塊として体積が負で分かれて出てくる。
+    // これは部屋が分かれたのではないので、体積が正の塊（空間）だけを数える
     const parts = solid.decompose();
-    const partCount = parts.length;
+    const partCount = parts.filter((part) => part.volume() > 0).length;
     parts.forEach((part) => part.delete());
     if (partCount > 1) {
       throw new GeometryError(
