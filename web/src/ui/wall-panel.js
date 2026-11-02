@@ -13,12 +13,16 @@ import {
 import { findMaterial, materialsOf, plateSurfaceDensityKgm2 } from "../core-acoustics/materials.js";
 import { flowResistivityFromFiber } from "../core-acoustics/layer-models.js";
 import { lineBridgeParameters } from "../core-acoustics/bridging.js";
-import { SOUND_SOURCES } from "../core-acoustics/constants.js";
+import { FREQUENCY_BANDS, SOUND_SOURCES } from "../core-acoustics/constants.js";
 import { rangeTransmissionLossDb } from "../core-acoustics/source-ranges.js";
 import { doubleWallResonanceHz, plateCriticalFrequencies } from "../core-acoustics/tmm.js";
 import { mmToM, parseNumberField } from "./forms.js";
 
 const MM_PER_M = 1000;
+const DECIMAL_BASE = 10;
+// 1/3 オクターブ1つ分の周波数の比（IEC 61260-1 の10進法の定義。値は周波数帯域の定数表から）
+const ONE_THIRD_OCTAVE_RATIO =
+  DECIMAL_BASE ** (FREQUENCY_BANDS.octaveRatioLog10 / FREQUENCY_BANDS.bandsPerOctave);
 
 // 入力例（材料は材料データから選ぶ。値はすべて参考値として表示される）
 const EXAMPLE_ROWS = [
@@ -285,13 +289,20 @@ function sourceTable(results, studSpacingM) {
   const bridged = hasBridge
     ? results.map((band) => ({ centerHz: band.centerHz, value: band.bridgedTransmissionLossDb }))
     : null;
+  // 計算した帯域より1帯域以上低い音源（コンプレッサーの 16 Hz など）は値を出さない
+  const lowestHz = results[0].centerHz / ONE_THIRD_OCTAVE_RATIO;
   const rows = SOUND_SOURCES.map((source) => {
     const [low, high] = source.rangeHz;
+    const isBelowRange = high < lowestHz;
+    const value = (bands) =>
+      isBelowRange
+        ? "—（50 Hz 未満は計算範囲外）"
+        : rangeTransmissionLossDb(bands, low, high).toFixed(1);
     return [
       source.note.split("。")[0],
       low === high ? `${low}` : `${low}〜${high}`,
-      bridged ? rangeTransmissionLossDb(bridged, low, high).toFixed(1) : "—（対象外）",
-      rangeTransmissionLossDb(independent, low, high).toFixed(1),
+      bridged ? value(bridged) : "—（対象外）",
+      value(independent),
     ];
   });
   return table(

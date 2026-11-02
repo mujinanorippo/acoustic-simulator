@@ -3,6 +3,50 @@
   "id": "sound-sources",
   "name": "音源ごとの基本周波数の範囲（下限・上限）",
   "values": {
+    "maleVocalBaritone": {
+      "value": [110.0, 440.0],
+      "unit": "Hz",
+      "source": {
+        "title": "Musicnotes「How To Determine Your Vocal Range」声種ごとの典型的な音域",
+        "url": "https://www.musicnotes.com/blog/determine-vocal-range",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "男性ボーカル（バリトン）A2〜A4。周波数は音名から平均律（A4 = 440 Hz）で計算。倍音はさらに上まで出る"
+    },
+    "maleVocalTenor": {
+      "value": [130.8, 523.3],
+      "unit": "Hz",
+      "source": {
+        "title": "Musicnotes「How To Determine Your Vocal Range」声種ごとの典型的な音域",
+        "url": "https://www.musicnotes.com/blog/determine-vocal-range",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "男性ボーカル（テノール）C3〜C5。周波数は音名から平均律（A4 = 440 Hz）で計算。倍音はさらに上まで出る"
+    },
+    "femaleVocalAlto": {
+      "value": [174.6, 698.5],
+      "unit": "Hz",
+      "source": {
+        "title": "Musicnotes「How To Determine Your Vocal Range」声種ごとの典型的な音域",
+        "url": "https://www.musicnotes.com/blog/determine-vocal-range",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "女性ボーカル（アルト）F3〜F5。周波数は音名から平均律（A4 = 440 Hz）で計算。倍音はさらに上まで出る"
+    },
+    "femaleVocalSoprano": {
+      "value": [261.6, 1046.5],
+      "unit": "Hz",
+      "source": {
+        "title": "Musicnotes「How To Determine Your Vocal Range」声種ごとの典型的な音域",
+        "url": "https://www.musicnotes.com/blog/determine-vocal-range",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "女性ボーカル（ソプラノ）C4〜C6。周波数は音名から平均律（A4 = 440 Hz）で計算。倍音はさらに上まで出る"
+    },
     "maleVoice": {
       "value": [90, 155],
       "unit": "Hz",
@@ -12,7 +56,7 @@
         "accessed": "2026-10-26"
       },
       "reliability": "二次情報",
-      "note": "男性の話し声（大人）。歌うときはもっと高くなる。倍音はさらに上まで出る"
+      "note": "話し声（男性）。歌うときはもっと高くなる。倍音はさらに上まで出る"
     },
     "femaleVoice": {
       "value": [165, 255],
@@ -23,7 +67,7 @@
         "accessed": "2026-10-26"
       },
       "reliability": "二次情報",
-      "note": "女性の話し声（大人）。歌うときはもっと高くなる。倍音はさらに上まで出る"
+      "note": "話し声（女性）。歌うときはもっと高くなる。倍音はさらに上まで出る"
     },
     "flute": {
       "value": [261.6, 2093.0],
@@ -189,6 +233,72 @@
       },
       "reliability": "査読論文",
       "note": "ドラム：スネア（打面の最低次の振動 224 Hz）"
+    },
+    "printer3d": {
+      "value": [50, 4000],
+      "unit": "Hz",
+      "source": {
+        "title": "I. Kubiak ほか「Usefulness of Acoustic Sounds from 3D Printers in an Eavesdropping Process and Reconstruction of Printed Shapes」Electronics 9(2), 297（2020）",
+        "url": "https://www.mdpi.com/2079-9292/9/2/297",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "査読論文",
+      "note": "機械：3Dプリンター（台を動かす音、数 Hz〜約 4 kHz）。計算範囲の 50 Hz から平均。モーターの高い音（11〜23 kHz）は範囲外"
+    },
+    "pcFan": {
+      "value": [116, 350],
+      "unit": "Hz",
+      "source": {
+        "title": "M. Guri ほか「Fansmitter: Acoustic Data Exfiltration from (Speakerless) Air-Gapped Computers」arXiv:1606.05915 表3（羽根7枚のファン、羽根通過周波数 = 羽根の数 × 回転数 ÷ 60）",
+        "url": "https://arxiv.org/pdf/1606.05915",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "機械：パソコンのファン（羽根7枚、1000〜3000 rpm の羽根通過音）。回転数と羽根の数で変わる"
+    },
+    "hdd7200": {
+      "value": [120, 120],
+      "unit": "Hz",
+      "source": {
+        "title": "M. Guri ほか「DiskFiltration: Data Exfiltration from Speakerless Air-Gapped Computers via Covert Hard Drive Noise」arXiv:1608.03431（回転音の基本周波数 = 回転数 ÷ 60、7200 rpm で 120 Hz。シーク音は 2050〜2100 Hz 付近がいちばん強い）",
+        "url": "https://arxiv.org/pdf/1608.03431",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "機械：HDD 回転音（7200 rpm）"
+    },
+    "hdd5400": {
+      "value": [90, 90],
+      "unit": "Hz",
+      "source": {
+        "title": "M. Guri ほか「DiskFiltration: Data Exfiltration from Speakerless Air-Gapped Computers via Covert Hard Drive Noise」arXiv:1608.03431（回転音の基本周波数 = 回転数 ÷ 60、7200 rpm で 120 Hz。シーク音は 2050〜2100 Hz 付近がいちばん強い）",
+        "url": "https://arxiv.org/pdf/1608.03431",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "機械：HDD 回転音（5400 rpm）。回転数 ÷ 60 で計算"
+    },
+    "hddSeek": {
+      "value": [2050, 2100],
+      "unit": "Hz",
+      "source": {
+        "title": "M. Guri ほか「DiskFiltration: Data Exfiltration from Speakerless Air-Gapped Computers via Covert Hard Drive Noise」arXiv:1608.03431（回転音の基本周波数 = 回転数 ÷ 60、7200 rpm で 120 Hz。シーク音は 2050〜2100 Hz 付近がいちばん強い）",
+        "url": "https://arxiv.org/pdf/1608.03431",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "機械：HDD シーク音（ヘッドが動くカリカリ音）"
+    },
+    "airCompressorSmall": {
+      "value": [1000, 2000],
+      "unit": "Hz",
+      "source": {
+        "title": "Arup「Strutt」小型エアコンプレッサー（1.5 kW 以下）のオクターブ帯域の騒音（出典：Bies & Hansen『Engineering Noise Control』、Miller）",
+        "url": "https://strutt.arup.com/help/Empirical/LMSmallAirComp.htm",
+        "accessed": "2026-10-26"
+      },
+      "reliability": "二次情報",
+      "note": "機械：エアーコンプレッサー（小型 1.5 kW 以下、いちばん大きい 1 kHz・2 kHz のオクターブ帯域）。低い音も大きく出る"
     }
   }
 }
