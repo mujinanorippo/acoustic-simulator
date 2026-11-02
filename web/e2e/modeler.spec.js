@@ -205,3 +205,22 @@ test("11. Ctrl+Z で元に戻し、Ctrl+Y でやり直す。連打しても壊�
   await page.click("#undo");
   await expect(page.locator("#feature-table tr")).toHaveCount(3);
 });
+
+test("12. 3Dを押してから矢印キーで動く。何もないところを押すか Esc で選択が外れる", async ({
+  page,
+}) => {
+  await page.click("#add-block");
+  await page.click(".tree-item[data-type=feature][data-index='1']");
+  const view = page.locator("#room-view canvas");
+  const box = await view.boundingBox();
+  // 左上の隅（部屋の外）を押す → 選択が外れる
+  await page.mouse.click(box.x + 5, box.y + 5);
+  await expect(page.locator(".tree-item.selected")).toHaveCount(0);
+  await page.click(".tree-item[data-type=feature][data-index='1']");
+  await page.keyboard.press("ArrowUp");
+  await expect(page.getByLabel("2番目の形の位置 y")).toHaveValue("10");
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".tree-item.selected")).toHaveCount(0);
+  await page.keyboard.press("ArrowUp");
+  await expect(page.getByLabel("2番目の形の位置 y")).toHaveValue("10");
+});

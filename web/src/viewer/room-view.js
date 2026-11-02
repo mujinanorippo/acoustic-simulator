@@ -20,6 +20,8 @@ const CAMERA_FOV_DEG = 40;
 const CAMERA_NEAR_M = 0.01;
 const CAMERA_FAR_M = 1000;
 const FIT_DISTANCE_RATIO = 2.3;
+// これ以下しか動かさずに離したら「クリック」とみなす距離 [px]
+const CLICK_TOLERANCE_PX = 4;
 const VIEW_DIRECTION = new THREE.Vector3(-1.2, -1.6, 1.1).normalize();
 const LIGHT_INTENSITY = 1.6;
 const AMBIENT_INTENSITY = 0.9;
@@ -127,8 +129,13 @@ function attachDrag(view, parts, options) {
     if (!plane) return raycaster;
     return raycaster.ray.intersectPlane(plane, new THREE.Vector3());
   };
+  let pressed = null;
   renderer.domElement.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0 || !view.highlight) return;
+    if (event.button !== 0) return;
+    // 3D を押したら、矢印キーがこの画面に届くようにフォーカスを移す
+    renderer.domElement.parentElement.focus({ preventScroll: true });
+    pressed = { x: event.clientX, y: event.clientY };
+    if (!view.highlight) return;
     const [hit] = pointOn(event).intersectObject(view.highlight.getObjectByName("pick"));
     if (!hit) return;
     controls.enabled = false;
@@ -144,8 +151,16 @@ function attachDrag(view, parts, options) {
     view.highlight.position.set(drag.delta.x, drag.delta.y, drag.delta.z);
     view.render();
   });
-  renderer.domElement.addEventListener("pointerup", () => {
-    if (!drag) return;
+  renderer.domElement.addEventListener("pointerup", (event) => {
+    // 動かさずに何もないところを押して離したら、選択を外す（回転のドラッグは除く）
+    const isClick =
+      pressed &&
+      Math.hypot(event.clientX - pressed.x, event.clientY - pressed.y) <= CLICK_TOLERANCE_PX;
+    pressed = null;
+    if (!drag) {
+      if (isClick) options.onEmptyClick?.();
+      return;
+    }
     const { delta } = drag;
     drag = null;
     controls.enabled = true;
@@ -173,7 +188,8 @@ function fitCamera(camera, controls, bounds) {
 
 /**
  * 3D表示を作る。show(result, room) で表示を入れ替え、select(選んだもの) で強調表示、dispose() で片付ける。
- * options: { getSnapM()：ドラッグの刻み [m]、onDragEnd(動かした量 {x, y, z} [m]) }
+ * options: { getSnapM()：ドラッグの刻み [m]、onDragEnd(動かした量 {x, y, z} [m])、
+ *   onEmptyClick()：選んだもの以外を押したとき }
  */
 export function createRoomView(container, options) {
   const parts = createScene(container);

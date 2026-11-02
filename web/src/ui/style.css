@@ -615,9 +615,13 @@ input:disabled {
   width: 100%;
   text-align: left;
 }
+/* 選んだものは文字だけ色を変える（背景は塗らない） */
 .tree-item.selected,
-.sheet tr.selected td {
-  background: #ffe2c4;
+.sheet tr.selected td,
+.sheet tr.selected .cell-input,
+.sheet tr.selected .cell-select {
+  color: #c25a00;
+  font-weight: 600;
 }
 .sheet td.row-number {
   cursor: pointer;

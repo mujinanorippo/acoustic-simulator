@@ -561,11 +561,21 @@ function setupButtons() {
   }
 }
 
-/** 矢印キーで選んでいるものを動かす（入力欄に文字を打っているときは動かさない） */
+/**
+ * 矢印キーで選んでいるものを動かす。Esc で選択を外す。
+ * 部屋の形タブを開いていて、入力欄に文字を打っていない・ダイアログが開いていないときだけ
+ */
 function onMoveKey(event) {
-  if (event.target.matches?.("input, select, textarea")) return;
+  if (document.getElementById("modeler").hidden) return;
+  if (event.target.matches?.("input, select, textarea") || document.querySelector("dialog[open]")) {
+    return;
+  }
   const data = selectedData();
   if (!data) return;
+  if (event.key === "Escape") {
+    selectItem(null);
+    return;
+  }
   const delta = moveForKey(event, data, getSettings().keyStepMm / MM_PER_M);
   if (!delta) return;
   event.preventDefault();
@@ -578,10 +588,13 @@ export async function setupModelerPanel() {
   state.view = createRoomView(document.getElementById("room-view"), {
     getSnapM: () => getSettings().dragSnapMm / MM_PER_M,
     onDragEnd: moveSelected,
+    onEmptyClick: () => selectItem(null),
   });
-  for (const id of ["room-view", "model-tree"]) {
-    document.getElementById(id).addEventListener("keydown", onMoveKey);
-  }
+  document.addEventListener("keydown", onMoveKey);
+  // ツリーの何もないところを押したら選択を外す
+  document.getElementById("model-tree").addEventListener("click", (event) => {
+    if (!event.target.closest(".tree-item")) selectItem(null);
+  });
   try {
     state.wasm = await loadManifold();
   } catch (error) {
