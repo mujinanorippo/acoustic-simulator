@@ -179,3 +179,29 @@ test("10. 左の一覧で選び、矢印キーで設定の量だけ動く（Shif
   await expect(page.locator(".axis-label")).toHaveCount(3);
   await expect(page.locator(".dimension-label")).toHaveText(["4640", "2730", "2400"]);
 });
+
+test("11. Ctrl+Z で元に戻し、Ctrl+Y でやり直す。連打しても壊れない", async ({ page }) => {
+  await page.click("#add-block");
+  await page.click("#add-blockHole");
+  await expect(page.locator("#feature-table tr")).toHaveCount(3);
+  await page.focus("#room-view");
+  await page.keyboard.press("Control+z");
+  await expect(page.locator("#feature-table tr")).toHaveCount(2);
+  await page.keyboard.press("Control+z");
+  await expect(page.locator("#feature-table tr")).toHaveCount(1);
+  await expect(page.locator("#undo")).toBeDisabled();
+  await page.keyboard.press("Control+y");
+  await expect(page.locator("#feature-table tr")).toHaveCount(2);
+  await page.click("#redo");
+  await expect(page.locator("#feature-table tr")).toHaveCount(3);
+  for (let i = 0; i < 20; i += 1) {
+    await page.keyboard.press("Control+z");
+    await page.keyboard.press("Control+Shift+z");
+  }
+  await expect(page.locator("#feature-table tr")).toHaveCount(3);
+  await expect(page.locator("#room-summary")).toContainText("形 3 個");
+  await page.click("#new-project");
+  await expect(page.locator("#feature-table tr")).toHaveCount(1);
+  await page.click("#undo");
+  await expect(page.locator("#feature-table tr")).toHaveCount(3);
+});

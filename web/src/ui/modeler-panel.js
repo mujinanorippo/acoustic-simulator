@@ -10,6 +10,7 @@ import { parseProject, serializeProject } from "../io/project-file.js";
 import { createRoomView } from "../viewer/room-view.js";
 import { create, runSafely, showError } from "./dom.js";
 import { parseNumberField } from "./forms.js";
+import { createHistory } from "./history.js";
 import { getSettings, setupSettingsDialog } from "./modeler-settings.js";
 import { movedItem, moveForKey } from "./move-keys.js";
 
@@ -99,10 +100,58 @@ function apply(candidate, { refit = false } = {}) {
   }
 }
 
+const history = createHistory();
+const snapshot = () => ({ name: state.name, room: state.room });
+
+/** 履歴に残す変更：うまく変えられたときだけ、変える前の形を積む */
+function changeRoom(candidate, { name = state.name, refit = false } = {}) {
+  const previous = snapshot();
+  const previousName = state.name;
+  state.name = name;
+  if (apply(candidate, { refit })) {
+    history.record(previous);
+    renderHistoryButtons();
+    return true;
+  }
+  state.name = previousName;
+  return false;
+}
+
 function edited(change) {
   const candidate = structuredClone(state.room);
   change(candidate);
-  apply(candidate);
+  changeRoom(candidate);
+}
+
+/** 元に戻す（direction "undo"）・やり直し（"redo"） */
+function stepHistory(direction) {
+  const target = history[direction](snapshot());
+  if (!target) return;
+  state.name = target.name;
+  apply(target.room);
+  renderHistoryButtons();
+  document.getElementById("file-status").textContent =
+    direction === "undo" ? "元に戻しました" : "やり直しました";
+}
+
+function renderHistoryButtons() {
+  document.getElementById("undo").disabled = !history.canUndo();
+  document.getElementById("redo").disabled = !history.canRedo();
+}
+
+/** Ctrl+Z で元に戻す、Ctrl+Y か Ctrl+Shift+Z でやり直す（入力欄の中では入力欄の元に戻すが動く） */
+function onHistoryKey(event) {
+  if (document.getElementById("modeler").hidden) return;
+  if (event.target.matches?.("input, select, textarea")) return;
+  if (!(event.ctrlKey || event.metaKey)) return;
+  const key = event.key.toLowerCase();
+  if (key === "z" && !event.shiftKey) {
+    event.preventDefault();
+    stepHistory("undo");
+  } else if (key === "y" || (key === "z" && event.shiftKey)) {
+    event.preventDefault();
+    stepHistory("redo");
+  }
 }
 
 // ---- 入力欄 ----
@@ -466,8 +515,7 @@ async function saveProject() {
 async function openProject(file) {
   try {
     const project = parseProject(await readFileText(file));
-    state.name = project.name;
-    if (apply(project.room, { refit: true })) {
+    if (changeRoom(project.room, { name: project.name, refit: true })) {
       document.getElementById("file-status").textContent = `「${file.name}」を開きました`;
     }
   } catch (error) {
@@ -487,10 +535,14 @@ function setupButtons() {
       .addEventListener("click", () => edited((room) => room.openings.push(newOpening(kind))));
   }
   document.getElementById("new-project").addEventListener("click", () => {
-    state.name = "部屋";
-    apply(defaultRoom(), { refit: true });
-    document.getElementById("file-status").textContent = "新しい部屋にしました";
+    if (changeRoom(defaultRoom(), { name: "部屋", refit: true })) {
+      document.getElementById("file-status").textContent =
+        "新しい部屋にしました（元に戻すで戻せます）";
+    }
   });
+  document.getElementById("undo").addEventListener("click", () => stepHistory("undo"));
+  document.getElementById("redo").addEventListener("click", () => stepHistory("redo"));
+  document.addEventListener("keydown", onHistoryKey);
   document
     .getElementById("save-project")
     .addEventListener("click", () =>
@@ -537,4 +589,5 @@ export async function setupModelerPanel() {
     return;
   }
   runSafely("部屋を表示できませんでした", () => apply(state.room, { refit: true }));
+  renderHistoryButtons();
 }
