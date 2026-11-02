@@ -33,6 +33,7 @@
                 <button type="button" id="new-project">新規作成(N)</button>
                 <button type="button" id="open-project">開く(O)</button>
                 <button type="button" id="save-project">保存(S)</button>
+                <button type="button" id="open-settings">設定</button>
                 <input type="file" id="open-file" accept=".json,application/json" hidden />
               </div>
               <span class="ribbon-label">ファイル</span>
@@ -56,7 +57,21 @@
             </div>
           </div>
           <p class="status" id="file-status" aria-live="polite"></p>
-          <div id="room-view" class="room-view"></div>
+          <div class="modeler-body">
+            <nav
+              id="model-tree"
+              class="model-tree"
+              tabindex="0"
+              aria-label="形と開口部の一覧"
+            ></nav>
+            <div id="room-view" class="room-view" tabindex="0"></div>
+          </div>
+          <p class="hint">
+            左の一覧か表の番号で選び、3Dでドラッグ（床と平行に動く。Shift
+            を押しながらだと上下）か矢印キー（← → が x、↑ ↓ が y、PageUp・PageDown が
+            z。開口部は貼った面の中で動く。Shift で10倍、Ctrl
+            で100倍）で動かせます。動かす量は「設定」で変えられます。
+          </p>
           <p class="status" id="room-summary"></p>
           <h2>形（上から順に、一体化・くり抜き）</h2>
           <p class="hint">
@@ -222,6 +237,24 @@
         </section>
       </div>
     </main>
+
+    <dialog id="settings-dialog">
+      <h2>設定</h2>
+      <div class="form-grid">
+        <label class="field"
+          ><span>矢印キー1回で動かす量 [mm]</span
+          ><input id="setting-key-step" type="text" inputmode="decimal"
+        /></label>
+        <label class="field"
+          ><span>マウスで動かすときの刻み [mm]</span
+          ><input id="setting-drag-snap" type="text" inputmode="decimal"
+        /></label>
+      </div>
+      <div class="dialog-buttons">
+        <button type="button" id="settings-ok" class="primary">OK</button>
+        <button type="button" id="settings-cancel">キャンセル</button>
+      </div>
+    </dialog>
 
     <dialog id="error-dialog">
       <h2></h2>

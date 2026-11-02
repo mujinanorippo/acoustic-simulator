@@ -159,3 +159,23 @@ test("9. 保存先を選べないブラウザ（Firefox など）はダウンロ
   expect(download.suggestedFilename()).toBe("room-project.json");
   await expect(page.locator("#file-status")).toContainText("ダウンロード");
 });
+
+test("10. 左の一覧で選び、矢印キーで設定の量だけ動く（Shift で10倍）。設定画面で量を変えられる", async ({
+  page,
+}) => {
+  await page.click("#add-block");
+  await page.click(".tree-item[data-type=feature][data-index='1']");
+  await expect(page.locator("#feature-table tr").nth(1)).toHaveClass(/selected/);
+  await page.focus("#room-view");
+  await page.keyboard.press("ArrowUp");
+  await page.keyboard.press("Shift+ArrowUp");
+  await expect(page.getByLabel("2番目の形の位置 y")).toHaveValue("110");
+  await page.click("#open-settings");
+  await page.fill("#setting-key-step", "1");
+  await page.click("#settings-ok");
+  await page.focus("#room-view");
+  await page.keyboard.press("ArrowDown");
+  await expect(page.getByLabel("2番目の形の位置 y")).toHaveValue("109");
+  await expect(page.locator(".axis-label")).toHaveCount(3);
+  await expect(page.locator(".dimension-label")).toHaveText(["4640", "2730", "2400"]);
+});

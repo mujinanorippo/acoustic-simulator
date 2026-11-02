@@ -572,3 +572,91 @@ input:disabled {
 .sheet button {
   white-space: nowrap;
 }
+.modeler-body {
+  display: flex;
+  border: 1px solid var(--line);
+}
+.model-tree {
+  flex: 0 0 180px;
+  overflow: auto;
+  max-height: 420px;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  font-size: 12px;
+  padding: 4px;
+}
+.modeler-body .room-view {
+  flex: 1;
+  border: 0;
+  position: relative;
+  min-width: 0;
+}
+.room-view:focus-visible,
+.model-tree:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.tree,
+.tree ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 12px;
+}
+.tree {
+  padding-left: 0;
+}
+.tree-root {
+  font-weight: 600;
+}
+.tree-item {
+  border: 0;
+  background: transparent;
+  padding: 1px 4px;
+  width: 100%;
+  text-align: left;
+}
+.tree-item.selected,
+.sheet tr.selected td {
+  background: #ffe2c4;
+}
+.sheet td.row-number {
+  cursor: pointer;
+}
+.view-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.axis-label {
+  font:
+    600 13px/1 system-ui,
+    sans-serif;
+}
+.axis-x {
+  color: #d03030;
+}
+.axis-y {
+  color: #2e9e3e;
+}
+.axis-z {
+  color: #2f5fd0;
+}
+.dimension-label {
+  font:
+    12px/1 system-ui,
+    sans-serif;
+  color: #111;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0 2px;
+}
+@media (max-width: 640px) {
+  .modeler-body {
+    flex-direction: column;
+  }
+  .model-tree {
+    flex-basis: auto;
+    max-height: 160px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}

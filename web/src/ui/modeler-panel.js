@@ -10,6 +10,8 @@ import { parseProject, serializeProject } from "../io/project-file.js";
 import { createRoomView } from "../viewer/room-view.js";
 import { create, runSafely, showError } from "./dom.js";
 import { parseNumberField } from "./forms.js";
+import { getSettings, setupSettingsDialog } from "./modeler-settings.js";
+import { movedItem, moveForKey } from "./move-keys.js";
 
 const MM_PER_M = 1000;
 const MM_DECIMALS = 1;
@@ -41,7 +43,41 @@ function defaultRoom() {
   };
 }
 
-const state = { wasm: null, view: null, name: "部屋", room: defaultRoom(), result: null };
+const state = {
+  wasm: null,
+  view: null,
+  name: "部屋",
+  room: defaultRoom(),
+  result: null,
+  // 選んでいるもの { type: "feature" | "opening", index }（無ければ null）
+  selection: null,
+};
+
+function selectedData() {
+  const { selection, room } = state;
+  if (!selection) return null;
+  const list = selection.type === "feature" ? room.features : room.openings;
+  const item = list[selection.index];
+  return item ? { type: selection.type, item } : null;
+}
+
+function selectItem(selection) {
+  state.selection = selection;
+  state.view.select(selectedData());
+  renderTree();
+  renderTables();
+}
+
+/** 選んでいるものを delta [m] だけ動かす（部屋が分かれるなどのときは元に戻る） */
+function moveSelected(delta) {
+  const data = selectedData();
+  if (!data) return;
+  const moved = movedItem(data, delta);
+  edited((room) => {
+    const list = data.type === "feature" ? room.features : room.openings;
+    list[state.selection.index] = moved;
+  });
+}
 
 // ---- 立体を作り直す（失敗したら元に戻す） ----
 
@@ -51,10 +87,13 @@ function apply(candidate, { refit = false } = {}) {
     state.room = candidate;
     state.result = result;
     state.view.show(result, candidate, { refit });
+    if (!selectedData()) state.selection = null;
+    state.view.select(selectedData());
     renderAll();
     return true;
   } catch (error) {
     showError("この形にはできません（元に戻しました）", [error.message]);
+    state.view.select(selectedData());
     renderAll();
     return false;
   }
@@ -272,11 +311,63 @@ function changedOpeningAxis(opening, axis) {
   };
 }
 
-function renderAll() {
-  document.getElementById("feature-table").replaceChildren(...state.room.features.map(featureRow));
+function isSelected(type, index) {
+  return state.selection?.type === type && state.selection.index === index;
+}
+
+function renderTables() {
+  const mark = (type) => (row, index) => {
+    row.classList.toggle("selected", isSelected(type, index));
+    row.firstChild.addEventListener("click", () => selectItem({ type, index }));
+    return row;
+  };
+  document
+    .getElementById("feature-table")
+    .replaceChildren(...state.room.features.map(featureRow).map(mark("feature")));
   document
     .getElementById("opening-surface-table")
-    .replaceChildren(...state.room.openings.map(openingRow));
+    .replaceChildren(...state.room.openings.map(openingRow).map(mark("opening")));
+}
+
+function treeItem(type, index, text) {
+  return create("li", {}, [
+    create("button", {
+      type: "button",
+      class: `tree-item${isSelected(type, index) ? " selected" : ""}`,
+      "data-type": type,
+      "data-index": String(index),
+      text,
+      onclick: () => selectItem({ type, index }),
+    }),
+  ]);
+}
+
+/** 左のツリー：部屋 ＞ 形・開口部 */
+function renderTree() {
+  const features = state.room.features.map((feature, index) =>
+    treeItem("feature", index, `${index + 1} ${SHAPE_KINDS[feature.kind].label}`),
+  );
+  const openings = state.room.openings.map((opening, index) =>
+    treeItem("opening", index, `${index + 1} ${OPENING_KINDS[opening.kind].label}`),
+  );
+  document
+    .getElementById("model-tree")
+    .replaceChildren(
+      create("ul", { class: "tree" }, [
+        create("li", {}, [
+          create("span", { class: "tree-root", text: state.name || "部屋" }),
+          create("ul", {}, [
+            create("li", {}, [create("span", { text: "形" }), create("ul", {}, features)]),
+            create("li", {}, [create("span", { text: "開口部" }), create("ul", {}, openings)]),
+          ]),
+        ]),
+      ]),
+    );
+}
+
+function renderAll() {
+  renderTree();
+  renderTables();
   const summary = state.result
     ? `容積 ${state.result.volumeM3.toFixed(2)} m³、表面積 ${state.result.surfaceAreaM2.toFixed(2)} m²、形 ${state.room.features.length} 個、開口部 ${state.room.openings.length} 個`
     : "";
@@ -418,9 +509,27 @@ function setupButtons() {
   }
 }
 
+/** 矢印キーで選んでいるものを動かす（入力欄に文字を打っているときは動かさない） */
+function onMoveKey(event) {
+  if (event.target.matches?.("input, select, textarea")) return;
+  const data = selectedData();
+  if (!data) return;
+  const delta = moveForKey(event, data, getSettings().keyStepMm / MM_PER_M);
+  if (!delta) return;
+  event.preventDefault();
+  moveSelected(delta);
+}
+
 export async function setupModelerPanel() {
   setupButtons();
-  state.view = createRoomView(document.getElementById("room-view"));
+  setupSettingsDialog();
+  state.view = createRoomView(document.getElementById("room-view"), {
+    getSnapM: () => getSettings().dragSnapMm / MM_PER_M,
+    onDragEnd: moveSelected,
+  });
+  for (const id of ["room-view", "model-tree"]) {
+    document.getElementById(id).addEventListener("keydown", onMoveKey);
+  }
   try {
     state.wasm = await loadManifold();
   } catch (error) {
